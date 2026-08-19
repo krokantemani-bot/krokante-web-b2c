@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@layer base {
+  @font-face {
+    font-family: 'Bebas Neue';
+    src: url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+  }
+}
+
+body {
+  margin: 0;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.font-display {
+  font-family: 'Bebas Neue', sans-serif, system-ui;
+}

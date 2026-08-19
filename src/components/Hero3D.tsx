@@ -65,12 +65,40 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
         }}
         className="absolute inset-x-0 bottom-0 w-full h-[52%] sm:h-[58%] md:h-[62%] z-10 pointer-events-none flex items-end justify-center origin-bottom"
       >
-        <img
-          src="https://res.cloudinary.com/dcx6wcjlj/image/upload/mesa_y_producto_ghe5dy.png"
-          alt="Mesa de madera con tazón de maní Krokanté y sello artesanal"
-          className="w-full h-full object-cover object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
-        />
+        <div className="relative w-full h-full max-w-7xl mx-auto flex items-end justify-center">
+          <img
+            src="https://res.cloudinary.com/dcx6wcjlj/image/upload/mesa_y_producto_ghe5dy.png"
+            alt="Mesa de madera con tazón de maní Krokanté"
+            className="w-full h-full object-cover object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
+          />
+
+          {/* Sello de Calidad Artesanal (Con animación automática de sellado y flotación) */}
+          <motion.div
+            initial={{ scale: 0, opacity: 0, rotate: -40 }}
+            animate={{
+              scale: 1,
+              opacity: 1,
+              rotate: [0, 2.5, -2.5, 0],
+              y: [0, -5, 0]
+            }}
+            transition={{
+              scale: { type: 'spring', stiffness: 150, damping: 12, delay: 0.4 },
+              opacity: { duration: 0.4, delay: 0.4 },
+              rotate: { repeat: Infinity, duration: 4, ease: 'easeInOut', delay: 1.0 },
+              y: { repeat: Infinity, duration: 3.5, ease: 'easeInOut', delay: 1.0 }
+            }}
+            whileHover={{ scale: 1.1, rotate: 6 }}
+            className="absolute right-[12%] sm:right-[16%] md:right-[20%] bottom-[4%] sm:bottom-[6%] md:bottom-[8%] z-20 pointer-events-auto cursor-pointer drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)]"
+          >
+            <img
+              src="https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/sello_ibeecn.png"
+              alt="Sello Producto de Calidad Artesanal"
+              className="w-24 sm:w-32 md:w-36 lg:w-44 h-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.85)]"
+            />
+          </motion.div>
+        </div>
       </motion.div>
+
 
       {/* ===== HEADER / NAVBAR (100% Transparente) ===== */}
       <header className="relative z-30 w-full px-6 md:px-12 py-4 flex items-center justify-between bg-transparent">

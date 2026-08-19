@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, MapPin, Navigation, Search, ShieldCheck, Flame, Heart, Zap, Store, ArrowUpRight, Scale, Shield } from 'lucide-react';
 import { INITIAL_MEDIA_CONFIG } from '../types/cms';
 import { WorldCanvas } from '../components/WorldCanvas';
+import { Hero3D } from '../components/Hero3D';
 
 interface MomentFlavor {
   id: string;
@@ -131,109 +132,9 @@ export const ArtDirectionExperience = () => {
       {/* Noise Texture Overlay */}
       <div className="fixed inset-0 z-0 opacity-15 mix-blend-overlay bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
 
-      {/* Header */}
-      <header className="fixed top-0 left-0 w-full z-50 px-8 py-6 flex items-center justify-between mix-blend-difference">
-        <motion.div 
-          whileHover={{ scale: 1.05, rotate: -2 }}
-          className="flex items-center gap-3 cursor-pointer"
-        >
-          <div className="w-12 h-12 rounded-2xl bg-white text-black font-display text-3xl flex items-center justify-center font-bold shadow-2xl">
-            K
-          </div>
-          <div className="text-left">
-            <span className="font-display text-3xl uppercase tracking-widest text-white block leading-none">KROKANTÉ</span>
-            <span className="text-[9px] font-mono text-amber-400 uppercase tracking-widest block mt-0.5">Maní Japonés Artesanal</span>
-          </div>
-        </motion.div>
+      {/* HERO SECTION 3D PARALLAX */}
+      <Hero3D />
 
-        <div className="flex items-center gap-6">
-          <a href="#maridaje" className="hidden md:inline-block font-mono text-xs uppercase tracking-widest hover:text-amber-400 transition-colors">
-            Maridaje
-          </a>
-          <a href="#granel" className="hidden md:inline-block font-mono text-xs uppercase tracking-widest hover:text-amber-400 transition-colors">
-            Servido a Granel
-          </a>
-          <a href="#tiendas" className="hidden md:inline-block font-mono text-xs uppercase tracking-widest hover:text-amber-400 transition-colors">
-            Encontrar Mostrador
-          </a>
-          <a 
-            href="https://b2b.krokantemani.top" 
-            target="_blank" 
-            rel="noreferrer"
-            className="px-5 py-2.5 rounded-full border border-white/30 text-xs font-mono font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all"
-          >
-            Hazte Socio B2B
-          </a>
-        </div>
-      </header>
-
-      {/* HERO SECTION */}
-      <section className="relative z-20 min-h-screen flex flex-col items-center justify-center px-6 pt-24 text-center">
-        
-        {/* Floating Quality Stamp */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-mono font-bold uppercase tracking-widest mb-6"
-        >
-          <Sparkles className="w-4 h-4 text-amber-400 animate-spin" />
-          <span>RECETA ARTESANAL 100% HORNEADA AL FUEGO</span>
-        </motion.div>
-
-        {/* Hero Title */}
-        <motion.h1 
-          initial={{ y: 40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="font-display text-[12vw] sm:text-[10vw] leading-[0.85] tracking-tighter uppercase font-black mix-blend-difference"
-        >
-          HAY UN KROKANTÉ <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500">
-            PARA CADA MOMENTO.
-          </span>
-        </motion.h1>
-
-        {/* 4-JAR COUNTER DISPLAY PRESENTATION */}
-        <div className="relative my-8 w-full max-w-4xl aspect-[16/9] flex items-center justify-center">
-          <motion.div
-            style={{
-              x: mousePos.x,
-              y: mousePos.y
-            }}
-            transition={{ type: "spring", stiffness: 100, damping: 10 }}
-            className="relative z-20 w-full h-full flex items-center justify-center cursor-pointer"
-          >
-            <motion.img 
-              animate={{ 
-                y: [-6, 6, -6]
-              }}
-              transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-              src="/images/mostrador_hero.png"
-              alt="Mostrador Real Krokanté de 4 Frascos"
-              className="w-full h-full object-contain drop-shadow-[0_35px_50px_rgba(0,0,0,0.85)] hover:scale-105 transition-transform duration-500"
-            />
-          </motion.div>
-        </div>
-
-        {/* Hero Subtitle */}
-        <p className="max-w-2xl mx-auto font-sans text-xl md:text-2xl text-neutral-300 font-medium leading-snug mb-10">
-          Una gruesa capa crocante horneada al fuego. Servida fresca a granel desde nuestros frascos herméticos en la tienda de tu barrio.
-        </p>
-
-        {/* CTA Button */}
-        <div className="flex flex-wrap justify-center gap-4">
-          <motion.a 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            href="#tiendas"
-            className="px-10 py-5 rounded-full bg-white text-black font-display text-2xl uppercase tracking-widest hover:bg-amber-400 transition-all shadow-2xl flex items-center gap-3"
-          >
-            <span>📍 ENCONTRAR UN MOSTRADOR CERCA</span>
-            <ArrowUpRight className="w-6 h-6" />
-          </motion.a>
-        </div>
-      </section>
 
       {/* MARIDAJE & MOMENTOS SECTION */}
       <section id="maridaje" className="relative z-20 py-32 px-6">

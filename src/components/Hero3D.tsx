@@ -13,11 +13,11 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
   
   // Layer 1: Background Field ("campo_od41fu.jpg") - Starts at 125% (1.25) and reduces down to 100% (1.0) on scroll
   const rawBgScale = useTransform(scrollY, [0, 500], [1.25, 1.0]);
-  const rawBgY = useTransform(scrollY, [0, 500], [0, 30]);
+  const rawBgY = useTransform(scrollY, [0, 500], [0, 35]);
   
   // Layer 2: Foreground Table + Product ("mesa_y_producto_ghe5dy.png") - Zooms in from 100% (1.0) up to 118% (1.18) on scroll
   const rawFgScale = useTransform(scrollY, [0, 500], [1.0, 1.18]);
-  const rawFgY = useTransform(scrollY, [0, 500], [0, -30]);
+  const rawFgY = useTransform(scrollY, [0, 500], [0, -25]);
 
   // Smooth springs for buttery smooth 3D movement
   const bgScale = useSpring(rawBgScale, { stiffness: 90, damping: 20 });
@@ -38,7 +38,7 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
   }, []);
 
   return (
-    <section className="relative w-full h-screen min-h-[650px] flex flex-col justify-between overflow-hidden bg-[#0A0503] text-white select-none">
+    <section className="relative w-full h-screen min-h-[600px] flex flex-col justify-between overflow-hidden bg-[#0A0503] text-white select-none">
       
       {/* ===== LAYER 1: CAMPO DE FONDO ("campo_od41fu.jpg") - 125% a 100% ===== */}
       <motion.div
@@ -56,14 +56,14 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
         />
       </motion.div>
 
-      {/* ===== LAYER 2: MESA Y PRODUCTO EN FRENTE ("mesa_y_producto_ghe5dy.png") ===== */}
+      {/* ===== LAYER 2: MESA Y PRODUCTO EN EL FONDO INFERIOR ===== */}
       <motion.div
         style={{
           scale: fgScale,
           y: fgY,
           x: mousePos.x * 0.5,
         }}
-        className="absolute inset-x-0 bottom-0 w-full h-[62%] sm:h-[70%] md:h-[76%] z-10 pointer-events-none flex items-end justify-center origin-bottom"
+        className="absolute inset-x-0 bottom-0 w-full h-[52%] sm:h-[58%] md:h-[62%] z-10 pointer-events-none flex items-end justify-center origin-bottom"
       >
         <img
           src="https://res.cloudinary.com/dcx6wcjlj/image/upload/mesa_y_producto_ghe5dy.png"
@@ -72,44 +72,39 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
         />
       </motion.div>
 
-      {/* ===== HEADER / NAVBAR ===== */}
-      <header className="relative z-30 w-full px-6 md:px-12 py-5 flex items-center justify-between bg-gradient-to-b from-[#120804]/90 via-[#120804]/40 to-transparent">
-        {/* Brand Logo (KROKANTÉ MANÍ con icono) */}
-        <div className="flex items-center gap-2 cursor-pointer">
-          <div className="flex flex-col text-left">
-            <span className="font-display font-black text-2xl md:text-3xl tracking-tight text-[#EB6F12] uppercase leading-none drop-shadow-md">
-              KROKANTÉ
-            </span>
-            <div className="flex items-center gap-1.5 leading-none mt-0.5">
-              <span className="font-display font-black text-xl md:text-2xl tracking-tight text-[#EB6F12] uppercase">
-                MANÍ
-              </span>
-              <span className="text-xl">🥜</span>
-            </div>
-          </div>
+      {/* ===== HEADER / NAVBAR (100% Transparente) ===== */}
+      <header className="relative z-30 w-full px-6 md:px-12 py-4 flex items-center justify-between bg-transparent">
+        {/* Brand Logo (Logo oficial de Cloudinary) */}
+        <div className="flex items-center cursor-pointer">
+          <img
+            src="https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/logo_ultv5b.png"
+            alt="Logo Oficial Krokanté Maní"
+            className="h-12 md:h-16 w-auto object-contain drop-shadow-md hover:scale-105 transition-transform"
+          />
         </div>
 
-        {/* Action Button: Dónde comprar */}
+        {/* Action Button: Dónde comprar (Transparente empañado, marco blanco delgado, texto Anton) */}
         <a
           href="#tiendas"
           onClick={onWhereToBuyClick}
-          className="px-6 py-2 rounded-full border border-dashed border-stone-300/40 bg-stone-900/80 backdrop-blur-md text-stone-200 font-sans text-sm font-semibold tracking-wide hover:border-amber-400 hover:text-amber-300 transition-all shadow-lg"
+          className="px-6 py-2 rounded-full border border-white/40 bg-white/10 backdrop-blur-md text-white font-['Anton',sans-serif] text-base md:text-lg uppercase tracking-wider hover:bg-white/25 hover:border-white transition-all shadow-lg"
         >
           Dónde comprar
         </a>
       </header>
 
-      {/* ===== TITLES OVER FIELD BACKGROUND ===== */}
-      <div className="relative z-20 w-full flex flex-col items-center justify-start pt-2 md:pt-4 px-4 text-center">
+
+      {/* ===== TITLES OVER SKY / FIELD (Ubicados en la zona superior para no chocar con el tazón) ===== */}
+      <div className="relative z-20 w-full flex flex-col items-center justify-start pt-1 md:pt-3 px-4 text-center">
         
         {/* Title */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="max-w-4xl font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-[#140C07] uppercase leading-tight mb-2"
+          className="max-w-4xl font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight uppercase leading-tight mb-2 text-[#180E07]"
           style={{
-            textShadow: '0px 2px 12px rgba(255, 255, 255, 0.45), 0px 4px 18px rgba(0, 0, 0, 0.7)'
+            textShadow: '0px 2px 16px rgba(255, 255, 255, 0.6), 0px 4px 22px rgba(0, 0, 0, 0.7)'
           }}
         >
           ¿Todavía no probaste el maní TOP?
@@ -120,7 +115,7 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="max-w-3xl font-sans text-base sm:text-xl md:text-2xl text-stone-100 font-medium leading-snug drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]"
+          className="max-w-3xl font-sans text-base sm:text-xl md:text-2xl text-stone-100 font-medium leading-snug drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]"
         >
           En Bolivia, el maní subió de categoría: una capa crujiente, cuatro sabores y mas por descubrir.
         </motion.p>
@@ -128,7 +123,7 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
       </div>
 
       {/* ===== BOTTOM SPACING ===== */}
-      <div className="relative z-20 pb-4 text-center font-mono text-xs text-amber-300/80 uppercase tracking-widest pointer-events-none">
+      <div className="relative z-20 pb-3 text-center font-mono text-xs text-amber-300/80 uppercase tracking-widest pointer-events-none">
         ✦ Desliza hacia abajo para ver más ✦
       </div>
 

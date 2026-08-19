@@ -120,20 +120,11 @@ export const ArtDirectionExperience = () => {
   );
 
   return (
-    <div className="relative min-h-screen bg-black text-white font-sans overflow-x-hidden selection:bg-amber-400 selection:text-black">
-      {/* Background Interactive Canvas */}
-      <WorldCanvas flavorId={activeMomentId} />
-
-      {/* Dynamic Background Gradient */}
-      <div 
-        className={`fixed inset-0 z-0 bg-gradient-to-b ${currentMoment.bgGradient} opacity-90 transition-all duration-1000 ease-in-out pointer-events-none`}
-      />
-
-      {/* Noise Texture Overlay */}
-      <div className="fixed inset-0 z-0 opacity-15 mix-blend-overlay bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
-
-      {/* HERO SECTION 3D PARALLAX */}
+      {/* HERO SECTION 3D PARALLAX (Sin partículas) */}
       <Hero3D />
+
+      {/* Background Interactive Canvas (Únicamente para la sección de Sabores) */}
+      <WorldCanvas flavorId={activeMomentId} />
 
 
       {/* MARIDAJE & MOMENTOS SECTION */}

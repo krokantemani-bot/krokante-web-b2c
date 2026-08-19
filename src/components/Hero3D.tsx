@@ -77,7 +77,7 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
         {/* Brand Logo (Logo oficial de Cloudinary) */}
         <div className="flex items-center cursor-pointer">
           <img
-            src="https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/logo_ultv5b.png"
+            src="https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/KROKANT%C3%89_MAN%C3%8D_kxwwag.png"
             alt="Logo Oficial Krokanté Maní"
             className="h-12 md:h-16 w-auto object-contain drop-shadow-md hover:scale-105 transition-transform"
           />

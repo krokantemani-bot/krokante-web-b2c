@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Bebas Neue', 'sans-serif'],
+        display: ['Anton', 'sans-serif'],
+        sans: ['Space Grotesk', 'sans-serif'],
       }
     },
   },

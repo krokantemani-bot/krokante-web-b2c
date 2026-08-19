@@ -19,11 +19,17 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
   const rawFgScale = useTransform(scrollY, [0, 500], [1.0, 1.18]);
   const rawFgY = useTransform(scrollY, [0, 500], [0, -25]);
 
+  // Title opacity and exit Y position (empieza a desvanecerse a la mitad y desaparece 100% al terminar la sección)
+  const titleOpacity = useTransform(scrollY, [0, 180, 440], [1, 1, 0]);
+  const titleY = useTransform(scrollY, [0, 180, 440], [0, 0, -35]);
+
   // Smooth springs for buttery smooth 3D movement
   const bgScale = useSpring(rawBgScale, { stiffness: 90, damping: 20 });
   const bgY = useSpring(rawBgY, { stiffness: 90, damping: 20 });
   const fgScale = useSpring(rawFgScale, { stiffness: 90, damping: 20 });
   const fgY = useSpring(rawFgY, { stiffness: 90, damping: 20 });
+  const smoothTitleOpacity = useSpring(titleOpacity, { stiffness: 90, damping: 20 });
+  const smoothTitleY = useSpring(titleY, { stiffness: 90, damping: 20 });
 
   // Subtle 3D tilt tracking mouse movement
   useEffect(() => {
@@ -56,14 +62,14 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
         />
       </motion.div>
 
-      {/* ===== LAYER 2: MESA Y PRODUCTO (100% Ancho Completo Edge-to-Edge) ===== */}
+      {/* ===== LAYER 2: MESA Y PRODUCTO (100% Ancho Completo Edge-to-Edge - Sin recortes) ===== */}
       <motion.div
         style={{
           scale: fgScale,
           y: fgY,
           x: mousePos.x * 0.5,
         }}
-        className="absolute inset-x-0 bottom-0 w-full h-[52%] sm:h-[58%] md:h-[62%] z-10 pointer-events-none flex items-end justify-center origin-bottom"
+        className="absolute inset-x-0 bottom-0 w-full h-[60%] sm:h-[68%] md:h-[74%] z-10 pointer-events-none flex items-end justify-center origin-bottom"
       >
         <img
           src="https://res.cloudinary.com/dcx6wcjlj/image/upload/mesa_y_producto_ghe5dy.png"
@@ -71,35 +77,19 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
           className="w-full h-full object-cover object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
         />
 
-        {/* Sello de Calidad Artesanal (Ubicado sobre los maníes rotos con animación) */}
-        <motion.div
-          initial={{ scale: 0, opacity: 0, rotate: -40 }}
-          animate={{
-            scale: 1,
-            opacity: 1,
-            rotate: [0, 2.5, -2.5, 0],
-            y: [0, -5, 0]
-          }}
-          transition={{
-            scale: { type: 'spring', stiffness: 150, damping: 12, delay: 0.4 },
-            opacity: { duration: 0.4, delay: 0.4 },
-            rotate: { repeat: Infinity, duration: 4, ease: 'easeInOut', delay: 1.0 },
-            y: { repeat: Infinity, duration: 3.5, ease: 'easeInOut', delay: 1.0 }
-          }}
-          whileHover={{ scale: 1.08, rotate: 6 }}
-          className="absolute right-[28%] sm:right-[31%] md:right-[34%] lg:right-[36%] bottom-[2%] sm:bottom-[3%] md:bottom-[4%] z-20 pointer-events-auto cursor-pointer drop-shadow-[0_15px_30px_rgba(0,0,0,0.95)]"
-        >
+        {/* Sello de Calidad Artesanal (Fijo estático - Gran Tamaño para Celular, Tablet y PC) */}
+        <div className="absolute right-[16%] sm:right-[22%] md:right-[28%] lg:right-[32%] bottom-[4%] sm:bottom-[5%] md:bottom-[4%] lg:bottom-[4%] z-20 pointer-events-auto cursor-pointer drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]">
           <img
             src="https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/sello_ibeecn.png"
             alt="Sello Producto de Calidad Artesanal"
-            className="w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.85)]"
+            className="w-40 sm:w-52 md:w-60 lg:w-64 xl:w-72 h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)]"
           />
-        </motion.div>
+        </div>
       </motion.div>
 
 
-      {/* ===== HEADER / NAVBAR (100% Transparente) ===== */}
-      <header className="relative z-30 w-full px-6 md:px-12 py-4 flex items-center justify-between bg-transparent">
+      {/* ===== HEADER / NAVBAR (Solución 1: Degradado Oscuro Superior + Cristal de Alto Contraste) ===== */}
+      <header className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-3.5 flex items-center justify-between bg-gradient-to-b from-[#0A0503]/95 via-[#0A0503]/60 to-transparent backdrop-blur-sm pointer-events-auto">
         {/* Brand Logo (Logo oficial de Cloudinary) */}
         <div className="flex items-center cursor-pointer">
           <img
@@ -109,44 +99,51 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
           />
         </div>
 
-        {/* Action Button: Dónde comprar (Transparente empañado, marco blanco delgado, texto Anton) */}
+        {/* Action Button: Dónde comprar (Alto contraste sobre degradado oscuro) */}
         <a
           href="#tiendas"
           onClick={onWhereToBuyClick}
-          className="px-6 py-2 rounded-full border border-white/40 bg-white/10 backdrop-blur-md text-white font-['Anton',sans-serif] text-base md:text-lg uppercase tracking-wider hover:bg-white/25 hover:border-white transition-all shadow-lg"
+          className="px-6 py-2 rounded-full border border-white/40 bg-white/15 backdrop-blur-md text-white font-display text-[16px] md:text-[18px] uppercase tracking-wider hover:bg-white/30 hover:border-white transition-all shadow-xl"
         >
           Dónde comprar
         </a>
       </header>
 
 
-      {/* ===== TITLES OVER SKY / FIELD (Ubicados en la zona superior para no chocar con el tazón) ===== */}
-      <div className="relative z-20 w-full flex flex-col items-center justify-start pt-1 md:pt-3 px-4 text-center">
-        
-        {/* Title */}
+      {/* ===== TITLES CENTRADOS EN CAMPO (PC: 85px/95px Negrilla | Subtítulo PC: 35px/40px) ===== */}
+      <motion.div
+        style={{
+          opacity: smoothTitleOpacity,
+          y: smoothTitleY,
+        }}
+        className="fixed top-[18%] sm:top-[20%] md:top-[22%] lg:top-[110px] inset-x-0 z-30 w-full flex flex-col items-center justify-start px-4 sm:px-8 md:px-12 text-center pointer-events-none"
+      >
+        {/* Title Principal (Anton Font: Celular 50px | Tablet 70px | PC 85px - 95px Negrilla) */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="max-w-4xl font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight uppercase leading-tight mb-2 text-[#180E07]"
+          className="max-w-6xl font-display text-[50px] md:text-[70px] lg:text-[85px] xl:text-[95px] font-bold tracking-wide uppercase leading-[1.02] mb-1 sm:mb-2 text-[#120904] pointer-events-auto"
           style={{
-            textShadow: '0px 2px 16px rgba(255, 255, 255, 0.6), 0px 4px 22px rgba(0, 0, 0, 0.7)'
+            textShadow: '0px 2px 20px rgba(255, 255, 255, 0.85), 0px 4px 24px rgba(0, 0, 0, 0.9)'
           }}
         >
           ¿Todavía no probaste el maní TOP?
         </motion.h1>
 
-        {/* Subtitle */}
+        {/* Subtítulo (Oswald Font: Celular 20px | Tablet 30px | PC 35px - 40px) */}
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="max-w-3xl font-sans text-base sm:text-xl md:text-2xl text-stone-100 font-medium leading-snug drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]"
+          className="max-w-4xl sm:max-w-5xl font-['Oswald',sans-serif] text-[20px] md:text-[30px] lg:text-[35px] xl:text-[40px] text-stone-100 font-medium leading-[1.2] drop-shadow-[0_2px_16px_rgba(0,0,0,0.95)] pointer-events-auto px-2 normal-case tracking-wide"
         >
           En Bolivia, el maní subió de categoría: una capa crujiente, cuatro sabores y mas por descubrir.
         </motion.p>
+      </motion.div>
 
-      </div>
+
+
 
       {/* ===== BOTTOM SPACING ===== */}
       <div className="relative z-20 pb-3 text-center font-mono text-xs text-amber-300/80 uppercase tracking-widest pointer-events-none">

@@ -120,6 +120,7 @@ export const ArtDirectionExperience = () => {
   );
 
   return (
+    <div className="relative min-h-screen bg-black text-white font-sans overflow-x-hidden selection:bg-amber-400 selection:text-black">
       {/* HERO SECTION 3D PARALLAX (Sin partículas) */}
       <Hero3D />
 

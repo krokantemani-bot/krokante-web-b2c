@@ -101,6 +101,13 @@ export const WorldCanvas = ({ flavorId }: { flavorId: string }) => {
     }
 
     const render = () => {
+      // Hide particles & ambient glow when user is on the Hero section
+      if (window.scrollY < window.innerHeight * 0.7) {
+        ctx.clearRect(0, 0, width, height);
+        animationFrameId = requestAnimationFrame(render);
+        return;
+      }
+
       // Lerp mouse smooth physics
       mouseX += (targetMouseX - mouseX) * 0.05;
       mouseY += (targetMouseY - mouseY) * 0.05;

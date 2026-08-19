@@ -40,7 +40,7 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
   return (
     <section className="relative w-full h-screen min-h-[650px] flex flex-col justify-between overflow-hidden bg-[#0A0503] text-white select-none">
       
-      {/* ===== LAYER 1: CAMPO DE FONDO COMPLETO (100% Viewport) ===== */}
+      {/* ===== LAYER 1: CAMPO DE FONDO COMPLETO (100% Viewport - Full Bleed) ===== */}
       <motion.div
         style={{
           scale: bgScale,
@@ -50,33 +50,31 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
         className="absolute inset-0 w-full h-full z-0 pointer-events-none"
       >
         <img
-          src="https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/campo-fondo_piukzs.jpg"
+          src="https://res.cloudinary.com/dcx6wcjlj/image/upload/campo-fondo_piukzs.jpg"
           alt="Campo al atardecer Krokanté"
           className="w-full h-full object-cover object-center"
         />
-        {/* Darkening tint for upper text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0F0703]/80 via-transparent to-[#0F0703]/40" />
       </motion.div>
 
-      {/* ===== LAYER 2: MESA Y PRODUCTO A TAMAÑO COMPLETO EN EL FONDO (100% Ancho) ===== */}
+      {/* ===== LAYER 2: MESA Y PRODUCTO A 100% ANCHO COMPLETO (Full Bleed Bottom) ===== */}
       <motion.div
         style={{
           scale: fgScale,
           y: fgY,
           x: mousePos.x * 0.5,
         }}
-        className="absolute inset-x-0 bottom-0 w-full h-[65%] sm:h-[72%] md:h-[78%] z-10 pointer-events-none flex items-end justify-center"
+        className="absolute inset-x-0 bottom-0 w-full h-[62%] sm:h-[70%] md:h-[76%] z-10 pointer-events-none flex items-end justify-center"
       >
         <img
-          src="https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/mesa_y_producto_ghe5dy.png"
+          src="https://res.cloudinary.com/dcx6wcjlj/image/upload/mesa_y_producto_ghe5dy.png"
           alt="Mesa de madera con tazón de maní Krokanté y sello artesanal"
-          className="w-full h-full object-cover md:object-contain object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
+          className="w-full h-full object-cover object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
         />
       </motion.div>
 
       {/* ===== HEADER / NAVBAR ===== */}
-      <header className="relative z-30 w-full px-6 md:px-12 py-5 flex items-center justify-between bg-gradient-to-b from-[#120804]/90 via-[#120804]/50 to-transparent">
-        {/* Brand Logo */}
+      <header className="relative z-30 w-full px-6 md:px-12 py-5 flex items-center justify-between bg-gradient-to-b from-[#120804]/90 via-[#120804]/40 to-transparent">
+        {/* Brand Logo (KROKANTÉ MANÍ con icono) */}
         <div className="flex items-center gap-2 cursor-pointer">
           <div className="flex flex-col text-left">
             <span className="font-display font-black text-2xl md:text-3xl tracking-tight text-[#EB6F12] uppercase leading-none drop-shadow-md">
@@ -109,9 +107,9 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="max-w-4xl font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-[#160D07] uppercase leading-tight mb-2"
+          className="max-w-4xl font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-[#140C07] uppercase leading-tight mb-2"
           style={{
-            textShadow: '0px 2px 14px rgba(255, 255, 255, 0.4), 0px 4px 20px rgba(0, 0, 0, 0.6)'
+            textShadow: '0px 2px 12px rgba(255, 255, 255, 0.45), 0px 4px 18px rgba(0, 0, 0, 0.7)'
           }}
         >
           ¿Todavía no probaste el maní TOP?

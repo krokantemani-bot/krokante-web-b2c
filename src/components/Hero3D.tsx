@@ -87,13 +87,13 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
               rotate: { repeat: Infinity, duration: 4, ease: 'easeInOut', delay: 1.0 },
               y: { repeat: Infinity, duration: 3.5, ease: 'easeInOut', delay: 1.0 }
             }}
-            whileHover={{ scale: 1.1, rotate: 6 }}
-            className="absolute right-[12%] sm:right-[16%] md:right-[20%] bottom-[4%] sm:bottom-[6%] md:bottom-[8%] z-20 pointer-events-auto cursor-pointer drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)]"
+            whileHover={{ scale: 1.08, rotate: 6 }}
+            className="absolute right-[22%] sm:right-[26%] md:right-[30%] lg:right-[34%] bottom-[0%] sm:bottom-[1%] md:bottom-[2%] z-20 pointer-events-auto cursor-pointer drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
           >
             <img
               src="https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/sello_ibeecn.png"
               alt="Sello Producto de Calidad Artesanal"
-              className="w-24 sm:w-32 md:w-36 lg:w-44 h-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.85)]"
+              className="w-36 sm:w-48 md:w-60 lg:w-72 xl:w-80 h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)]"
             />
           </motion.div>
         </div>

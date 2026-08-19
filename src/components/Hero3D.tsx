@@ -56,7 +56,7 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
         />
       </motion.div>
 
-      {/* ===== LAYER 2: MESA Y PRODUCTO EN EL FONDO INFERIOR ===== */}
+      {/* ===== LAYER 2: MESA Y PRODUCTO (100% Ancho Completo Edge-to-Edge) ===== */}
       <motion.div
         style={{
           scale: fgScale,
@@ -65,38 +65,36 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
         }}
         className="absolute inset-x-0 bottom-0 w-full h-[52%] sm:h-[58%] md:h-[62%] z-10 pointer-events-none flex items-end justify-center origin-bottom"
       >
-        <div className="relative w-full h-full max-w-7xl mx-auto flex items-end justify-center">
-          <img
-            src="https://res.cloudinary.com/dcx6wcjlj/image/upload/mesa_y_producto_ghe5dy.png"
-            alt="Mesa de madera con tazón de maní Krokanté"
-            className="w-full h-full object-cover object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
-          />
+        <img
+          src="https://res.cloudinary.com/dcx6wcjlj/image/upload/mesa_y_producto_ghe5dy.png"
+          alt="Mesa de madera con tazón de maní Krokanté"
+          className="w-full h-full object-cover object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
+        />
 
-          {/* Sello de Calidad Artesanal (Con animación automática de sellado y flotación) */}
-          <motion.div
-            initial={{ scale: 0, opacity: 0, rotate: -40 }}
-            animate={{
-              scale: 1,
-              opacity: 1,
-              rotate: [0, 2.5, -2.5, 0],
-              y: [0, -5, 0]
-            }}
-            transition={{
-              scale: { type: 'spring', stiffness: 150, damping: 12, delay: 0.4 },
-              opacity: { duration: 0.4, delay: 0.4 },
-              rotate: { repeat: Infinity, duration: 4, ease: 'easeInOut', delay: 1.0 },
-              y: { repeat: Infinity, duration: 3.5, ease: 'easeInOut', delay: 1.0 }
-            }}
-            whileHover={{ scale: 1.08, rotate: 6 }}
-            className="absolute right-[22%] sm:right-[26%] md:right-[30%] lg:right-[34%] bottom-[0%] sm:bottom-[1%] md:bottom-[2%] z-20 pointer-events-auto cursor-pointer drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
-          >
-            <img
-              src="https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/sello_ibeecn.png"
-              alt="Sello Producto de Calidad Artesanal"
-              className="w-36 sm:w-48 md:w-60 lg:w-72 xl:w-80 h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)]"
-            />
-          </motion.div>
-        </div>
+        {/* Sello de Calidad Artesanal (Ubicado sobre los maníes rotos con animación) */}
+        <motion.div
+          initial={{ scale: 0, opacity: 0, rotate: -40 }}
+          animate={{
+            scale: 1,
+            opacity: 1,
+            rotate: [0, 2.5, -2.5, 0],
+            y: [0, -5, 0]
+          }}
+          transition={{
+            scale: { type: 'spring', stiffness: 150, damping: 12, delay: 0.4 },
+            opacity: { duration: 0.4, delay: 0.4 },
+            rotate: { repeat: Infinity, duration: 4, ease: 'easeInOut', delay: 1.0 },
+            y: { repeat: Infinity, duration: 3.5, ease: 'easeInOut', delay: 1.0 }
+          }}
+          whileHover={{ scale: 1.08, rotate: 6 }}
+          className="absolute right-[28%] sm:right-[31%] md:right-[34%] lg:right-[36%] bottom-[2%] sm:bottom-[3%] md:bottom-[4%] z-20 pointer-events-auto cursor-pointer drop-shadow-[0_15px_30px_rgba(0,0,0,0.95)]"
+        >
+          <img
+            src="https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/sello_ibeecn.png"
+            alt="Sello Producto de Calidad Artesanal"
+            className="w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.85)]"
+          />
+        </motion.div>
       </motion.div>
 
 

@@ -11,15 +11,15 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
   // Scroll animations for 3D Parallax
   const { scrollY } = useScroll();
   
-  // Layer 1: Background Field - Zoom Out (scale down as user scrolls)
-  const rawBgScale = useTransform(scrollY, [0, 600], [1.08, 0.94]);
-  const rawBgY = useTransform(scrollY, [0, 600], [0, 40]);
+  // Layer 1: Background Field ("campo_od41fu.jpg") - Starts at 125% (1.25) and reduces down to 100% (1.0) on scroll
+  const rawBgScale = useTransform(scrollY, [0, 500], [1.25, 1.0]);
+  const rawBgY = useTransform(scrollY, [0, 500], [0, 30]);
   
-  // Layer 2: Foreground Table + Product - Zoom In (scale up as user scrolls)
-  const rawFgScale = useTransform(scrollY, [0, 600], [1.0, 1.18]);
-  const rawFgY = useTransform(scrollY, [0, 600], [0, -25]);
+  // Layer 2: Foreground Table + Product ("mesa_y_producto_ghe5dy.png") - Zooms in from 100% (1.0) up to 118% (1.18) on scroll
+  const rawFgScale = useTransform(scrollY, [0, 500], [1.0, 1.18]);
+  const rawFgY = useTransform(scrollY, [0, 500], [0, -30]);
 
-  // Smooth springs
+  // Smooth springs for buttery smooth 3D movement
   const bgScale = useSpring(rawBgScale, { stiffness: 90, damping: 20 });
   const bgY = useSpring(rawBgY, { stiffness: 90, damping: 20 });
   const fgScale = useSpring(rawFgScale, { stiffness: 90, damping: 20 });
@@ -40,30 +40,30 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
   return (
     <section className="relative w-full h-screen min-h-[650px] flex flex-col justify-between overflow-hidden bg-[#0A0503] text-white select-none">
       
-      {/* ===== LAYER 1: CAMPO DE FONDO COMPLETO (100% Viewport - Full Bleed) ===== */}
+      {/* ===== LAYER 1: CAMPO DE FONDO ("campo_od41fu.jpg") - 125% a 100% ===== */}
       <motion.div
         style={{
           scale: bgScale,
           y: bgY,
           x: mousePos.x * -0.3,
         }}
-        className="absolute inset-0 w-full h-full z-0 pointer-events-none"
+        className="absolute inset-0 w-full h-full z-0 pointer-events-none origin-center"
       >
         <img
-          src="https://res.cloudinary.com/dcx6wcjlj/image/upload/campo-fondo_piukzs.jpg"
+          src="https://res.cloudinary.com/dcx6wcjlj/image/upload/campo_od41fu.jpg"
           alt="Campo al atardecer Krokanté"
           className="w-full h-full object-cover object-center"
         />
       </motion.div>
 
-      {/* ===== LAYER 2: MESA Y PRODUCTO A 100% ANCHO COMPLETO (Full Bleed Bottom) ===== */}
+      {/* ===== LAYER 2: MESA Y PRODUCTO EN FRENTE ("mesa_y_producto_ghe5dy.png") ===== */}
       <motion.div
         style={{
           scale: fgScale,
           y: fgY,
           x: mousePos.x * 0.5,
         }}
-        className="absolute inset-x-0 bottom-0 w-full h-[62%] sm:h-[70%] md:h-[76%] z-10 pointer-events-none flex items-end justify-center"
+        className="absolute inset-x-0 bottom-0 w-full h-[62%] sm:h-[70%] md:h-[76%] z-10 pointer-events-none flex items-end justify-center origin-bottom"
       >
         <img
           src="https://res.cloudinary.com/dcx6wcjlj/image/upload/mesa_y_producto_ghe5dy.png"

@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sparkles, MapPin, Navigation, Search, ShieldCheck, Flame, Heart, Zap, Store, ArrowUpRight, Scale, Shield } from 'lucide-react';
+import { Sparkles, MapPin, Navigation, Search, ShieldCheck, Flame, Heart, Zap, Store, Scale, Shield } from 'lucide-react';
 import { INITIAL_MEDIA_CONFIG } from '../types/cms';
 import { WorldCanvas } from '../components/WorldCanvas';
 import { Hero3D } from '../components/Hero3D';
+import { Section2Granel } from '../components/Section2Granel';
+import { TickerBeneficios } from '../components/TickerBeneficios';
 
 interface MomentFlavor {
   id: string;
@@ -25,18 +27,6 @@ interface MomentFlavor {
 export const ArtDirectionExperience = () => {
   const [activeMomentId, setActiveMomentId] = useState<string>('fuego');
   const [searchZone, setSearchZone] = useState('');
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMove = (e: MouseEvent) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth - 0.5) * 30,
-        y: (e.clientY / window.innerHeight - 0.5) * 30
-      });
-    };
-    window.addEventListener('mousemove', handleMove);
-    return () => window.removeEventListener('mousemove', handleMove);
-  }, []);
 
   const momentFlavors: MomentFlavor[] = [
     {
@@ -123,6 +113,12 @@ export const ArtDirectionExperience = () => {
     <div className="relative min-h-screen bg-black text-white font-sans overflow-x-hidden selection:bg-amber-400 selection:text-black">
       {/* HERO SECTION 3D PARALLAX (Sin partículas) */}
       <Hero3D />
+
+      {/* TICKER DE BENEFICIOS (CINTA DESLIZANTE INFINITA) */}
+      <TickerBeneficios />
+
+      {/* SECCIÓN 2: MOSTRADOR KROKANTÉ A GRANEL */}
+      <Section2Granel />
 
       {/* Background Interactive Canvas (Únicamente para la sección de Sabores) */}
       <WorldCanvas flavorId={activeMomentId} />

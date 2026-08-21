@@ -33,25 +33,25 @@ export const Section2Granel: React.FC = () => {
       {/* 2. LOS 3 PASOS DE CANVA EN 3 COLUMNAS CON INCREMENTO DEL 50% EN SCROLL */}
       <motion.div 
         style={{ scale: stepsScale }}
-        className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-center mb-10 relative z-10 origin-center px-4 sm:px-8"
+        className="w-full max-w-[90%] sm:max-w-4xl lg:max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 text-center mb-10 relative z-10 origin-center px-2 sm:px-6"
       >
         {/* Paso 1 */}
         <div className="px-2">
-          <h3 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-normal leading-snug">
+          <h3 className="font-display text-lg sm:text-xl lg:text-3xl uppercase tracking-normal leading-snug">
             Buscá el <span className="text-[#EAB308] font-black">mostrador KROKANTÉ</span> mas cercano
           </h3>
         </div>
 
         {/* Paso 2 */}
         <div className="px-2">
-          <h3 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-normal leading-snug">
+          <h3 className="font-display text-lg sm:text-xl lg:text-3xl uppercase tracking-normal leading-snug">
             Elegí tus <span className="text-[#EAB308] font-black">sabores</span> favoritos
           </h3>
         </div>
 
         {/* Paso 3 */}
         <div className="px-2">
-          <h3 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-normal leading-snug">
+          <h3 className="font-display text-lg sm:text-xl lg:text-3xl uppercase tracking-normal leading-snug">
             Pedí el <span className="text-[#EAB308] font-black">peso</span> que quieras
           </h3>
         </div>

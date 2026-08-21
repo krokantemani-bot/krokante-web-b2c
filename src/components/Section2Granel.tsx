@@ -15,10 +15,13 @@ export const Section2Granel: React.FC = () => {
   // Opacidad alta y continua para mantenerlo brillante
   const sunburstOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.6, 1, 1, 0.7]);
 
+  // Transformación de escala para el texto de los 3 pasos (incremento del 25% por scroll)
+  const stepsScale = useTransform(scrollYProgress, [0.05, 0.4, 0.75], [1, 1.25, 1]);
+
   return (
     <section 
       ref={sectionRef} 
-      className="relative z-20 min-h-screen py-24 px-6 sm:px-10 md:px-12 text-white flex flex-col items-center justify-between overflow-hidden bg-[radial-gradient(ellipse_at_center,_rgba(10,5,3,1)_30%,_rgba(10,5,3,0.6)_70%,_rgba(10,5,3,0.35)_100%)]"
+      className="relative z-20 min-h-screen py-24 px-6 sm:px-10 md:px-12 text-white flex flex-col items-center justify-between overflow-hidden bg-transparent"
     >
       {/* 1. TÍTULO PRINCIPAL GENERAL (Optimizado para móvil: En 2 líneas y más grande) */}
       <div className="text-center max-w-5xl mx-auto mb-14 px-4 sm:px-6 space-y-3 relative z-10">
@@ -27,8 +30,11 @@ export const Section2Granel: React.FC = () => {
         </h2>
       </div>
 
-      {/* 2. LOS 3 PASOS DE CANVA EN 3 COLUMNAS */}
-      <div className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-10 relative z-10">
+      {/* 2. LOS 3 PASOS DE CANVA EN 3 COLUMNAS CON INCREMENTO DEL 25% EN SCROLL */}
+      <motion.div 
+        style={{ scale: stepsScale }}
+        className="w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-10 relative z-10 origin-center"
+      >
         {/* Paso 1 */}
         <div className="px-4">
           <h3 className="font-display text-2xl sm:text-3xl md:text-3xl lg:text-4xl uppercase tracking-normal leading-snug">
@@ -49,7 +55,7 @@ export const Section2Granel: React.FC = () => {
             Pedí el <span className="text-[#EAB308] font-black">peso</span> que quieras
           </h3>
         </div>
-      </div>
+      </motion.div>
 
       {/* 3. CENTRO VISUAL: SUNBURST RADIANTE + MOSTRADOR */}
       <div className="relative w-full max-w-5xl flex items-center justify-center min-h-[420px] sm:min-h-[500px] md:min-h-[600px] my-4">

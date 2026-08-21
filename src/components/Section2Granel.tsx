@@ -15,8 +15,8 @@ export const Section2Granel: React.FC = () => {
   // Opacidad alta y continua para mantenerlo brillante
   const sunburstOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.6, 1, 1, 0.7]);
 
-  // Transformación de escala para el texto de los 3 pasos (incremento del 25% por scroll)
-  const stepsScale = useTransform(scrollYProgress, [0.05, 0.4, 0.75], [1, 1.25, 1]);
+  // Transformación de escala para el texto de los 3 pasos (incremento del 50% por scroll: de 1.0x a 1.5x)
+  const stepsScale = useTransform(scrollYProgress, [0.05, 0.4, 0.75], [1, 1.5, 1]);
 
   return (
     <section 

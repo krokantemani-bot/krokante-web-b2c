@@ -46,9 +46,9 @@ export const TickerBeneficios: React.FC = () => {
       <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#0A0503] to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#0A0503] to-transparent z-10 pointer-events-none" />
 
-      {/* Marquee Deslizante Infinito */}
+      {/* Marquee Deslizante Infinito - Velocidad constante uniforme en Celular, Tablet y PC */}
       <motion.div
-        className="flex items-center gap-12 sm:gap-20 whitespace-nowrap w-max"
+        className="flex items-center gap-12 whitespace-nowrap w-max"
         animate={{ x: ['0%', '-50%'] }}
         transition={{
           repeat: Infinity,
@@ -59,10 +59,10 @@ export const TickerBeneficios: React.FC = () => {
         {tickerItems.map((item, index) => {
           const IconComponent = item.icon;
           return (
-            <div key={`${item.id}-${index}`} className="flex items-center gap-4 group">
+            <div key={`${item.id}-${index}`} className="flex items-center gap-4 group shrink-0">
               {/* Contenedor del Icono Dorado */}
-              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-110 group-hover:bg-amber-500/20 group-hover:border-amber-400 transition-all duration-300 shadow-[0_0_15px_rgba(234,179,8,0.15)]">
-                <IconComponent className="w-6 h-6 stroke-[1.75]" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-110 group-hover:bg-amber-500/20 group-hover:border-amber-400 transition-all duration-300 shadow-[0_0_15px_rgba(234,179,8,0.15)]">
+                <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.75]" />
               </div>
 
               {/* Textos: Superior e Inferior */}
@@ -75,8 +75,8 @@ export const TickerBeneficios: React.FC = () => {
                 </span>
               </div>
 
-              {/* Separador Sutil entre Ítems */}
-              <span className="ml-8 sm:ml-12 text-amber-500/30 text-xs font-mono">✦</span>
+              {/* Separador Sutil entre Ítems con espacio constante */}
+              <span className="ml-8 text-amber-500/30 text-xs font-mono">✦</span>
             </div>
           );
         })}

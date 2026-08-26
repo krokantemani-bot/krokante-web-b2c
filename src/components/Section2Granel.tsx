@@ -18,41 +18,71 @@ export const Section2Granel: React.FC = () => {
   // Transformación de escala para el texto de los 3 pasos (incremento del 50% por scroll: de 1.0x a 1.5x)
   const stepsScale = useTransform(scrollYProgress, [0.05, 0.4, 0.75], [1, 1.5, 1]);
 
+  // Brillo dinámico con opacidad extrema del 15% al 100% al pasar por el centro de la pantalla
+  const opacityPaso1 = useTransform(scrollYProgress, [0.02, 0.18, 0.35], [0.15, 1, 0.2]);
+  const opacityPaso2 = useTransform(scrollYProgress, [0.15, 0.32, 0.50], [0.15, 1, 0.2]);
+  const opacityPaso3 = useTransform(scrollYProgress, [0.30, 0.45, 0.65], [0.15, 1, 0.2]);
+
   return (
     <section 
+      id="section2-granel"
       ref={sectionRef} 
-      className="relative z-20 min-h-screen py-24 px-6 sm:px-10 md:px-12 text-white flex flex-col items-center justify-between overflow-hidden bg-transparent"
+      className="relative z-20 min-h-screen py-24 px-4 sm:px-6 md:px-10 text-white flex flex-col items-center justify-between overflow-hidden bg-transparent"
     >
-      {/* 1. TÍTULO PRINCIPAL GENERAL (Optimizado para móvil: En 2 líneas y más grande) */}
-      <div className="text-center max-w-5xl mx-auto mb-14 px-4 sm:px-6 space-y-3 relative z-10">
-        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-tight text-white font-extrabold leading-[1.1] md:leading-tight">
-          La nueva experiencia de maní<br className="hidden sm:inline" /> agranel en tu tienda favorita
+      {/* 1. TÍTULO PRINCIPAL GENERAL GIGANTE CON SALTO DE LÍNEA Y SEPARACIÓN EXTREMA MB-36 EN MÓVIL */}
+      <div className="text-center max-w-5xl mx-auto mb-36 sm:mb-28 md:mb-28 px-4 sm:px-6 relative z-20">
+        <h2 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-tight text-white font-black leading-[1.02] md:leading-[1.1] drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">
+          SEGUÍ LA RUTA<br className="sm:hidden" /> DEL MANÍ TOP
         </h2>
       </div>
 
-      {/* 2. LOS 3 PASOS DE CANVA EN 3 COLUMNAS CON INCREMENTO DEL 50% EN SCROLL */}
+      {/* 2. LOS 3 PASOS CON NÚMEROS GIGANTES QUE SE ENCIENDEN AL 100% EN SCROLL */}
       <motion.div 
         style={{ scale: stepsScale }}
-        className="w-full max-w-[98%] sm:max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 lg:gap-6 text-center mb-10 relative z-10 origin-center px-2 sm:px-4"
+        className="w-full max-w-[98%] sm:max-w-3xl md:max-w-4xl lg:max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-4 lg:gap-8 text-center mb-8 md:mb-12 relative z-20 origin-center px-2 sm:px-4"
       >
         {/* Paso 1 */}
-        <div className="px-1">
-          <h3 className="font-display text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl uppercase tracking-normal leading-snug">
-            Buscá el <span className="text-[#EAB308] font-black">mostrador KROKANTÉ</span> mas cercano
+        <div className="relative px-2 py-3 md:py-8 min-h-[140px] flex flex-col items-center justify-center group overflow-visible">
+          {/* Número Gigante 01 que se enciende al 100% (text-yellow-400 resplandeciente) */}
+          <motion.span 
+            style={{ opacity: opacityPaso1 }}
+            className="absolute inset-0 flex items-center justify-center font-display text-[130px] sm:text-[140px] md:text-[150px] lg:text-[180px] font-black text-[#EAB308] pointer-events-none select-none group-hover:scale-105 transition-all duration-300 leading-none drop-shadow-[0_0_40px_rgba(234,179,8,1)] translate-y-1"
+          >
+            01
+          </motion.span>
+          {/* Texto del Paso */}
+          <h3 className="relative z-10 font-display text-3xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl uppercase tracking-normal leading-[1.15] drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
+            PASO 1.<br />Buscá el <span className="text-[#EAB308] font-black">mostrador KROKANTÉ</span><br />mas cercano
           </h3>
         </div>
 
         {/* Paso 2 */}
-        <div className="px-1">
-          <h3 className="font-display text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl uppercase tracking-normal leading-snug">
-            Elegí tus <span className="text-[#EAB308] font-black">sabores</span> favoritos
+        <div className="relative px-2 py-3 md:py-8 min-h-[140px] flex flex-col items-center justify-center group overflow-visible">
+          {/* Número Gigante 02 que se enciende al 100% */}
+          <motion.span 
+            style={{ opacity: opacityPaso2 }}
+            className="absolute inset-0 flex items-center justify-center font-display text-[130px] sm:text-[140px] md:text-[150px] lg:text-[180px] font-black text-[#EAB308] pointer-events-none select-none group-hover:scale-105 transition-all duration-300 leading-none drop-shadow-[0_0_40px_rgba(234,179,8,1)] translate-y-1"
+          >
+            02
+          </motion.span>
+          {/* Texto del Paso */}
+          <h3 className="relative z-10 font-display text-3xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl uppercase tracking-normal leading-[1.15] drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
+            PASO 2.<br />Elegí tus <span className="text-[#EAB308] font-black">sabores</span><br />favoritos
           </h3>
         </div>
 
         {/* Paso 3 */}
-        <div className="px-1">
-          <h3 className="font-display text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl uppercase tracking-normal leading-snug">
-            Pedí el <span className="text-[#EAB308] font-black">peso</span> que quieras
+        <div className="relative px-2 py-3 md:py-8 min-h-[140px] flex flex-col items-center justify-center group overflow-visible">
+          {/* Número Gigante 03 que se enciende al 100% */}
+          <motion.span 
+            style={{ opacity: opacityPaso3 }}
+            className="absolute inset-0 flex items-center justify-center font-display text-[130px] sm:text-[140px] md:text-[150px] lg:text-[180px] font-black text-[#EAB308] pointer-events-none select-none group-hover:scale-105 transition-all duration-300 leading-none drop-shadow-[0_0_40px_rgba(234,179,8,1)] translate-y-1"
+          >
+            03
+          </motion.span>
+          {/* Texto del Paso */}
+          <h3 className="relative z-10 font-display text-3xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl uppercase tracking-normal leading-[1.15] drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
+            PASO 3.<br />Pedí el <span className="text-[#EAB308] font-black">peso</span><br />que quieras
           </h3>
         </div>
       </motion.div>

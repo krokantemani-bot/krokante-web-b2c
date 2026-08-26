@@ -166,27 +166,26 @@ export const Section3Sabores: React.FC = () => {
       <div className="flex items-center justify-center pt-2 md:pt-8 pb-6 px-2 sm:px-4 md:px-6 my-4 md:my-10 w-full overflow-visible">
         <div className="w-[92vw] sm:w-[85vw] md:w-full max-w-[500px] md:max-w-[95rem] aspect-square md:aspect-auto bg-white text-[#0A0503] rounded-3xl p-4 sm:p-6 md:p-10 lg:p-12 shadow-[0_25px_60px_rgba(0,0,0,0.7)] border border-white/40 flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12 font-display uppercase tracking-tighter leading-none z-10 relative overflow-hidden">
           
-          {/* Bloque 1: Ahora el / maní es... (Alineado hacia la derecha pegado a la línea central) */}
+          {/* Bloque 1: Con KROKANTÉ el / maní se disfruta / a lo grande. */}
           <div className="flex flex-col text-center md:text-right shrink-0 w-full md:w-auto">
-            <span className="text-[17vw] sm:text-[75px] md:text-[85px] lg:text-[115px] xl:text-[135px] font-bold text-[#0A0503] leading-[0.9]">Ahora el</span>
-            <span className="text-[17vw] sm:text-[75px] md:text-[85px] lg:text-[115px] xl:text-[135px] font-bold text-[#0A0503] leading-[0.9]">maní es...</span>
+            <span className="text-[10vw] sm:text-[45px] md:text-[55px] lg:text-[75px] xl:text-[88px] font-bold text-[#0A0503] leading-[0.95]">Con KROKANTÉ el</span>
+            <span className="text-[10vw] sm:text-[45px] md:text-[55px] lg:text-[75px] xl:text-[88px] font-bold text-[#0A0503] leading-[0.95]">maní se disfruta</span>
+            <span className="text-[10vw] sm:text-[45px] md:text-[55px] lg:text-[75px] xl:text-[88px] font-bold text-[#0A0503] leading-[0.95]">a lo grande.</span>
           </div>
 
           {/* Divisora: Horizontal completa en Cuadrado / Vertical en Tablet y Desktop */}
           <div className="w-full h-[4px] bg-[#0A0503] rounded-full my-2 md:hidden shrink-0" />
           <div className="hidden md:block w-[5px] lg:w-[8px] h-56 lg:h-72 bg-[#0A0503] rounded-full shrink-0" />
 
-          {/* Bloque 2: sabroso, divertido, / muy KROKANTÉ, / definitivamente TOP (Alineado hacia la izquierda pegado a la línea central) */}
+          {/* Bloque 2: Sabores intensos, / colores únicos. / Elegí ser más TOP */}
           <div className="flex flex-col text-center md:text-left shrink-0 w-full md:w-auto">
-            <span className="text-[9.5vw] sm:text-[42px] md:text-[56px] lg:text-[76px] xl:text-[90px] font-bold whitespace-nowrap text-[#0A0503] leading-[0.95]">sabroso, divertido,</span>
-            <span className="text-[9.5vw] sm:text-[42px] md:text-[56px] lg:text-[76px] xl:text-[90px] font-bold whitespace-nowrap text-[#0A0503] leading-[0.95]">
-              muy <span className="text-[#16A34A] drop-shadow-[0_2px_8px_rgba(22,163,74,0.3)]">KROKANTÉ</span>,
-            </span>
+            <span className="text-[9.5vw] sm:text-[42px] md:text-[54px] lg:text-[72px] xl:text-[84px] font-bold whitespace-nowrap text-[#0A0503] leading-[0.95]">Sabores intensos,</span>
+            <span className="text-[9.5vw] sm:text-[42px] md:text-[54px] lg:text-[72px] xl:text-[84px] font-bold whitespace-nowrap text-[#0A0503] leading-[0.95]">colores únicos.</span>
             
-            {/* Línea 3: definitivamente + TOP */}
+            {/* Línea 3: Elegí ser más + TOP */}
             <div className="flex items-center justify-center md:justify-start gap-1 sm:gap-3 leading-[0.95]">
-              <span className="text-[8vw] sm:text-[36px] md:text-[56px] lg:text-[76px] xl:text-[90px] font-bold whitespace-nowrap text-[#0A0503]">
-                definitivamente
+              <span className="text-[8vw] sm:text-[36px] md:text-[54px] lg:text-[72px] xl:text-[84px] font-bold whitespace-nowrap text-[#0A0503]">
+                Elegí ser más
               </span>
               <span className="font-display text-[11vw] sm:text-[48px] md:text-[76px] lg:text-[96px] uppercase font-bold text-[#16A34A] drop-shadow-[0_2px_8px_rgba(22,163,74,0.35)] tracking-tighter transform -rotate-12 inline-block ml-1">
                 TOP

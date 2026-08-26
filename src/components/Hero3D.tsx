@@ -1,96 +1,28 @@
-import { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'motion/react';
+import { motion } from 'motion/react';
 
 interface Hero3DProps {
   onWhereToBuyClick?: () => void;
 }
 
 export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-  // Scroll animations for 3D Parallax
-  const { scrollY } = useScroll();
-  
-  // Layer 1: Background Field ("campo_od41fu.jpg") - Starts at 125% (1.25) and reduces down to 100% (1.0) on scroll
-  const rawBgScale = useTransform(scrollY, [0, 500], [1.25, 1.0]);
-  const rawBgY = useTransform(scrollY, [0, 500], [0, 35]);
-  
-  // Layer 2: Foreground Table + Product ("mesa_y_producto_ghe5dy.png") - Zooms in from 100% (1.0) up to 118% (1.18) on scroll
-  const rawFgScale = useTransform(scrollY, [0, 500], [1.0, 1.18]);
-  const rawFgY = useTransform(scrollY, [0, 500], [0, -25]);
-
-  // Title opacity and exit Y position (empieza a desvanecerse a la mitad y desaparece 100% al terminar la sección)
-  const titleOpacity = useTransform(scrollY, [0, 180, 440], [1, 1, 0]);
-  const titleY = useTransform(scrollY, [0, 180, 440], [0, 0, -35]);
-
-  // Smooth springs for buttery smooth 3D movement
-  const bgScale = useSpring(rawBgScale, { stiffness: 90, damping: 20 });
-  const bgY = useSpring(rawBgY, { stiffness: 90, damping: 20 });
-  const fgScale = useSpring(rawFgScale, { stiffness: 90, damping: 20 });
-  const fgY = useSpring(rawFgY, { stiffness: 90, damping: 20 });
-  const smoothTitleOpacity = useSpring(titleOpacity, { stiffness: 90, damping: 20 });
-  const smoothTitleY = useSpring(titleY, { stiffness: 90, damping: 20 });
-
-  // Subtle 3D tilt tracking mouse movement
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const { innerWidth, innerHeight } = window;
-      const x = (e.clientX / innerWidth - 0.5) * 14;
-      const y = (e.clientY / innerHeight - 0.5) * 14;
-      setMousePos({ x, y });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   return (
-    <section className="relative w-full h-screen min-h-[600px] flex flex-col justify-between overflow-hidden bg-[#0A0503] text-white select-none">
-      
-      {/* ===== LAYER 1: CAMPO DE FONDO ("campo_od41fu.jpg") - 125% a 100% ===== */}
-      <motion.div
-        style={{
-          scale: bgScale,
-          y: bgY,
-          x: mousePos.x * -0.3,
-        }}
-        className="absolute inset-0 w-full h-full z-0 pointer-events-none origin-center"
-      >
-        <img
-          src="https://res.cloudinary.com/dcx6wcjlj/image/upload/campo_od41fu.jpg"
-          alt="Campo al atardecer Krokanté"
-          className="w-full h-full object-cover object-center"
+    <section className="relative w-full h-screen min-h-[600px] flex flex-col justify-between overflow-hidden bg-black text-white select-none">
+      {/* ===== YOUTUBE BACKGROUND VIDEO ===== */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <iframe
+          className="w-[300vw] h-[300vh] md:w-[177.77vh] md:min-w-full md:h-[100vh] min-h-[56.25vw] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 object-cover scale-110"
+          src="https://www.youtube-nocookie.com/embed/4bmoCfLNGwA?autoplay=1&mute=1&loop=1&playlist=4bmoCfLNGwA&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&fs=0&iv_load_policy=3"
+          title="Krokanté Maní Video Hero"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         />
-      </motion.div>
+        {/* Subtle dark overlay over video on right side for better video depth */}
+        <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+      </div>
 
-      {/* ===== LAYER 2: MESA Y PRODUCTO (100% Ancho Completo Edge-to-Edge - Sin recortes) ===== */}
-      <motion.div
-        style={{
-          scale: fgScale,
-          y: fgY,
-          x: mousePos.x * 0.5,
-        }}
-        className="absolute inset-x-0 bottom-0 w-full h-[60%] sm:h-[68%] md:h-[74%] z-10 pointer-events-none flex items-end justify-center origin-bottom"
-      >
-        <img
-          src="https://res.cloudinary.com/dcx6wcjlj/image/upload/mesa_y_producto_ghe5dy.png"
-          alt="Mesa de madera con tazón de maní Krokanté"
-          className="w-full h-full object-cover object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
-        />
-
-        {/* Sello de Calidad Artesanal (Fijo estático - Gran Tamaño para Celular, Tablet y PC) */}
-        <div className="absolute right-[16%] sm:right-[22%] md:right-[28%] lg:right-[32%] bottom-[4%] sm:bottom-[5%] md:bottom-[4%] lg:bottom-[4%] z-20 pointer-events-auto cursor-pointer drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]">
-          <img
-            src="https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/sello_ibeecn.png"
-            alt="Sello Producto de Calidad Artesanal"
-            className="w-40 sm:w-52 md:w-60 lg:w-64 xl:w-72 h-auto object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)]"
-          />
-        </div>
-      </motion.div>
-
-
-      {/* ===== HEADER / NAVBAR (Solución 1: Degradado Oscuro Superior + Cristal de Alto Contraste) ===== */}
-      <header className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-3.5 flex items-center justify-between bg-gradient-to-b from-[#0A0503]/95 via-[#0A0503]/60 to-transparent backdrop-blur-sm pointer-events-auto">
-        {/* Brand Logo (Logo oficial de Cloudinary) */}
+      {/* ===== HEADER / NAVBAR ===== */}
+      <header className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-3.5 flex items-center justify-between bg-gradient-to-b from-black/90 via-black/50 to-transparent backdrop-blur-sm pointer-events-auto">
+        {/* Brand Logo */}
         <div className="flex items-center cursor-pointer">
           <img
             src="https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/KROKANT%C3%89_MAN%C3%8D_kxwwag.png"
@@ -99,7 +31,7 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
           />
         </div>
 
-        {/* Action Button: Dónde comprar (Alto contraste sobre degradado oscuro) */}
+        {/* Action Button: Dónde comprar */}
         <a
           href="#tiendas"
           onClick={onWhereToBuyClick}
@@ -109,49 +41,49 @@ export const Hero3D = ({ onWhereToBuyClick }: Hero3DProps) => {
         </a>
       </header>
 
-
-      {/* ===== TITLES CENTRADOS EN CAMPO (PC: 85px/95px Negrilla | Subtítulo PC: 35px/40px) ===== */}
+      {/* ===== LEFT TRANSLUCENT OVERLAY PANEL + HEADLINE & BUTTON ===== */}
       <motion.div
-        style={{
-          opacity: smoothTitleOpacity,
-          y: smoothTitleY,
-        }}
-        className="fixed top-[18%] sm:top-[20%] md:top-[22%] lg:top-[110px] inset-x-0 z-30 w-full flex flex-col items-center justify-start px-4 sm:px-8 md:px-12 text-center pointer-events-none"
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="absolute inset-y-0 left-0 z-20 w-full sm:w-[85%] md:w-[45%] lg:w-[40%] h-full bg-transparent md:bg-gradient-to-r md:from-black/85 md:via-black/40 md:to-transparent border-none px-[2px] sm:px-8 md:px-12 pt-20 pb-8 flex flex-col items-center justify-center text-center space-y-6 md:space-y-8 shadow-none"
       >
-        {/* Title Principal (Anton Font: Celular 50px | Tablet 70px | PC 85px - 95px Negrilla) */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="max-w-6xl font-display text-[50px] md:text-[70px] lg:text-[85px] xl:text-[95px] font-bold tracking-wide uppercase leading-[1.02] mb-1 sm:mb-2 text-[#120904] pointer-events-auto"
-          style={{
-            textShadow: '0px 2px 20px rgba(255, 255, 255, 0.85), 0px 4px 24px rgba(0, 0, 0, 0.9)'
-          }}
-        >
-          ¿Todavía no probaste el maní TOP?
-        </motion.h1>
+        {/* Main Headline (Móvil: 100% de ancho nítido, sin amontonamiento de letras) */}
+        <div className="w-full absolute top-[42%] sm:top-[45%] left-0 right-0 -translate-y-1/2 px-2 sm:px-4 md:static md:top-auto md:translate-y-0 md:inset-x-auto md:px-0 space-y-1.5">
+          <h1 className="w-full font-display text-[11.5vw] sm:text-[50px] md:text-[54px] lg:text-[62px] xl:text-[68px] uppercase font-bold tracking-normal md:tracking-wide leading-[1.04] md:leading-[1.02] text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]">
+            MANÍ JAPONÉS
+          </h1>
+          <p
+            className="w-full font-display text-[9.5vw] sm:text-[42px] md:text-[48px] lg:text-[54px] xl:text-[60px] uppercase font-bold tracking-normal md:tracking-wide leading-[1.05] md:leading-[1.06] drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]"
+            style={{ color: '#f4ff28' }}
+          >
+            A GRANEL<br />
+            EN EL COMERCIO<br />
+            FAVORITO DE TU<br />
+            BARRIO
+          </p>
+        </div>
 
-        {/* Subtítulo (Oswald Font: Celular 20px | Tablet 30px | PC 35px - 40px) */}
-        <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          className="max-w-4xl sm:max-w-5xl font-['Oswald',sans-serif] text-[20px] md:text-[30px] lg:text-[35px] xl:text-[40px] text-stone-100 font-medium leading-[1.2] drop-shadow-[0_2px_16px_rgba(0,0,0,0.95)] pointer-events-auto px-2 normal-case tracking-wide"
+        {/* Red Pill CTA Button (Móvil: 100% de ancho expandido de margen a margen | PC: normal) */}
+        <motion.a
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          href="#tiendas"
+          onClick={onWhereToBuyClick}
+          className="absolute bottom-[180px] left-[2px] right-[2px] md:static md:bottom-auto md:left-auto md:right-auto md:w-auto z-20 inline-flex items-center justify-center px-4 md:px-12 py-4 md:py-5 rounded-full bg-gradient-to-r from-red-600 via-red-500 to-red-600 text-white font-display text-2xl sm:text-2xl md:text-3xl uppercase tracking-wider shadow-[0_10px_35px_rgba(239,68,68,0.75)] hover:shadow-[0_15px_45px_rgba(239,68,68,1)] transition-all border border-red-400/60"
         >
-          En Bolivia, el maní subió de categoría: una capa crujiente, cuatro sabores y mas por descubrir.
-        </motion.p>
+          DÓNDE COMPRAR
+        </motion.a>
       </motion.div>
 
-
-
-
-      {/* ===== BOTTOM SPACING ===== */}
-      <div className="relative z-20 pb-3 text-center font-mono text-xs text-amber-300/80 uppercase tracking-widest pointer-events-none">
+      {/* ===== BOTTOM INDICATOR ===== */}
+      <div className="absolute bottom-3 right-6 md:right-12 z-20 font-mono text-xs text-amber-300/80 uppercase tracking-widest pointer-events-none">
         ✦ Desliza hacia abajo para ver más ✦
       </div>
-
     </section>
   );
 };
 
 export default Hero3D;
+
+

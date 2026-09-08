@@ -5,7 +5,8 @@ import { INITIAL_MEDIA_CONFIG } from '../types/cms';
 import { WorldCanvas } from '../components/WorldCanvas';
 import { Hero3D } from '../components/Hero3D';
 import { Section2Granel } from '../components/Section2Granel';
-import { Section3Sabores } from '../components/Section3Sabores';
+import { Section3Momentos } from '../components/Section3Momentos';
+import { Section4Sabores } from '../components/Section3Sabores';
 import { TickerBeneficios } from '../components/TickerBeneficios';
 
 interface MomentFlavor {
@@ -121,8 +122,11 @@ export const ArtDirectionExperience = () => {
       {/* SECCIÓN 2: MOSTRADOR KROKANTÉ A GRANEL */}
       <Section2Granel />
 
-      {/* SECCIÓN 3: TICKER / CARRUSEL DE SABORES */}
-      <Section3Sabores />
+      {/* SECCIÓN 3: MOMENTOS DE LA VIDA & MARIDAJE */}
+      <Section3Momentos />
+
+      {/* SECCIÓN 4: PREGUNTAS Y CARRUSEL DE SABORES KROKANTÉ */}
+      <Section4Sabores />
 
       {/* Background Interactive Canvas (Únicamente para la sección de Sabores) */}
       <WorldCanvas flavorId={activeMomentId} />

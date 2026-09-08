@@ -48,7 +48,7 @@ const FLAVORS: FlavorProduct[] = [
   }
 ];
 
-export const Section3Sabores: React.FC = () => {
+export const Section4Sabores: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isHoveredRef = useRef<boolean>(false);

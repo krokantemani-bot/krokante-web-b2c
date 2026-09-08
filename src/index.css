@@ -16,3 +16,22 @@ body {
 .font-display {
   font-family: 'Bebas Neue', sans-serif, system-ui;
 }
+
+@keyframes floatNatural {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-6px) translateX(3px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-10px) stroke(0px) rotate(-2deg);
+  }
+  75% {
+    transform: translateY(-4px) translateX(-3px) rotate(1deg);
+  }
+}
+
+.animate-float-natural {
+  animation: floatNatural 4.5s ease-in-out infinite;
+}

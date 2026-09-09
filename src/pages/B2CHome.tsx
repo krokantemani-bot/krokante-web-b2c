@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, MapPin, Navigation, Search, ShieldCheck, Flame, Heart, Zap, Store, Scale, Shield } from 'lucide-react';
 import { INITIAL_MEDIA_CONFIG } from '../types/cms';
@@ -29,6 +29,27 @@ interface MomentFlavor {
 export const ArtDirectionExperience = () => {
   const [activeMomentId, setActiveMomentId] = useState<string>('fuego');
   const [searchZone, setSearchZone] = useState('');
+
+  // Auto-scroll a la sección indicada en el hash de la URL (ej: #section3-momentos)
+  useEffect(() => {
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const targetId = hash.replace('#', '');
+        const elem = document.getElementById(targetId);
+        if (elem) {
+          setTimeout(() => {
+            elem.scrollIntoView({ behavior: 'smooth' });
+          }, 150);
+        }
+      }
+    };
+
+    handleHashScroll();
+    window.addEventListener('hashchange', handleHashScroll);
+    return () => window.removeEventListener('hashchange', handleHashScroll);
+  }, []);
+
 
   const momentFlavors: MomentFlavor[] = [
     {

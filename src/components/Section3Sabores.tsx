@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface FlavorProduct {
   id: string;
+  routeId: string;
   name: string;
   image: string;
   accentColor: string;
@@ -12,36 +14,42 @@ interface FlavorProduct {
 const FLAVORS: FlavorProduct[] = [
   {
     id: 'picante',
+    routeId: 'fuego',
     name: 'PICANTE FUEGO',
     image: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/picante_opt_y5p1rj.png',
     accentColor: '#EF4444'
   },
   {
     id: 'curcuma',
+    routeId: 'curcuma',
     name: 'CÚRCUMA',
     image: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/curcuma_opt_ca3ogn.png',
     accentColor: '#EAB308'
   },
   {
     id: 'cebolla',
+    routeId: 'cebolla',
     name: 'CEBOLLA CRUNCH',
     image: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/cebolla_opt_uxlsjl.png',
     accentColor: '#22C55E'
   },
   {
     id: 'soya',
+    routeId: 'soya',
     name: 'SALSA SOYA',
     image: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/salsa_soya_opt_qkbmnr.png',
     accentColor: '#F97316'
   },
   {
     id: 'chocolate',
+    routeId: 'soya',
     name: 'CHOCOLATE',
     image: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/chocolate_opt_xmv3gl.png',
     accentColor: '#A855F7'
   },
   {
     id: 'mostaza',
+    routeId: 'cebolla',
     name: 'MOSTAZA CRUNCH',
     image: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/v1787234815/mostaza_opt_rt2ji1.webp',
     accentColor: '#EAB308'
@@ -115,10 +123,10 @@ export const Section4Sabores: React.FC = () => {
   return (
     <section ref={sectionRef} className="relative z-20 min-h-[90vh] md:min-h-0 pt-16 md:pt-36 pb-12 md:pb-28 bg-transparent overflow-x-clip overflow-y-visible select-none w-full flex flex-col justify-between md:block">
       
-      {/* 50% SUPERIOR EN MÓVIL/TABLET: ÁREA DE TEXTO CON ESTRUCTURA Y COLORES (ESCENA 1 - TEXTOS +70% Y ABURRIDO HORIZONTAL 100% REVERSIBLE) */}
+      {/* 50% SUPERIOR EN MÓVIL/TABLET: ÁREA DE TEXTO CON ESTRUCTURA Y COLORES */}
       <div className="flex-1 md:flex-initial flex items-center justify-center pt-8 md:pt-16 pb-6 px-4 md:px-12 md:mb-12">
         <div className="w-full max-w-[95rem] mx-auto flex flex-col items-center justify-center gap-4 sm:gap-6 md:gap-8 py-4 px-2 sm:px-6 md:px-12 relative">
-          {/* Parte Superior: Preguntas (+70% más grandes en general, +40% extra en móvil) */}
+          {/* Parte Superior: Preguntas */}
           <motion.div
             style={{
               scale: leftScale,
@@ -144,7 +152,7 @@ export const Section4Sabores: React.FC = () => {
             </div>
           </motion.div>
           
-          {/* Parte Inferior: ¡¡ABURRIDO!! (+40% en móvil) */}
+          {/* Parte Inferior: ¡¡ABURRIDO!! */}
           <motion.div
             style={{
               scale: rightScale,
@@ -162,27 +170,23 @@ export const Section4Sabores: React.FC = () => {
         </div>
       </div>
 
-      {/* ESCENA 2 (CUADRADO PERFECTO EN MÓVIL / 2 COLUMNAS CENTRADAS CONTRA LA LÍNEA EN DESKTOP Y TABLET) */}
+      {/* ESCENA 2 */}
       <div className="flex items-center justify-center pt-2 md:pt-8 pb-6 px-2 sm:px-4 md:px-6 my-4 md:my-10 w-full overflow-visible">
         <div className="w-[92vw] sm:w-[85vw] md:w-full max-w-[500px] md:max-w-[95rem] aspect-square md:aspect-auto bg-white text-[#0A0503] rounded-3xl p-4 sm:p-6 md:p-10 lg:p-12 shadow-[0_25px_60px_rgba(0,0,0,0.7)] border border-white/40 flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12 font-display uppercase tracking-tighter leading-none z-10 relative overflow-hidden">
           
-          {/* Bloque 1: Con KROKANTÉ el / maní se disfruta / a lo grande. */}
           <div className="flex flex-col text-center md:text-right shrink-0 w-full md:w-auto">
             <span className="text-[10vw] sm:text-[45px] md:text-[55px] lg:text-[75px] xl:text-[88px] font-bold text-[#0A0503] leading-[0.95]">Con KROKANTÉ el</span>
             <span className="text-[10vw] sm:text-[45px] md:text-[55px] lg:text-[75px] xl:text-[88px] font-bold text-[#0A0503] leading-[0.95]">maní se disfruta</span>
             <span className="text-[10vw] sm:text-[45px] md:text-[55px] lg:text-[75px] xl:text-[88px] font-bold text-[#0A0503] leading-[0.95]">a lo grande.</span>
           </div>
 
-          {/* Divisora: Horizontal completa en Cuadrado / Vertical en Tablet y Desktop */}
           <div className="w-full h-[4px] bg-[#0A0503] rounded-full my-2 md:hidden shrink-0" />
           <div className="hidden md:block w-[5px] lg:w-[8px] h-56 lg:h-72 bg-[#0A0503] rounded-full shrink-0" />
 
-          {/* Bloque 2: Sabores intensos, / colores únicos. / Elegí ser más TOP */}
           <div className="flex flex-col text-center md:text-left shrink-0 w-full md:w-auto">
             <span className="text-[9.5vw] sm:text-[42px] md:text-[54px] lg:text-[72px] xl:text-[84px] font-bold whitespace-nowrap text-[#0A0503] leading-[0.95]">Sabores intensos,</span>
             <span className="text-[9.5vw] sm:text-[42px] md:text-[54px] lg:text-[72px] xl:text-[84px] font-bold whitespace-nowrap text-[#0A0503] leading-[0.95]">colores únicos.</span>
             
-            {/* Línea 3: Elegí ser más + TOP */}
             <div className="flex items-center justify-center md:justify-start gap-1 sm:gap-3 leading-[0.95]">
               <span className="text-[8vw] sm:text-[36px] md:text-[54px] lg:text-[72px] xl:text-[84px] font-bold whitespace-nowrap text-[#0A0503]">
                 Elegí ser más
@@ -196,13 +200,12 @@ export const Section4Sabores: React.FC = () => {
         </div>
       </div>
 
-      {/* 50% INFERIOR EN MÓVIL: CARRUSEL DE SABORES (Full height/width 100% útil) */}
+      {/* 50% INFERIOR EN MÓVIL: CARRUSEL DE SABORES */}
       <div 
         className="relative w-full overflow-hidden h-[45vh] md:h-auto py-2 md:py-6 group flex items-center"
         onMouseEnter={() => { isHoveredRef.current = true; }}
         onMouseLeave={() => { isHoveredRef.current = false; }}
       >
-        {/* Flecha Izquierda */}
         <button
           onClick={() => handleManualMove('left')}
           aria-label="Mover Izquierda"
@@ -211,7 +214,6 @@ export const Section4Sabores: React.FC = () => {
           <ChevronLeft className="w-7 h-7 md:w-10 md:h-10 stroke-[3]" />
         </button>
 
-        {/* Flecha Derecha */}
         <button
           onClick={() => handleManualMove('right')}
           aria-label="Mover Derecha"
@@ -220,16 +222,16 @@ export const Section4Sabores: React.FC = () => {
           <ChevronRight className="w-7 h-7 md:w-10 md:h-10 stroke-[3]" />
         </button>
 
-        {/* Contenedor Carrusel con Scroll Snap en móvil */}
         <div
           ref={scrollContainerRef}
           className="flex items-center overflow-x-auto scrollbar-none h-full w-full py-2 md:py-6 snap-x snap-mandatory md:snap-none scroll-smooth cursor-grab active:cursor-grabbing"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {displayFlavors.map((flavor, index) => (
-            <div
+            <Link
               key={`${flavor.id}-${index}`}
-              className="relative flex-shrink-0 w-full sm:w-[35vw] md:w-72 lg:w-80 h-full md:h-[500px] flex items-center justify-center p-0 snap-center"
+              to={`/sabores/${flavor.routeId}`}
+              className="relative flex-shrink-0 w-full sm:w-[35vw] md:w-72 lg:w-80 h-full md:h-[500px] flex items-center justify-center p-0 snap-center focus:outline-none"
             >
               <motion.img
                 src={flavor.image}
@@ -244,12 +246,13 @@ export const Section4Sabores: React.FC = () => {
                   stiffness: 300, 
                   damping: 20 
                 }}
-                className="w-full h-full object-contain filter drop-shadow-[0_15px_25px_rgba(0,0,0,0.9)] transition-transform select-none pointer-events-auto"
+                className="w-full h-full object-contain filter drop-shadow-[0_15px_25px_rgba(0,0,0,0.9)] transition-transform select-none pointer-events-auto cursor-pointer"
               />
-            </div>
+            </Link>
           ))}
         </div>
       </div>
     </section>
   );
 };
+

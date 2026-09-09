@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Sparkles, Scale, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Sparkles, Scale, ShieldCheck, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
 interface MomentCardData {
   id: string;
@@ -174,57 +175,71 @@ export const Section3Momentos: React.FC = () => {
   };
 
   const renderCardContent = (m: MomentCardData, isMobileView: boolean = false, keyIndex: number = 0) => (
-    <motion.div
+    <Link 
       key={`${m.id}-${keyIndex}`}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
-      className={`group relative rounded-3xl overflow-hidden shadow-xl border border-stone-800/20 transition-all duration-400 ease-out hover:-translate-y-2 ${m.cardBg} ${
-        isMobileView ? 'w-[84vw] max-w-[320px] aspect-[9/16] shrink-0 snap-center' : `w-full ${m.cardHeightClass}`
-      }`}
-      style={{ clipPath: 'inset(0 rounded 1.5rem)', transform: 'translateZ(0)' }}
+      to={`/sabores/${m.id}`}
+      className="block w-full cursor-pointer focus:outline-none"
     >
-      {/* FOTOGRAFÍA ESTÁTICA DE ALTA CALIDAD (FONDO A SANGRADO COMPLETO SIN FRANJAS NEGRAS) */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-stone-950">
-        <img
-          src={m.bgImage || m.labelImg}
-          alt={m.title}
-          className="w-full h-full object-cover origin-center opacity-90 scale-[1.3] transition-transform duration-400 ease-out group-hover:scale-[1.35] filter brightness-95 contrast-105"
-        />
-        {/* Capa de soporte inferior para legibilidad del texto */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out" />
-      </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        className={`group relative rounded-3xl overflow-hidden shadow-xl border border-stone-800/20 transition-all duration-400 ease-out hover:-translate-y-2 ${m.cardBg} ${
+          isMobileView ? 'w-[84vw] max-w-[320px] aspect-[9/16] shrink-0 snap-center' : `w-full ${m.cardHeightClass}`
+        }`}
+        style={{ clipPath: 'inset(0 rounded 1.5rem)', transform: 'translateZ(0)' }}
+      >
+        {/* FOTOGRAFÍA ESTÁTICA DE ALTA CALIDAD (FONDO A SANGRADO COMPLETO SIN FRANJAS NEGRAS) */}
+        <div className="absolute inset-0 z-0 overflow-hidden bg-stone-950">
+          <img
+            src={m.bgImage || m.labelImg}
+            alt={m.title}
+            className="w-full h-full object-cover origin-center opacity-90 scale-[1.3] transition-transform duration-400 ease-out group-hover:scale-[1.35] filter brightness-95 contrast-105"
+          />
+          {/* Capa de soporte inferior para legibilidad del texto */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out" />
+        </div>
 
-      {/* ETIQUETA CIRCULAR DE SABOR: LEVITACIÓN NATURAL 3D EN MÓVIL/TABLET Y TRANSICIÓN EN DESKTOP */}
-      {m.labelImg && (
-        <div className="absolute inset-0 z-30 pointer-events-none p-6 sm:p-8 flex items-start justify-end">
-          <div
-            className={`w-20 h-20 sm:w-28 sm:h-28 rounded-full ${m.ringColorClass} transition-all duration-400 ease-out animate-float-natural lg:animate-none lg:group-hover:absolute lg:group-hover:top-1/2 lg:group-hover:left-1/2 lg:group-hover:-translate-x-1/2 lg:group-hover:-translate-y-1/2 lg:group-hover:scale-[1.8] lg:group-hover:rotate-6 drop-shadow-2xl backdrop-blur-sm bg-black/20 p-1`}
-          >
-            <img 
-              src={m.labelImg} 
-              alt={`Etiqueta Oficial Krokanté ${m.title}`} 
-              className="w-full h-full object-contain pointer-events-none filter contrast-105 drop-shadow-xl"
-            />
+        {/* ETIQUETA CIRCULAR DE SABOR: LEVITACIÓN NATURAL 3D EN MÓVIL/TABLET Y TRANSICIÓN EN DESKTOP */}
+        {m.labelImg && (
+          <div className="absolute inset-0 z-30 pointer-events-none p-6 sm:p-8 flex items-start justify-end">
+            <div
+              className={`w-20 h-20 sm:w-28 sm:h-28 rounded-full ${m.ringColorClass} transition-all duration-400 ease-out animate-float-natural lg:animate-none lg:group-hover:absolute lg:group-hover:top-1/2 lg:group-hover:left-1/2 lg:group-hover:-translate-x-1/2 lg:group-hover:-translate-y-1/2 lg:group-hover:scale-[1.8] lg:group-hover:rotate-6 drop-shadow-2xl backdrop-blur-sm bg-black/20 p-1`}
+            >
+              <img 
+                src={m.labelImg} 
+                alt={`Etiqueta Oficial Krokanté ${m.title}`} 
+                className="w-full h-full object-contain pointer-events-none filter contrast-105 drop-shadow-xl"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* CONTENIDO INFERIOR: TEXTO MOMENTO Y SABOR (SIEMPRE VISIBLE EN MÓVIL Y TABLET, HOVER EN DESKTOP) */}
+        <div className="absolute bottom-0 left-0 right-0 z-30 p-6 sm:p-8 flex flex-col justify-end pointer-events-none">
+          <div className="opacity-100 translate-y-0 lg:opacity-0 lg:translate-y-6 transition-all duration-400 ease-out group-hover:opacity-100 group-hover:translate-y-0 space-y-2">
+            {/* MOMENTO EN MAYÚSCULAS Y LETRA GRANDE (SIN ÍCONOS) */}
+            <p className="font-mono text-xs sm:text-sm md:text-base font-extrabold tracking-widest text-amber-400 uppercase drop-shadow-md">
+              {m.badge.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}]\s*/u, '')}
+            </p>
+            {/* TÍTULO DEL SABOR EN LETRAS EXTRA GRANDES */}
+            <h3 className="font-display text-2xl sm:text-4xl md:text-5xl font-extrabold text-white uppercase tracking-tight leading-none drop-shadow-lg">
+              {m.title}
+            </h3>
+            
+            {/* INSIGNIA VER PÁGINA INDIVIDUAL */}
+            <div className="pt-2">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-400 text-stone-950 font-mono text-xs font-black uppercase tracking-wider shadow-lg group-hover:bg-white transition-colors">
+                <span>Ver Página de Sabor</span>
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            </div>
           </div>
         </div>
-      )}
-
-      {/* CONTENIDO INFERIOR: TEXTO MOMENTO Y SABOR (SIEMPRE VISIBLE EN MÓVIL Y TABLET, HOVER EN DESKTOP) */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 p-6 sm:p-8 flex flex-col justify-end pointer-events-none">
-        <div className="opacity-100 translate-y-0 lg:opacity-0 lg:translate-y-6 transition-all duration-400 ease-out group-hover:opacity-100 group-hover:translate-y-0 space-y-1">
-          {/* MOMENTO EN MAYÚSCULAS Y LETRA GRANDE (SIN ÍCONOS) */}
-          <p className="font-mono text-xs sm:text-sm md:text-base font-extrabold tracking-widest text-amber-400 uppercase drop-shadow-md">
-            {m.badge.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}]\s*/u, '')}
-          </p>
-          {/* TÍTULO DEL SABOR EN LETRAS EXTRA GRANDES */}
-          <h3 className="font-display text-2xl sm:text-4xl md:text-5xl font-extrabold text-white uppercase tracking-tight leading-none drop-shadow-lg">
-            {m.title}
-          </h3>
-        </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </Link>
   );
+
 
   return (
     <section 

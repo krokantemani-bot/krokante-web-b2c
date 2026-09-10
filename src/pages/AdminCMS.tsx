@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { INITIAL_MEDIA_CONFIG, type MediaItem } from '../types/cms';
-import { Upload, ShieldCheck, CheckCircle, Image, Video, Info, LogOut, UserPlus, Users, AlertCircle } from 'lucide-react';
+import { Upload, ShieldCheck, CheckCircle, Image, Video, Info, LogOut, UserPlus, Users, AlertCircle, Store, Database } from 'lucide-react';
+
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../lib/firebase';
+import { MOCK_STORES } from '../lib/firestoreStores';
 
 export const AdminCMS = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  const [activeTab, setActiveTab] = useState<'media' | 'team'>('media');
+  const [activeTab, setActiveTab] = useState<'media' | 'team' | 'stores'>('media');
+  const [isSeeding, setIsSeeding] = useState(false);
   
   // Estado local de medios y mensajes
   const [mediaItems, setMediaItems] = useState<Record<string, MediaItem>>(INITIAL_MEDIA_CONFIG);
@@ -48,6 +53,25 @@ export const AdminCMS = () => {
     setSuccessMessage(`Se asignó el rol de EDITOR a ${newEditorEmail}`);
     setTimeout(() => setSuccessMessage(''), 4000);
   };
+
+  const handleSeedStores = async () => {
+    setIsSeeding(true);
+    try {
+      const colRef = collection(db, 'puntos_de_venta');
+      for (const store of MOCK_STORES) {
+        const { id, ...dataToSave } = store;
+        await addDoc(colRef, dataToSave);
+      }
+      setSuccessMessage('¡Se cargaron 6 Puntos de Venta de prueba exitosamente a Firestore (puntos_de_venta)!');
+    } catch (err) {
+      console.error('Error al sembrar datos:', err);
+      setSuccessMessage('No se pudieron guardar los datos en Firestore. Verifique reglas o permisos.');
+    } finally {
+      setIsSeeding(false);
+      setTimeout(() => setSuccessMessage(''), 5000);
+    }
+  };
+
 
   if (!isAuthenticated) {
     return (
@@ -142,6 +166,13 @@ export const AdminCMS = () => {
             >
               Gestión de Equipo
             </button>
+            <button 
+              onClick={() => setActiveTab('stores')}
+              className={`px-4 py-2 rounded-lg font-bold transition-all ${activeTab === 'stores' ? 'bg-amber-400 text-black' : 'text-neutral-400 hover:text-white'}`}
+            >
+              Puntos de Venta
+            </button>
+
           </div>
 
           <button 
@@ -244,9 +275,10 @@ export const AdminCMS = () => {
               ))}
             </div>
           </div>
-        ) : (
+        ) : activeTab === 'team' ? (
           <div>
             <div className="mb-8">
+
               <h2 className="font-display text-4xl uppercase tracking-tight mb-2">Gestión de Permisos y Equipo (RBAC)</h2>
               <p className="text-neutral-400 text-sm">
                 Asigna permisos especiales a diseñadores o colaboradores para que puedan actualizar las fotos sin poner en riesgo la configuración general.
@@ -314,10 +346,46 @@ export const AdminCMS = () => {
               </div>
             </div>
           </div>
+        ) : (
+          <div>
+            <div className="mb-8">
+              <h2 className="font-display text-4xl uppercase tracking-tight mb-2">Puntos de Venta (Firestore)</h2>
+              <p className="text-neutral-400 text-sm">
+                Esta sección monitorea los mostradores registrados automáticamente desde la app Android Krokanté en la colección `puntos_de_venta`.
+              </p>
+            </div>
+
+            <div className="bg-neutral-900 border border-neutral-800 rounded-3xl p-8 space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-amber-400/10 border border-amber-400/30 text-amber-400 flex items-center justify-center shrink-0">
+                  <Database className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-xl text-white">Sembrador de Datos de Prueba para Firestore</h3>
+                  <p className="text-xs text-neutral-400 mt-1 leading-relaxed">
+                    Si deseas probar la lectura/escritura real a tu base de datos de Firestore antes de registrar tiendas desde la app Android, puedes presionar este botón para subir 6 mostradores de prueba con coordenadas de Bolivia.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-neutral-800 flex flex-wrap items-center justify-between gap-4">
+                <span className="text-xs font-mono text-neutral-500">Colección Objetivo: `puntos_de_venta`</span>
+                <button
+                  onClick={handleSeedStores}
+                  disabled={isSeeding}
+                  className="px-6 py-3.5 rounded-xl bg-amber-400 text-black font-bold uppercase text-xs hover:bg-yellow-300 transition-colors flex items-center gap-2 disabled:opacity-50"
+                >
+                  <Store className="w-4 h-4" />
+                  <span>{isSeeding ? 'Cargando datos...' : 'Sembrar 6 PVs de Prueba a Firestore'}</span>
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </main>
     </div>
   );
 };
+
 
 export default AdminCMS;

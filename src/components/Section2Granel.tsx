@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { WorldCanvas } from './WorldCanvas';
 
 export const Section2Granel: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -29,6 +30,9 @@ export const Section2Granel: React.FC = () => {
       ref={sectionRef} 
       className="relative z-20 min-h-screen py-24 px-4 sm:px-6 md:px-10 text-white flex flex-col items-center justify-between overflow-hidden bg-transparent"
     >
+      {/* EFECTO DE PARTÍCULAS EXCLUSIVO DE ESTA SECCIÓN */}
+      <WorldCanvas flavorId="fuego" />
+
       {/* 1. TÍTULO PRINCIPAL GENERAL GIGANTE CON SALTO DE LÍNEA Y SEPARACIÓN EXTREMA MB-36 EN MÓVIL */}
       <div className="text-center max-w-5xl mx-auto mb-36 sm:mb-28 md:mb-28 px-4 sm:px-6 relative z-20">
         <h2 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-tight text-white font-black leading-[1.02] md:leading-[1.1] drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">

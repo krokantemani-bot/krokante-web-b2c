@@ -35,3 +35,45 @@ body {
 .animate-float-natural {
   animation: floatNatural 4.5s ease-in-out infinite;
 }
+
+/* Etiquetas permanentes de nombres de Puntos de Venta en Google Maps */
+.krokante-map-label {
+  color: #facc15 !important;
+  background-color: rgba(9, 9, 11, 0.85) !important;
+  border: 1px solid rgba(250, 204, 21, 0.5) !important;
+  border-radius: 6px !important;
+  padding: 3px 8px !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+  letter-spacing: 0.2px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.75) !important;
+  font-family: system-ui, -apple-system, sans-serif !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* Reducir los controles nativos de Zoom (+ y -) de Google Maps al 60% sin recorte por borde */
+.gm-bundled-control {
+  transform: scale(0.6) !important;
+  transform-origin: center right !important;
+  right: 15px !important;
+}
+
+@media (max-width: 768px) {
+  .gm-bundled-control {
+    bottom: 90px !important;
+    right: 35px !important;
+  }
+}
+
+/* Ocultar totalmente la barra de desplazamiento horizontal predeterminada del navegador */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}

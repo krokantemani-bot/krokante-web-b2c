@@ -1,36 +1,17 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Sparkles, MapPin, Navigation, Search, ShieldCheck, Flame, Heart, Zap, Store, Scale, Shield } from 'lucide-react';
-import { INITIAL_MEDIA_CONFIG } from '../types/cms';
-import { WorldCanvas } from '../components/WorldCanvas';
+import { useEffect } from 'react';
+
+import { useNavigate } from 'react-router-dom';
+import { Sparkles, ShieldCheck, Scale, Shield, Map as MapIcon, ArrowRight, Compass } from 'lucide-react';
 import { Hero3D } from '../components/Hero3D';
 import { Section2Granel } from '../components/Section2Granel';
 import { Section3Momentos } from '../components/Section3Momentos';
-import { Section4Sabores } from '../components/Section3Sabores';
 import { TickerBeneficios } from '../components/TickerBeneficios';
 
-interface MomentFlavor {
-  id: string;
-  name: string;
-  line: string;
-  headline: string;
-  profile: string;
-  copy: string;
-  bgGradient: string;
-  badgeBg: string;
-  accentColor: string;
-  image: string;
-  icon: any;
-  notes: string[];
-  pairing: string;
-  moments: string;
-}
-
 export const ArtDirectionExperience = () => {
-  const [activeMomentId, setActiveMomentId] = useState<string>('fuego');
-  const [searchZone, setSearchZone] = useState('');
+  const navigate = useNavigate();
 
-  // Auto-scroll a la sección indicada en el hash de la URL (ej: #section3-momentos)
+
+  // Auto-scroll a la sección indicada en el hash de la URL
   useEffect(() => {
     const handleHashScroll = () => {
       const hash = window.location.hash;
@@ -51,208 +32,65 @@ export const ArtDirectionExperience = () => {
   }, []);
 
 
-  const momentFlavors: MomentFlavor[] = [
-    {
-      id: 'fuego',
-      name: 'PICANTE FUEGO',
-      line: 'LÍNEA CERVECERA • FRASCO ROJO',
-      headline: 'EL COMPAÑERO DE TUS CERVEZAS FRÍAS',
-      profile: 'Ají Colorado nativo horneado al fuego con notas picantes audaces.',
-      copy: 'Creado para cuando la sed se pone seria y las risas con amigos se alargan. El maridaje perfecto para elevar cualquier cerveza fría.',
-      bgGradient: 'from-red-950 via-red-900 to-black',
-      badgeBg: 'bg-red-600 text-white font-black',
-      accentColor: '#EF4444',
-      image: INITIAL_MEDIA_CONFIG.flavor_fuego.url,
-      icon: Flame,
-      notes: ['Horneado con Ají Colorado', 'Picor Audaz', '100% Sin Freír'],
-      pairing: 'Cervezas frías, IPAs, Pilsen y picadas entre amigos.',
-      moments: 'Noches de fin de semana, churrascos y reuniones.'
-    },
-    {
-      id: 'cebolla',
-      name: 'CEBOLLA CRUNCH',
-      line: 'LÍNEA FAMILIAR • FRASCO VERDE',
-      headline: 'EL FAVORITO DE LAS TARDES EN CASA',
-      profile: 'Cebollines dulces deshidratados y finas hierbas horneadas.',
-      copy: 'El toque aromático perfecto para compartir en familia. Le cae bien a todos en casa y desaparece primero en la mesa.',
-      bgGradient: 'from-emerald-950 via-green-950 to-black',
-      badgeBg: 'bg-emerald-500 text-black font-black',
-      accentColor: '#22C55E',
-      image: '/images/cebolla.png',
-      icon: Zap,
-      notes: ['Cebollines Dulces', 'Hierbas Aromáticas', 'Crujido Familiar'],
-      pairing: 'Refrescos gaseosos, jugos naturales y picadas de hogar.',
-      moments: 'Tardes de películas, reuniones familiares y ensaladas.'
-    },
-    {
-      id: 'curcuma',
-      name: 'CÚRCUMA CRUNCH',
-      line: 'LÍNEA SALUDABLE • FRASCO NARANJA',
-      headline: 'TU BREAK ACTIVO Y SALUDABLE',
-      profile: 'Cúrcuma Dorada + Pimienta Negra activadora horneada al fuego.',
-      copy: 'Energía pura y nutrición con carácter. La prueba científica de que cuidarse también suena crujiente.',
-      bgGradient: 'from-amber-950 via-yellow-950 to-black',
-      badgeBg: 'bg-amber-400 text-black font-black',
-      accentColor: '#FACC15',
-      image: '/images/soya.png',
-      icon: Heart,
-      notes: ['Cúrcuma Dorada', 'Pimienta Negra', 'Horneado Antioxidante'],
-      pairing: 'Jugos verdes, tés helados y snacks post-entreno.',
-      moments: 'Break de gimnasio, caminatas y nutrición activa.'
-    },
-    {
-      id: 'soya',
-      name: 'SALSA SOYA',
-      line: 'LÍNEA TRADICIONAL • FRASCO NEGRO',
-      headline: 'EL CLÁSICO PARA MATAR EL HAMBRE AL PASO',
-      profile: 'Salsa de soya artesanal fermentada con toques umami horneados.',
-      copy: 'Nuestra receta original. El crujido tradicional perfecto para matar el antojo en la oficina o durante una caminata.',
-      bgGradient: 'from-stone-950 via-neutral-900 to-black',
-      badgeBg: 'bg-neutral-200 text-black font-black',
-      accentColor: '#E5E5E5',
-      image: '/images/soya.png',
-      icon: Store,
-      notes: ['Salsa Soya Umami', 'Horneado Ancestral', 'Sésamo Tostado'],
-      pairing: 'Refrescos fríos, tés helados o solo al paso.',
-      moments: 'Pausa de oficina, caminatas urbanas y antojo diario.'
-    }
-  ];
-
-  const currentMoment = momentFlavors.find(m => m.id === activeMomentId) || momentFlavors[0];
-
-  const stores = [
-    { name: 'Licorería El Barrilete', zone: 'Zona Sur - Calacoto', address: 'Calle 15 de Calacoto #450' },
-    { name: 'Tienda Doña Martha', zone: 'Centro - Sopocachi', address: 'Av. 20 de Octubre #1820' },
-    { name: 'Supermercado Ketal', zone: 'Equipetrol', address: 'Av. San Martín #220' },
-    { name: 'Market Expreso', zone: 'Miraflores', address: 'Calle Díaz Romero #890' }
-  ];
-
-  const filteredStores = stores.filter(s => 
-    s.name.toLowerCase().includes(searchZone.toLowerCase()) || 
-    s.zone.toLowerCase().includes(searchZone.toLowerCase())
-  );
-
   return (
     <div className="relative min-h-screen bg-black text-white font-sans overflow-x-hidden selection:bg-amber-400 selection:text-black">
-      {/* HERO SECTION 3D PARALLAX (Sin partículas) */}
+      {/* 1. HERO SECTION 3D & TICKER DE BENEFICIOS */}
       <Hero3D />
-
-      {/* TICKER DE BENEFICIOS (CINTA DESLIZANTE INFINITA) */}
       <TickerBeneficios />
 
-      {/* SECCIÓN 2: MOSTRADOR KROKANTÉ A GRANEL */}
+      {/* 2. SEGUÍ LA RUTA DEL MANÍ TOP (PASOS 01, 02, 03 & MOSTRADOR) */}
       <Section2Granel />
 
-      {/* SECCIÓN 3: MOMENTOS DE LA VIDA & MARIDAJE */}
-      <Section3Momentos />
-
-      {/* SECCIÓN 4: PREGUNTAS Y CARRUSEL DE SABORES KROKANTÉ */}
-      <Section4Sabores />
-
-      {/* Background Interactive Canvas (Únicamente para la sección de Sabores) */}
-      <WorldCanvas flavorId={activeMomentId} />
-
-
-      {/* MARIDAJE & MOMENTOS SECTION */}
-      <section id="maridaje" className="relative z-20 py-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          
-          <div className="text-center mb-16 space-y-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-amber-400 block">
-              Tu Guía Sensorial de Consumo
-            </span>
-            <h2 className="font-display text-7xl md:text-9xl uppercase tracking-tighter">
-              MARIDAJE DE SABORES
+      {/* 3. SECCIÓN MINIMALISTA Y LIMPIA "ENCUENTRA TU MOSTRADOR" (DERIVA A /mostradores) */}
+      <section id="tiendas" className="relative z-20 py-20 px-4 sm:px-6 bg-black/90 backdrop-blur-xl border-t border-white/10">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <div>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 font-mono text-xs uppercase tracking-widest mb-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+              <span>Red de Mostradores Krokanté</span>
+            </div>
+            <h2 className="font-display text-5xl md:text-7xl uppercase tracking-tighter">
+              ENCUENTRA TU MOSTRADOR
             </h2>
+            <p className="text-neutral-400 text-sm md:text-base max-w-xl mx-auto mt-3 font-medium">
+              Explora en tiempo real los Puntos de Venta y licorerías de tu barrio con frascos de vidrio herméticos servidos a granel.
+            </p>
           </div>
 
-          {/* Moment Selector Buttons */}
-          <div className="flex flex-wrap justify-center gap-3 mb-16">
-            {momentFlavors.map(m => (
-              <button
-                key={m.id}
-                onClick={() => setActiveMomentId(m.id)}
-                className={`px-8 py-4 rounded-full text-xs font-mono font-bold uppercase tracking-widest transition-all border ${
-                  activeMomentId === m.id 
-                    ? 'bg-white text-black border-white scale-110 shadow-2xl font-black' 
-                    : 'bg-black/40 text-neutral-400 border-white/20 hover:border-white/60 hover:text-white'
-                }`}
-              >
-                {m.name}
-              </button>
-            ))}
-          </div>
+          {/* CARD TEASER ULTRA LIMPIO DE 1 CLIC A LA PÁGINA DEDICADA */}
+          <div className="bg-gradient-to-b from-neutral-900/90 to-black/90 border border-amber-400/30 rounded-3xl p-8 md:p-12 space-y-6 backdrop-blur-md shadow-2xl relative overflow-hidden group hover:border-amber-400 transition-all">
+            <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-400/20 transition-all" />
 
-          {/* ACTIVE MOMENT SHOWCASE */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentMoment.id}
-              initial={{ opacity: 0, scale: 0.95, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -30 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="relative rounded-[3rem] border border-white/20 bg-black/40 backdrop-blur-2xl p-8 md:p-16 overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-            >
-              {/* Content */}
-              <div className="space-y-8 relative z-20 text-left">
-                <span className={`inline-block px-5 py-2 rounded-full border text-xs font-mono text-black font-bold uppercase tracking-widest ${currentMoment.badgeBg}`}>
-                  {currentMoment.line}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-left relative z-10">
+              <div className="space-y-2">
+                <span className="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">
+                  📍 Geolocalización & WhatsApp Directo
                 </span>
-
-                <div>
-                  <h3 className="font-display text-7xl md:text-9xl uppercase leading-none text-white tracking-tighter">
-                    {currentMoment.name}
-                  </h3>
-                  <span className="font-mono text-sm font-bold text-amber-400 tracking-widest block mt-2">
-                    "{currentMoment.headline}"
-                  </span>
-                </div>
-
-                <p className="font-sans text-xl md:text-2xl font-bold text-neutral-100 leading-snug">
-                  {currentMoment.profile}
+                <h3 className="font-bold text-2xl md:text-3xl text-white">
+                  Mapa Interactivo & Puntos de Venta
+                </h3>
+                <p className="text-xs md:text-sm text-neutral-400 max-w-lg leading-relaxed">
+                  Ubica el mostrador más cercano a tu posición GPS, consulta horarios y contacta directamente al Punto de Venta por WhatsApp.
                 </p>
-
-                <p className="text-sm font-sans text-neutral-300 leading-relaxed max-w-xl">
-                  {currentMoment.copy}
-                </p>
-
-                <div className="space-y-4 pt-4 border-t border-white/10">
-                  <span className="font-mono text-xs uppercase tracking-widest text-amber-400 block">
-                    Maridaje Sugerido
-                  </span>
-                  <p className="text-base font-bold text-white">{currentMoment.pairing}</p>
-                </div>
-
-                <div className="space-y-2">
-                  <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 block">
-                    Momento Ideal:
-                  </span>
-                  <p className="text-sm text-neutral-300 font-medium">{currentMoment.moments}</p>
-                </div>
               </div>
 
-              {/* Image Presentation */}
-              <div className="relative flex items-center justify-center">
-                <div className="w-80 md:w-[450px] aspect-square rounded-full bg-gradient-to-tr from-white/10 to-transparent p-12 border border-white/20 flex items-center justify-center relative">
-                  <motion.img 
-                    animate={{ 
-                      rotate: [-5, 5, -5],
-                      y: [-12, 12, -12]
-                    }}
-                    transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-                    src={currentMoment.image}
-                    alt={currentMoment.name}
-                    className="w-full h-full object-contain relative z-20 drop-shadow-[0_35px_50px_rgba(0,0,0,0.9)]"
-                  />
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-
+              <button
+                onClick={() => navigate('/mostradores?autoLocate=true')}
+                className="w-full sm:w-auto px-8 py-5 rounded-2xl bg-amber-400 hover:bg-yellow-300 text-black font-display text-lg uppercase tracking-wider transition-all flex items-center justify-center gap-3 shadow-xl shadow-amber-400/30 shrink-0 group-hover:scale-105"
+              >
+                <Compass className="w-6 h-6 text-black animate-pulse" />
+                <span>MOSTRADOR MÁS CERCANO</span>
+                <ArrowRight className="w-5 h-5 text-black" />
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* CONCEPTO A GRANEL Y FRESCURA */}
+      {/* 4. HAY UN MANÍ KROKANTÉ PARA CADA MOMENTO DE LA VIDA */}
+      <Section3Momentos />
+
+      {/* 5. SERVIDO FRESCO DESDE EL FRASCO DE VIDRIO */}
       <section id="granel" className="relative z-20 py-24 px-6 bg-black/80 backdrop-blur-md border-t border-white/10">
         <div className="max-w-5xl mx-auto text-center space-y-12">
           <div>
@@ -288,57 +126,9 @@ export const ArtDirectionExperience = () => {
         </div>
       </section>
 
-      {/* STORE LOCATOR & B2B BANNER */}
-      <section id="tiendas" className="relative z-20 py-32 px-6 bg-black/90 backdrop-blur-xl border-t border-white/10">
-        <div className="max-w-5xl mx-auto text-center space-y-12">
-          
-          <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-amber-400 block mb-2">
-              Disponibilidad en Tiempo Real
-            </span>
-            <h2 className="font-display text-6xl md:text-8xl uppercase tracking-tighter">
-              ENCUENTRA TU MOSTRADOR
-            </h2>
-          </div>
-
-          <div className="bg-neutral-900/80 border border-white/20 rounded-3xl p-6 md:p-10 space-y-8 backdrop-blur-md">
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1 relative">
-                <Search className="w-6 h-6 absolute left-5 top-1/2 -translate-y-1/2 text-neutral-500" />
-                <input 
-                  type="text"
-                  value={searchZone}
-                  onChange={e => setSearchZone(e.target.value)}
-                  placeholder="Ingresa tu barrio o zona (Calacoto, Sopocachi, Equipetrol)..."
-                  className="w-full pl-14 pr-6 py-5 rounded-2xl bg-black border border-white/20 text-white font-mono text-sm placeholder-neutral-500 focus:border-amber-400 outline-none"
-                />
-              </div>
-              <button 
-                onClick={() => setSearchZone('')}
-                className="px-8 py-5 rounded-2xl bg-amber-400 text-black font-display text-xl uppercase tracking-widest hover:bg-yellow-300 transition-all flex items-center justify-center gap-2"
-              >
-                <Navigation className="w-5 h-5" />
-                <span>Explorar Zonas</span>
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-              {filteredStores.map((store, idx) => (
-                <div key={idx} className="p-6 rounded-2xl bg-black/60 border border-white/10 hover:border-amber-400/50 transition-colors flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-amber-400/10 border border-amber-400/30 text-amber-400 flex items-center justify-center shrink-0">
-                    <MapPin className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-white text-lg">{store.name}</h4>
-                    <span className="font-mono text-xs text-amber-400 block mb-1">{store.zone}</span>
-                    <p className="text-xs text-neutral-400">{store.address}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Commercial B2B Banner */}
+      {/* 6. BANNER B2B PARA SOCIOS & FOOTER */}
+      <section id="b2b" className="relative z-20 py-16 px-6 bg-black/90 backdrop-blur-xl border-t border-white/10">
+        <div className="max-w-5xl mx-auto">
           <div className="p-10 rounded-3xl bg-gradient-to-r from-amber-950 via-yellow-950 to-black border-2 border-amber-400/40 text-left flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
             <div className="space-y-2">
               <span className="text-xs font-mono text-amber-400 font-bold uppercase tracking-widest">Oportunidad para Tiendas y Licorerías</span>
@@ -354,7 +144,6 @@ export const ArtDirectionExperience = () => {
               👉 VER MODELO B2B SOCIOS
             </a>
           </div>
-
         </div>
       </section>
 
@@ -366,6 +155,10 @@ export const ArtDirectionExperience = () => {
         </div>
 
         <div className="flex items-center gap-6">
+          <button onClick={() => navigate('/mostradores')} className="hover:text-amber-400 transition-colors flex items-center gap-1">
+            <MapIcon className="w-4 h-4 text-amber-400" />
+            <span>Mapa de Mostradores</span>
+          </button>
           <a href="/admin" className="hover:text-amber-400 transition-colors flex items-center gap-1">
             <ShieldCheck className="w-4 h-4 text-amber-400" />
             <span>Acceso CMS</span>

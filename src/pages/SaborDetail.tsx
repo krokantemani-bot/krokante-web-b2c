@@ -130,7 +130,7 @@ const renderB2BPartnerBanner = (flavorId: string) => {
                 <span>PROGRAMA SOCIOS KROKANTÉ</span>
               </div>
               <h3 className="font-display text-2xl md:text-4xl uppercase font-black text-white tracking-tight leading-tight">
-                ¿TIENES UNA TIENDA DE BARRIO O VECINDARIO?
+                ¿TIENES UNA TIENDA DE BARRIO O TIENDA EN CONDOMINIO?
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 font-mono text-xs font-bold">
                 <div className="p-3 rounded-2xl bg-stone-900 border border-stone-800 space-y-1">

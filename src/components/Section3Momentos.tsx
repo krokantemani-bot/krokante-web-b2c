@@ -374,25 +374,25 @@ export const Section3Momentos: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="rounded-3xl bg-amber-400 border-2 border-amber-500 p-6 md:p-8 text-stone-950 font-display text-center shadow-xl flex flex-col md:flex-row items-center justify-between gap-6"
         >
-          <div className="text-left space-y-1">
-            <span className="font-mono text-xs uppercase font-black tracking-widest text-amber-950 block">
+          <div className="text-center md:text-left space-y-1.5 w-full">
+            <span className="font-mono text-[11px] sm:text-xs uppercase font-black tracking-widest text-amber-950 block">
               Formato de Venta Auténtico en Tiendas de Barrio
             </span>
-            <h3 className="text-2xl md:text-4xl uppercase font-black tracking-tight leading-tight">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl uppercase font-black tracking-tight leading-tight">
               ¡MANÍ JAPONÉS A GRANEL!
             </h3>
-            <p className="font-sans text-xs sm:text-sm text-stone-900 font-bold">
+            <p className="font-sans text-xs sm:text-sm text-stone-900 font-bold max-w-xl mx-auto md:mx-0 leading-relaxed">
               ELIGE TU FAVORITO • AL MENOS 100 GR. • PÍDELE A LA CASERA PESO EXACTO
             </p>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
-            <div className="px-5 py-3 rounded-2xl bg-black text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-lg">
-              <Scale className="w-5 h-5 text-amber-400" />
-              <span>Desde 100 Gramos</span>
+          <div className="grid grid-cols-2 sm:flex items-center justify-center gap-2.5 sm:gap-3 w-full md:w-auto shrink-0">
+            <div className="px-3.5 py-3 rounded-2xl bg-black text-white font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 shadow-lg text-center">
+              <Scale className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0" />
+              <span>Desde 100g</span>
             </div>
-            <div className="px-5 py-3 rounded-2xl bg-stone-900 text-amber-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-lg">
-              <ShieldCheck className="w-5 h-5 text-amber-400" />
+            <div className="px-3.5 py-3 rounded-2xl bg-stone-900 text-amber-400 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 shadow-lg text-center">
+              <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0" />
               <span>Vidrio Hermético</span>
             </div>
           </div>

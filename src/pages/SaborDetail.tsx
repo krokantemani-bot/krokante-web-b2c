@@ -241,6 +241,11 @@ export const SaborDetail: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Forzar scroll al inicio (Hero Top) de forma instantánea al navegar a cualquier sabor
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+  }, [id, currentFlavorId]);
+
   const activeVideoId = isMobile ? flavor.videoIdMobile : flavor.videoIdDesktop;
 
   // Ref para detectar el scroll de la sección de Historia y Perfil Sensorial

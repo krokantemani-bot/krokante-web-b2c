@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Sparkles, Scale, ShieldCheck, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { Sparkles, Scale, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface MomentCardData {
   id: string;
@@ -62,7 +62,7 @@ export const Section3Momentos: React.FC = () => {
       subtitle: 'Maní Japonés Antioxidante',
       lineName: 'LÍNEA SALUDABLE',
       flavorName: 'Cúrcuma Pimienta Negra',
-      story: 'Tu recarga de proteína vegetal y energía activa antes de salir a trotar, al gym o a jugar pádel.',
+      story: 'Tu recarga de proteína vegetal y energía activa antes de salir a trotar, al gym o a jugar wally o futsal.',
       pairing: '🥤 Agua de coco fresca & Jugos naturales',
       idealMoment: 'Ritual pre-entreno & energía activa.',
       videoIdDesktop: 'WWG4DchYJRc',
@@ -87,7 +87,7 @@ export const Section3Momentos: React.FC = () => {
       subtitle: 'Maní Japonés al Cebollín Dulce',
       lineName: 'LÍNEA FAMILIAR',
       flavorName: 'Cebolla Crunch',
-      story: 'El favorito de las tardes-noches en la galería del jardín a partir de las 7 PM para compartir en familia.',
+      story: 'El favorito de las tardes-noches en la galería del jardín para compartir en familia.',
       pairing: '🥤 Refrescos fríos & Tés helados',
       idealMoment: 'Charlas de patio & domingos en familia.',
       videoIdDesktop: 'X4SQkaqEwRE',
@@ -226,14 +226,6 @@ export const Section3Momentos: React.FC = () => {
             <h3 className="font-display text-2xl sm:text-4xl md:text-5xl font-extrabold text-white uppercase tracking-tight leading-none drop-shadow-lg">
               {m.title}
             </h3>
-            
-            {/* INSIGNIA VER PÁGINA INDIVIDUAL */}
-            <div className="pt-2">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-400 text-stone-950 font-mono text-xs font-black uppercase tracking-wider shadow-lg group-hover:bg-white transition-colors">
-                <span>Ver Página de Sabor</span>
-                <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
           </div>
         </div>
       </motion.div>
@@ -248,6 +240,15 @@ export const Section3Momentos: React.FC = () => {
     >
       {/* Textura sutil de papel artesanal apergaminado */}
       <div className="absolute inset-0 bg-[radial-gradient(#D8C8B3_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
+
+      {/* Frasco de Salsa Soya decorativo asomado a la mitad en el borde derecho */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[350px] sm:w-[450px] md:w-[550px] lg:w-[650px] pointer-events-none z-0 opacity-80 mix-blend-multiply filter drop-shadow-2xl">
+        <img 
+          src="https://res.cloudinary.com/dcx6wcjlj/image/upload/v1789166981/frsco_salsa_soya_sin_fondo_p3qb3f.png" 
+          alt="Frasco Krokanté Salsa Soya"
+          className="w-full h-auto object-contain"
+        />
+      </div>
 
       <div className="max-w-7xl mx-auto relative z-10 space-y-8 md:space-y-10">
         

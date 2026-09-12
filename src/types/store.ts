@@ -15,6 +15,7 @@ export interface PuntoDeVenta {
   zona: string;
   direccion: string;
   whatsapp: string;
+  whatsappPublico?: string;
   onlineStatus?: boolean;
   latitude: number;
   longitude: number;

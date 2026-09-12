@@ -189,7 +189,7 @@ export const Section4Sabores: React.FC = () => {
             
             <div className="flex items-center justify-center md:justify-start gap-1 sm:gap-3 leading-[0.95]">
               <span className="text-[8vw] sm:text-[36px] md:text-[54px] lg:text-[72px] xl:text-[84px] font-bold whitespace-nowrap text-[#0A0503]">
-                Elegí ser más
+                Elige ser más
               </span>
               <span className="font-display text-[11vw] sm:text-[48px] md:text-[76px] lg:text-[96px] uppercase font-bold text-[#16A34A] drop-shadow-[0_2px_8px_rgba(22,163,74,0.35)] tracking-tighter transform -rotate-12 inline-block ml-1">
                 TOP

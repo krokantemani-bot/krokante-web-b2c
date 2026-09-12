@@ -21,6 +21,7 @@ export interface FlavorData {
   badgeTextColorClass: string;
   ringColorClass: string;
   labelImg: string;
+  jarImg?: string;
   bgImage: string;
   videoIdDesktop: string;
   videoIdMobile: string;
@@ -73,14 +74,15 @@ export const FLAVORS_DATA: Record<string, FlavorData> = {
     badgeTextColorClass: 'text-white',
     ringColorClass: 'ring-red-500/90 shadow-[0_0_25px_rgba(220,38,38,0.6)]',
     labelImg: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/v1788362869/Picante_kt7fy5.png',
+    jarImg: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/v1789174875/frasco_picante_sin_fondo_vjb8dn.png',
     bgImage: 'https://img.youtube.com/vi/ubCjICSaxjE/maxresdefault.jpg',
     videoIdDesktop: 'ubCjICSaxjE',
     videoIdMobile: 'ApVoofB_akI',
 
 
     
-    shortStory: 'El crujido picante que enciende los churrascos nocturnos y las cervezas frías pasadas las 6 de la tarde.',
-    fullStory: 'Nuestra receta Picante Fuego nació del deseo de rescatar el auténtico ají colorado boliviano, deshidratado artesanalmente y tostado a fuego lento junto a nuestro maní japonés de primera selección. El resultado es una cubierta doblemente crocante con una patada picante de intensidad perfecta, pensada para acompañar la primera cerveza fría del fin de semana.',
+    shortStory: 'El crujido picante que enciende los churrascos nocturnos y las cervezas frías que se comparte en buena compañia',
+    fullStory: 'Nuestra receta Picante Fuego nació del deseo de rescatar el auténtico ají colorado boliviano, deshidratado artesanalmente y tostado a fuego lento junto a nuestro maní japonés de primera selección. El resultado es una cubierta doblemente crocante con una nota picante de intensidad perfecta, pensada para acompañar la primera cerveza fría del fin de semana.',
     
     flavorProfile: {
       crunchiness: 9,
@@ -100,7 +102,7 @@ export const FLAVORS_DATA: Record<string, FlavorData> = {
     pairingBeverages: [
       { name: 'Pilsen Fría & Huari', icon: '🍺', description: 'El picor del ají resalta el amargor refrescante del lúpulo.' },
       { name: 'Cerveza IPA Artesanal', icon: '🍻', description: 'Potencia los matices cítricos y herbales del lúpulo amargo.' },
-      { name: 'Michelada de la Casa', icon: '🍹', description: 'Sinergia total entre el zumo de limón, sal y el crujido de fuego.' }
+      { name: 'Chuflay Tradicional de Singani', icon: '🍹', description: 'El Singani boliviano con Ginger Ale y limón equilibra y refresca la nota picante en cada sorbo.' }
     ],
     
     idealMoments: [
@@ -134,12 +136,13 @@ export const FLAVORS_DATA: Record<string, FlavorData> = {
     badgeTextColorClass: 'text-stone-950 font-black',
     ringColorClass: 'ring-amber-400/90 shadow-[0_0_25px_rgba(245,158,11,0.6)]',
     labelImg: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/v1788362869/curcuma_c7vfaq.png',
+    jarImg: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/v1789175287/frasco_curcuma_sin_fondo_od2dp3.png',
     bgImage: 'https://img.youtube.com/vi/WWG4DchYJRc/maxresdefault.jpg',
     videoIdDesktop: 'WWG4DchYJRc',
     videoIdMobile: 'SRD6qQYs-_I',
     
-    shortStory: 'Tu recarga de proteína vegetal y energía activa antes de salir a trotar, al gym o a jugar pádel.',
-    fullStory: 'Una innovación nacida de la nutrición activa consciente. Combinamos cúrcuma dorada con un toque estratégico de pimienta negra recién molida (que activa la absorción de la curcumina hasta en un 2000%), horneando el maní con un toque delicado de mantequilla. Sabor terroso, cálido y crujiente.',
+    shortStory: 'Tu recarga de proteína vegetal y energía activa antes de salir a trotar, al gym o a jugar wally o futsal.',
+    fullStory: 'Una innovación nacida de la nutrición activa consciente. Combinamos cúrcuma dorada con un toque estratégico de pimienta negra recién molida (que activa la absorción de la curcumina hasta en un 2000%), horneando el maní con un toque delicado de mantequilla. Sabor suave, cálido y crujiente.',
 
     
     flavorProfile: {
@@ -196,11 +199,12 @@ export const FLAVORS_DATA: Record<string, FlavorData> = {
     badgeTextColorClass: 'text-white',
     ringColorClass: 'ring-emerald-400/90 shadow-[0_0_25px_rgba(16,185,129,0.6)]',
     labelImg: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/v1788362869/Cebolla_y8oij5.png',
+    jarImg: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/v1789175746/frasco_cebolla_sin_fondo_bsvcan.png',
     bgImage: 'https://img.youtube.com/vi/X4SQkaqEwRE/maxresdefault.jpg',
     videoIdDesktop: 'X4SQkaqEwRE',
     videoIdMobile: 'GzRZhb_Fmb8',
     
-    shortStory: 'El favorito de las tardes-noches en la galería del jardín a partir de las 7 PM para compartir en familia.',
+    shortStory: 'El favorito de las tardes-noches en la galería del jardín para compartir en familia.',
     fullStory: 'Un sabor entrañable que evoca la calidez del hogar. Elaborado con cebollines de campo caramelizados a fuego lento y espolvoreados con un toque de perejil y finas hierbas deshidratadas. Su dulzura aromática le chifla a chicos y grandes por igual.',
     
     flavorProfile: {
@@ -237,7 +241,7 @@ export const FLAVORS_DATA: Record<string, FlavorData> = {
     ],
     
     artisanQuote: {
-      text: 'Cuando abres el frasco de Cebolla Crunch, el aroma a cebollín dulce inundará la habitación antes de que puedas dar el primer mordisco.',
+      text: 'Buscábamos la receta perfecta que combine el toque dulce del cebollín con un crujido suave que encante a toda la familia.',
       author: 'Receta Familiar Krokanté'
     }
   },
@@ -255,12 +259,13 @@ export const FLAVORS_DATA: Record<string, FlavorData> = {
     badgeTextColorClass: 'text-stone-950 font-black',
     ringColorClass: 'ring-white/90 shadow-[0_0_25px_rgba(255,255,255,0.5)]',
     labelImg: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/v1788362869/Soya_xw04kx.png',
+    jarImg: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/v1789166981/frsco_salsa_soya_sin_fondo_p3qb3f.png',
     bgImage: 'https://img.youtube.com/vi/OiKSIPFHhNg/maxresdefault.jpg',
     videoIdDesktop: 'OiKSIPFHhNg',
     videoIdMobile: 'coHWgMXups8',
     
     shortStory: 'El toque tradicional umami para hacer una pausa con estilo durante tu jornada laboral.',
-    fullStory: 'El pilar que dio origen a la leyenda del maní japonés. Nuestra Salsa Soya Tradicional utiliza salsa de soya puramente fermentada y horneada en capas finas hasta lograr ese color ámbar tostado profundo y un golpe de sabor umami de elegancia inigualable.',
+    fullStory: 'El pilar que dio origen a la leyenda del maní japonés. Elaborado con salsa de soya de sabor balanceado, horneada en capas finas hasta lograr ese color ámbar tostado profundo y un golpe de sabor umami de elegancia inigualable.',
     
     flavorProfile: {
       crunchiness: 10,
@@ -272,7 +277,7 @@ export const FLAVORS_DATA: Record<string, FlavorData> = {
     
     keyIngredients: [
       'Maní Boliviano Tostado',
-      'Salsa de Soya Fermentada Natural',
+      'Salsa de Soya Tradicional',
       'Toque de Sésamo Tostado',
       'Sal Marina Fina'
     ],

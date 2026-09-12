@@ -252,8 +252,18 @@ export function calculateDistanceKm(lat1: number, lon1: number, lat2: number, lo
   return Math.round(urbanRoadDistance * 10) / 10; // Redondeado a 1 decimal
 }
 
-// Generador de enlace directo a WhatsApp con mensaje pre-redactado
-export function getWhatsAppLink(phone: string, storeName: string): string {
+// Generador de enlace directo a WhatsApp con mensaje pre-redactado (Preferencia: whatsappPublico -> whatsapp)
+export function getWhatsAppLink(phoneOrStore: string | PuntoDeVenta, storeNameParam?: string): string {
+  let phone = '';
+  let storeName = storeNameParam || 'Mostrador Krokanté';
+
+  if (typeof phoneOrStore === 'object' && phoneOrStore !== null) {
+    phone = phoneOrStore.whatsappPublico?.trim() || phoneOrStore.whatsapp || '';
+    storeName = phoneOrStore.nombre || storeName;
+  } else {
+    phone = phoneOrStore || '';
+  }
+
   const cleanPhone = phone ? phone.replace(/\D/g, '') : '59170000000';
   const formattedPhone = cleanPhone.startsWith('591') ? cleanPhone : `591${cleanPhone}`;
   const text = encodeURIComponent(
@@ -308,6 +318,7 @@ export function subscribePuntosDeVenta(
               zona: data.zona || data.direccion || 'San Pedro',
               direccion: data.direccion || data.zona || '',
               whatsapp: data.whatsapp || '',
+              whatsappPublico: data.whatsappPublico || data.whatsapp_publico || '',
               onlineStatus: data.onlineStatus ?? true,
               latitude: lat,
               longitude: lng,

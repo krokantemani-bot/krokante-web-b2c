@@ -344,7 +344,7 @@ export const StoreLocatorModal: React.FC<StoreLocatorModalProps> = ({
                     {/* BOTONES DE ACCIÓN DIRECTA */}
                     <div className="pt-2 flex items-center gap-2 border-t border-white/10">
                       <a
-                        href={getWhatsAppLink(store.whatsapp, store.nombre)}
+                        href={getWhatsAppLink(store)}
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}

@@ -19,10 +19,10 @@ export const Section2Granel: React.FC = () => {
   // Transformación de escala para el texto de los 3 pasos (incremento del 50% por scroll: de 1.0x a 1.5x)
   const stepsScale = useTransform(scrollYProgress, [0.05, 0.4, 0.75], [1, 1.5, 1]);
 
-  // Brillo dinámico con opacidad extrema del 15% al 100% al pasar por el centro de la pantalla
-  const opacityPaso1 = useTransform(scrollYProgress, [0.02, 0.18, 0.35], [0.15, 1, 0.2]);
-  const opacityPaso2 = useTransform(scrollYProgress, [0.15, 0.32, 0.50], [0.15, 1, 0.2]);
-  const opacityPaso3 = useTransform(scrollYProgress, [0.30, 0.45, 0.65], [0.15, 1, 0.2]);
+  // Brillo e intensidad máxima uniforme (100%) para los 3 números en la vista general
+  const opacityPaso1 = useTransform(scrollYProgress, [0.0, 0.25, 0.85, 1.0], [0.8, 1, 1, 0.8]);
+  const opacityPaso2 = useTransform(scrollYProgress, [0.0, 0.25, 0.85, 1.0], [0.8, 1, 1, 0.8]);
+  const opacityPaso3 = useTransform(scrollYProgress, [0.0, 0.25, 0.85, 1.0], [0.8, 1, 1, 0.8]);
 
   return (
     <section 
@@ -36,7 +36,7 @@ export const Section2Granel: React.FC = () => {
       {/* 1. TÍTULO PRINCIPAL GENERAL GIGANTE CON SALTO DE LÍNEA Y SEPARACIÓN EXTREMA MB-36 EN MÓVIL */}
       <div className="text-center max-w-5xl mx-auto mb-36 sm:mb-28 md:mb-28 px-4 sm:px-6 relative z-20">
         <h2 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-tight text-white font-black leading-[1.02] md:leading-[1.1] drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">
-          SEGUÍ LA RUTA<br className="sm:hidden" /> DEL MANÍ TOP
+          SIGUE LA RUTA<br className="sm:hidden" /> DEL MANÍ TOP
         </h2>
       </div>
 
@@ -45,8 +45,14 @@ export const Section2Granel: React.FC = () => {
         style={{ scale: stepsScale }}
         className="w-full max-w-[98%] sm:max-w-3xl md:max-w-4xl lg:max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-4 lg:gap-8 text-center mb-8 md:mb-12 relative z-20 origin-center px-2 sm:px-4"
       >
-        {/* Paso 1 */}
-        <div className="relative px-2 py-3 md:py-8 min-h-[140px] flex flex-col items-center justify-center group overflow-visible">
+        {/* Paso 1 -> Dirige a "Encuentra tu mostrador" (#tiendas) y guarda #section2-granel en el historial */}
+        <div 
+          onClick={() => {
+            window.history.pushState({}, '', '#section2-granel');
+            window.location.hash = 'tiendas';
+          }}
+          className="relative px-2 py-3 md:py-8 min-h-[140px] flex flex-col items-center justify-center group overflow-visible cursor-pointer hover:scale-105 transition-transform duration-300 active:scale-95"
+        >
           {/* Número Gigante 01 que se enciende al 100% (text-yellow-400 resplandeciente) */}
           <motion.span 
             style={{ opacity: opacityPaso1 }}
@@ -56,12 +62,18 @@ export const Section2Granel: React.FC = () => {
           </motion.span>
           {/* Texto del Paso */}
           <h3 className="relative z-10 font-display text-3xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl uppercase tracking-normal leading-[1.15] drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
-            PASO 1.<br />Buscá el <span className="text-[#EAB308] font-black">mostrador KROKANTÉ</span><br />mas cercano
+            PASO 1.<br />Busca el <span className="text-[#EAB308] font-black">mostrador KROKANTÉ</span><br />mas cercano
           </h3>
         </div>
 
-        {/* Paso 2 */}
-        <div className="relative px-2 py-3 md:py-8 min-h-[140px] flex flex-col items-center justify-center group overflow-visible">
+        {/* Paso 2 -> Dirige a "Hay un maní krokanté..." (#section3-momentos) y guarda #section2-granel en el historial */}
+        <div 
+          onClick={() => {
+            window.history.pushState({}, '', '#section2-granel');
+            window.location.hash = 'section3-momentos';
+          }}
+          className="relative px-2 py-3 md:py-8 min-h-[140px] flex flex-col items-center justify-center group overflow-visible cursor-pointer hover:scale-105 transition-transform duration-300 active:scale-95"
+        >
           {/* Número Gigante 02 que se enciende al 100% */}
           <motion.span 
             style={{ opacity: opacityPaso2 }}
@@ -71,12 +83,18 @@ export const Section2Granel: React.FC = () => {
           </motion.span>
           {/* Texto del Paso */}
           <h3 className="relative z-10 font-display text-3xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl uppercase tracking-normal leading-[1.15] drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
-            PASO 2.<br />Elegí tus <span className="text-[#EAB308] font-black">sabores</span><br />favoritos
+            PASO 2.<br />Elige tus <span className="text-[#EAB308] font-black">sabores</span><br />favoritos
           </h3>
         </div>
 
-        {/* Paso 3 */}
-        <div className="relative px-2 py-3 md:py-8 min-h-[140px] flex flex-col items-center justify-center group overflow-visible">
+        {/* Paso 3 -> Dirige a "Servido fresco desde el frasco..." (#granel) y guarda #section2-granel en el historial */}
+        <div 
+          onClick={() => {
+            window.history.pushState({}, '', '#section2-granel');
+            window.location.hash = 'granel';
+          }}
+          className="relative px-2 py-3 md:py-8 min-h-[140px] flex flex-col items-center justify-center group overflow-visible cursor-pointer hover:scale-105 transition-transform duration-300 active:scale-95"
+        >
           {/* Número Gigante 03 que se enciende al 100% */}
           <motion.span 
             style={{ opacity: opacityPaso3 }}
@@ -86,7 +104,7 @@ export const Section2Granel: React.FC = () => {
           </motion.span>
           {/* Texto del Paso */}
           <h3 className="relative z-10 font-display text-3xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl uppercase tracking-normal leading-[1.15] drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
-            PASO 3.<br />Pedí el <span className="text-[#EAB308] font-black">peso</span><br />que quieras
+            PASO 3.<br />Pide el <span className="text-[#EAB308] font-black">peso</span><br />que quieras
           </h3>
         </div>
       </motion.div>

@@ -53,34 +53,35 @@ export const ArtDirectionExperience = () => {
               ENCUENTRA TU MOSTRADOR
             </h2>
             <p className="text-neutral-400 text-sm md:text-base max-w-xl mx-auto mt-3 font-medium">
-              Explora en tiempo real los Puntos de Venta y licorerías de tu barrio con frascos de vidrio herméticos servidos a granel.
+              Explora en tiempo real los Puntos de Venta de tu barrio con frascos de vidrio herméticos servidos a granel.
             </p>
           </div>
 
           {/* CARD TEASER ULTRA LIMPIO DE 1 CLIC A LA PÁGINA DEDICADA */}
-          <div className="bg-gradient-to-b from-neutral-900/90 to-black/90 border border-amber-400/30 rounded-3xl p-8 md:p-12 space-y-6 backdrop-blur-md shadow-2xl relative overflow-hidden group hover:border-amber-400 transition-all">
+          <div className="bg-gradient-to-b from-neutral-900/90 to-black/90 border border-amber-400/30 rounded-3xl p-5 sm:p-8 md:p-12 space-y-6 backdrop-blur-md shadow-2xl relative overflow-hidden group hover:border-amber-400 transition-all">
             <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-400/20 transition-all" />
 
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-left relative z-10">
-              <div className="space-y-2">
-                <span className="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">
-                  📍 Geolocalización & WhatsApp Directo
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left relative z-10">
+              <div className="space-y-2.5">
+                <span className="inline-flex items-center justify-center sm:justify-start gap-1.5 text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">
+                  <span>📍</span>
+                  <span>Geolocalización & WhatsApp Directo</span>
                 </span>
-                <h3 className="font-bold text-2xl md:text-3xl text-white">
+                <h3 className="font-bold text-2xl md:text-3xl text-white leading-tight">
                   Mapa Interactivo & Puntos de Venta
                 </h3>
-                <p className="text-xs md:text-sm text-neutral-400 max-w-lg leading-relaxed">
-                  Ubica el mostrador más cercano a tu posición GPS, consulta horarios y contacta directamente al Punto de Venta por WhatsApp.
+                <p className="text-xs md:text-sm text-neutral-400 max-w-lg leading-relaxed mx-auto sm:mx-0">
+                  Ubica el mostrador Krokanté más cercano a tu posición GPS
                 </p>
               </div>
 
               <button
                 onClick={() => navigate('/mostradores?autoLocate=true')}
-                className="w-full sm:w-auto px-8 py-5 rounded-2xl bg-amber-400 hover:bg-yellow-300 text-black font-display text-lg uppercase tracking-wider transition-all flex items-center justify-center gap-3 shadow-xl shadow-amber-400/30 shrink-0 group-hover:scale-105"
+                className="w-full sm:w-auto px-5 sm:px-8 py-3.5 sm:py-5 rounded-2xl bg-amber-400 hover:bg-yellow-300 text-black font-display text-sm sm:text-lg uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl shadow-amber-400/30 shrink-0 group-hover:scale-105"
               >
-                <Compass className="w-6 h-6 text-black animate-pulse" />
-                <span>MOSTRADOR MÁS CERCANO</span>
-                <ArrowRight className="w-5 h-5 text-black" />
+                <Compass className="w-4 h-4 sm:w-6 sm:h-6 text-black animate-pulse shrink-0" />
+                <span className="whitespace-nowrap">MOSTRADOR MÁS CERCANO</span>
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-black shrink-0" />
               </button>
             </div>
           </div>

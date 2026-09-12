@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Search, MapPin, Compass, MessageCircle, ShieldCheck, Sparkles, Store, RefreshCw, ArrowLeft, List, Map, Globe, Send, X, Frown, ChevronDown, ChevronUp } from 'lucide-react';
+import { Search, MapPin, Compass, MessageCircle, ShieldCheck, Sparkles, Store, RefreshCw, ArrowLeft, List, Map, Globe, Send, X, Frown, ChevronDown, ChevronUp, Star } from 'lucide-react';
 import { subscribePuntosDeVenta, calculateDistanceKm, getWhatsAppLink, getGoogleMapsLink, isInsideBolivia, saveZonaRequest, MOCK_STORES } from '../lib/firestoreStores';
 import type { PuntoDeVenta } from '../types/store';
 
@@ -91,6 +91,39 @@ export const MostradoresPage = () => {
   const [honeypotValue, setHoneypotValue] = useState('');
   const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
   const [requestSuccessMsg, setRequestSuccessMsg] = useState('');
+  // Estados para sistema de Calificación (5 Estrellas)
+  const [ratingModalStore, setRatingModalStore] = useState<PuntoDeVenta | null>(null);
+  const [hoverStar, setHoverStar] = useState<number>(0);
+  const [userRatings, setUserRatings] = useState<Record<string, { rating: number; count: number }>>(() => {
+    try {
+      const saved = localStorage.getItem('krokante_store_ratings');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  const getStoreRating = (storeId: string) => {
+    const custom = userRatings[storeId];
+    if (custom) return custom;
+    // Valores predeterminados realistas basados en ID de tienda para demostración
+    const baseCount = Math.abs(storeId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 25) + 8;
+    const baseScore = 4.7 + (baseCount % 3) * 0.1;
+    return { rating: Math.min(5, Number(baseScore.toFixed(1))), count: baseCount };
+  };
+
+  const handleVoteStore = (storeId: string, stars: number) => {
+    const current = getStoreRating(storeId);
+    const newCount = current.count + 1;
+    const newRating = Number(((current.rating * current.count + stars) / newCount).toFixed(1));
+    const updated = { ...userRatings, [storeId]: { rating: newRating, count: newCount } };
+    setUserRatings(updated);
+    try {
+      localStorage.setItem('krokante_store_ratings', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -543,18 +576,21 @@ export const MostradoresPage = () => {
       <header className="relative z-30 px-4 sm:px-6 py-4 border-b border-white/10 bg-black/90 backdrop-blur-xl flex items-center justify-between gap-4 shrink-0">
         <div className="flex items-center gap-3">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => {
+              if (window.history.length > 1) {
+                navigate(-1);
+              } else {
+                navigate('/');
+              }
+            }}
             className="p-2.5 rounded-xl bg-neutral-900 border border-amber-400/50 text-amber-400 hover:bg-amber-400 hover:text-black transition-all flex items-center gap-2 font-mono text-xs font-bold shrink-0 cursor-pointer shadow-sm active:scale-95"
-            title="Volver a la página principal de Krokanté"
+            title="Volver a la página anterior"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Volver</span>
           </button>
 
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-amber-400 text-black flex items-center justify-center font-display text-lg sm:text-xl font-bold shrink-0">
-              K
-            </div>
             <div>
               <h1 className="font-display text-lg sm:text-xl uppercase tracking-wider text-white leading-none">
                 Encuentra Tu Mostrador
@@ -683,6 +719,7 @@ export const MostradoresPage = () => {
             ) : (
               sortedStores.map((store) => {
                 const isExpanded = selectedStore?.id === store.id;
+                const ratingData = getStoreRating(store.id);
                 return (
                   <div
                     key={store.id}
@@ -708,7 +745,14 @@ export const MostradoresPage = () => {
                       className="py-1.5 px-2.5 cursor-pointer flex items-center justify-between gap-2 select-none"
                     >
                       <div className="min-w-0 flex-1">
-                        <h4 className="font-bold text-white text-xs sm:text-sm leading-snug">{store.nombre}</h4>
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <h4 className="font-bold text-white text-xs sm:text-sm leading-snug">{store.nombre}</h4>
+                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-400/10 border border-amber-400/30 text-amber-400 font-mono text-[9px] font-bold shrink-0">
+                            <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
+                            <span>{ratingData.rating}</span>
+                            <span className="text-zinc-500">({ratingData.count})</span>
+                          </span>
+                        </div>
                         <div className="flex flex-wrap items-center gap-x-1 font-mono text-[9px] sm:text-[10px] text-amber-400 mt-0.5 opacity-90">
                           <span>{store.zona}</span>
                           {store.distanceKm !== undefined && (
@@ -754,15 +798,27 @@ export const MostradoresPage = () => {
                           <span>{store.direccion}</span>
                         </p>
 
-                        <div className="pt-2 flex items-center gap-2 border-t border-white/10">
+                        <div className="pt-2 flex flex-wrap items-center gap-1.5 border-t border-white/10">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setRatingModalStore(store);
+                            }}
+                            className="py-1.5 px-2.5 rounded-lg bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-400 font-mono text-[11px] font-bold flex items-center justify-center gap-1 transition-colors cursor-pointer shrink-0"
+                          >
+                            <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                            <span>Calificar</span>
+                          </button>
+
                           <a
-                            href={getWhatsAppLink(store.whatsapp, store.nombre)}
+                            href={getWhatsAppLink(store)}
                             target="_blank"
                             rel="noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="flex-1 py-2 px-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+                            className="py-1.5 px-2.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-bold flex items-center justify-center gap-1 transition-colors shrink-0"
                           >
-                            <MessageCircle className="w-4 h-4 text-emerald-400" />
+                            <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
                             <span>WhatsApp</span>
                           </a>
 
@@ -771,9 +827,9 @@ export const MostradoresPage = () => {
                             target="_blank"
                             rel="noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="py-2 px-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-white/10 text-neutral-300 hover:text-white font-mono text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+                            className="py-1.5 px-2.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 border border-white/10 text-neutral-300 hover:text-white font-mono text-[11px] font-bold flex items-center justify-center gap-1 transition-colors shrink-0"
                           >
-                            <Compass className="w-4 h-4 text-amber-400" />
+                            <Compass className="w-3.5 h-3.5 text-amber-400" />
                             <span>Cómo Llegar</span>
                           </a>
                         </div>
@@ -1045,6 +1101,74 @@ export const MostradoresPage = () => {
                 Explorar mostradores en Bolivia
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ---------------------------------------------------- */}
+      {/* 5. MODAL DE CALIFICACIÓN ULTRA RÁPIDO (5 ESTRELLAS)  */}
+      {/* ---------------------------------------------------- */}
+      {ratingModalStore && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="max-w-xs w-full p-5 rounded-3xl bg-neutral-900 border border-amber-400/40 shadow-2xl text-white text-center relative">
+            <button
+              onClick={() => {
+                setRatingModalStore(null);
+                setHoverStar(0);
+              }}
+              className="absolute top-3.5 right-3.5 text-neutral-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="w-12 h-12 mx-auto mb-2.5 rounded-2xl bg-amber-400/10 border border-amber-400/30 text-amber-400 flex items-center justify-center">
+              <Star className="w-6 h-6 fill-amber-400 text-amber-400" />
+            </div>
+
+            <h3 className="font-bold text-base text-white leading-tight mb-1">
+              Calificar Mostrador
+            </h3>
+            <p className="text-xs text-amber-400 font-mono font-semibold mb-4 truncate px-2">
+              {ratingModalStore.nombre}
+            </p>
+
+            <p className="text-[11px] text-neutral-400 mb-3 font-medium">
+              ¿Qué tal fue la atención y frescura del maní?
+            </p>
+
+            {/* SELECCIÓN DE ESTRELLAS */}
+            <div className="flex items-center justify-center gap-2 mb-5">
+              {[1, 2, 3, 4, 5].map((starIndex) => {
+                const isFilled = starIndex <= (hoverStar || Math.round(getStoreRating(ratingModalStore.id).rating));
+                return (
+                  <button
+                    key={starIndex}
+                    type="button"
+                    onMouseEnter={() => setHoverStar(starIndex)}
+                    onMouseLeave={() => setHoverStar(0)}
+                    onClick={() => {
+                      handleVoteStore(ratingModalStore.id, starIndex);
+                      setRatingModalStore(null);
+                      setHoverStar(0);
+                    }}
+                    className="p-1 transition-transform hover:scale-125 cursor-pointer outline-none"
+                    title={`Calificar con ${starIndex} estrellas`}
+                  >
+                    <Star
+                      className={`w-7 h-7 transition-all ${
+                        isFilled
+                          ? 'fill-amber-400 text-amber-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.6)]'
+                          : 'text-zinc-600 hover:text-zinc-400'
+                      }`}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+
+            <p className="text-[10px] text-neutral-500 font-mono">
+              100% Anónimo • No requiere registro
+            </p>
           </div>
         </div>
       )}

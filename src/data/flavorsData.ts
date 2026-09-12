@@ -199,7 +199,7 @@ export const FLAVORS_DATA: Record<string, FlavorData> = {
     badgeTextColorClass: 'text-white',
     ringColorClass: 'ring-emerald-400/90 shadow-[0_0_25px_rgba(16,185,129,0.6)]',
     labelImg: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/v1788362869/Cebolla_y8oij5.png',
-    jarImg: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/v1789175746/frasco_cebolla_sin_fondo_bsvcan.png',
+    jarImg: 'https://res.cloudinary.com/dcx6wcjlj/image/upload/v1789176182/frasco_cebolla_sinfrasco_cebolla_sin_fondo_khm6ax.png',
     bgImage: 'https://img.youtube.com/vi/X4SQkaqEwRE/maxresdefault.jpg',
     videoIdDesktop: 'X4SQkaqEwRE',
     videoIdMobile: 'GzRZhb_Fmb8',

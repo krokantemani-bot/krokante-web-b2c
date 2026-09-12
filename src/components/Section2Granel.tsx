@@ -28,13 +28,13 @@ export const Section2Granel: React.FC = () => {
     <section 
       id="section2-granel"
       ref={sectionRef} 
-      className="relative z-20 min-h-screen py-24 px-4 sm:px-6 md:px-10 text-white flex flex-col items-center justify-between overflow-hidden bg-transparent"
+      className="relative z-20 min-h-fit sm:min-h-screen py-10 sm:py-24 px-4 sm:px-6 md:px-10 text-white flex flex-col items-center justify-between overflow-hidden bg-transparent"
     >
       {/* EFECTO DE PARTÍCULAS EXCLUSIVO DE ESTA SECCIÓN */}
       <WorldCanvas flavorId="fuego" />
 
-      {/* 1. TÍTULO PRINCIPAL GENERAL GIGANTE CON SALTO DE LÍNEA Y SEPARACIÓN EXTREMA MB-36 EN MÓVIL */}
-      <div className="text-center max-w-5xl mx-auto mb-36 sm:mb-28 md:mb-28 px-4 sm:px-6 relative z-20">
+      {/* 1. TÍTULO PRINCIPAL GENERAL GIGANTE CON SALTO DE LÍNEA */}
+      <div className="text-center max-w-5xl mx-auto mb-16 sm:mb-28 md:mb-28 px-4 sm:px-6 relative z-20">
         <h2 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-tight text-white font-black leading-[1.02] md:leading-[1.1] drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">
           SIGUE LA RUTA<br className="sm:hidden" /> DEL MANÍ TOP
         </h2>
@@ -110,7 +110,7 @@ export const Section2Granel: React.FC = () => {
       </motion.div>
 
       {/* 3. CENTRO VISUAL: SUNBURST RADIANTE + MOSTRADOR */}
-      <div className="relative w-full max-w-5xl flex items-center justify-center min-h-[420px] sm:min-h-[500px] md:min-h-[600px] my-4">
+      <div className="relative w-full max-w-5xl flex items-center justify-center min-h-[220px] sm:min-h-[420px] md:min-h-[500px] my-2 sm:my-4">
         
         {/* SUNBURST RADIANTE ANIMADO POR SCROLL (Reducido 50%) */}
         <motion.div 

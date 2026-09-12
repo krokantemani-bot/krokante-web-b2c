@@ -386,12 +386,12 @@ export const Section3Momentos: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:flex items-center justify-center gap-2.5 sm:gap-3 w-full md:w-auto shrink-0">
-            <div className="px-3.5 py-3 rounded-2xl bg-black text-white font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 shadow-lg text-center">
+          <div className="grid grid-cols-2 sm:flex items-stretch justify-center gap-2.5 sm:gap-3 w-full md:w-auto shrink-0">
+            <div className="px-3.5 py-3.5 rounded-2xl bg-stone-950 text-amber-400 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 shadow-lg text-center h-full min-h-[72px] sm:min-h-0 border border-stone-900">
               <Scale className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0" />
               <span>Desde 100g</span>
             </div>
-            <div className="px-3.5 py-3 rounded-2xl bg-stone-900 text-amber-400 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 shadow-lg text-center">
+            <div className="px-3.5 py-3.5 rounded-2xl bg-stone-950 text-amber-400 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 shadow-lg text-center h-full min-h-[72px] sm:min-h-0 border border-stone-900">
               <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0" />
               <span>Vidrio Hermético</span>
             </div>

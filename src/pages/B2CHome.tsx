@@ -107,6 +107,15 @@ export const ArtDirectionExperience = () => {
             Olvídate de snacks industriales empaquetados meses atrás. Krokanté se guarda en frascos herméticos de vidrio en la tienda de tu barrio para mantener el crujido y la frescura intactos. Pídeselo a tu casera por peso exacto desde 100g.
           </p>
 
+          {/* FOTOGRAFÍA DE TODOS LOS FRASCOS JUNTOS */}
+          <div className="relative z-10 max-w-4xl mx-auto my-8 overflow-hidden rounded-3xl border border-amber-400/20 shadow-2xl group">
+            <img 
+              src="https://res.cloudinary.com/dcx6wcjlj/image/upload/v1789176644/sabores_juntos_a56du9.jpg" 
+              alt="Frascos de Vidrio Krokanté Maní Todos los Sabores Juntos"
+              className="w-full h-auto object-cover rounded-3xl filter brightness-105 contrast-105 group-hover:scale-102 transition-transform duration-500"
+            />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
             <div className="p-8 rounded-3xl bg-white/5 border border-white/10 text-left space-y-3">
               <Shield className="w-8 h-8 text-amber-400" />

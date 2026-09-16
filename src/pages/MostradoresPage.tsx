@@ -350,7 +350,15 @@ export const MostradoresPage = () => {
       (err) => {
         setIsLocating(false);
         console.warn('Error al obtener ubicación:', err);
-        alert('No se pudo acceder a tu ubicación.');
+        if (err.code === err.PERMISSION_DENIED) {
+          alert('El permiso de ubicación fue denegado. Para buscar mostradores cercanos, por favor permite el acceso al GPS en la configuración de tu navegador o escribe tu barrio en la barra de búsqueda.');
+        } else if (err.code === err.POSITION_UNAVAILABLE) {
+          alert('Tu GPS parece estar desactivado. Por favor activa la Ubicación en la barra de ajustes de tu celular.');
+        } else if (err.code === err.TIMEOUT) {
+          alert('La búsqueda GPS tardó demasiado tiempo. Por favor intenta de nuevo o busca por el nombre de tu barrio.');
+        } else {
+          alert('No se pudo acceder a tu ubicación. Asegúrate de estar navegando por HTTPS o escribe tu barrio en la barra de búsqueda.');
+        }
       },
       { timeout: 10000, enableHighAccuracy: true }
     );

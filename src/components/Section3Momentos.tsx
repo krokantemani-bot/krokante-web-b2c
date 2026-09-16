@@ -241,15 +241,6 @@ export const Section3Momentos: React.FC = () => {
       {/* Textura sutil de papel artesanal apergaminado */}
       <div className="absolute inset-0 bg-[radial-gradient(#D8C8B3_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
 
-      {/* Frasco de Salsa Soya decorativo asomado a la mitad en el borde derecho */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-[350px] sm:w-[450px] md:w-[550px] lg:w-[650px] pointer-events-none z-0 opacity-80 mix-blend-multiply filter drop-shadow-2xl">
-        <img 
-          src="https://res.cloudinary.com/dcx6wcjlj/image/upload/v1789166981/frsco_salsa_soya_sin_fondo_p3qb3f.png" 
-          alt="Frasco Krokanté Salsa Soya"
-          className="w-full h-auto object-contain"
-        />
-      </div>
-
       <div className="max-w-7xl mx-auto relative z-10 space-y-8 md:space-y-10">
         
         {/* ENCABEZADO DE LA SECCIÓN 3 (Espaciado Ajustado y Compacto) */}

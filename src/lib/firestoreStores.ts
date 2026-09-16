@@ -255,7 +255,7 @@ export function calculateDistanceKm(lat1: number, lon1: number, lat2: number, lo
 // Generador de enlace directo a WhatsApp con mensaje pre-redactado (Preferencia: whatsappPublico -> whatsapp)
 export function getWhatsAppLink(phoneOrStore: string | PuntoDeVenta, storeNameParam?: string): string {
   let phone = '';
-  let storeName = storeNameParam || 'Mostrador Krokanté';
+  let storeName = storeNameParam || 'Exhibidor Krokanté';
 
   if (typeof phoneOrStore === 'object' && phoneOrStore !== null) {
     phone = phoneOrStore.whatsappPublico?.trim() || phoneOrStore.whatsapp || '';
@@ -267,7 +267,7 @@ export function getWhatsAppLink(phoneOrStore: string | PuntoDeVenta, storeNamePa
   const cleanPhone = phone ? phone.replace(/\D/g, '') : '59170000000';
   const formattedPhone = cleanPhone.startsWith('591') ? cleanPhone : `591${cleanPhone}`;
   const text = encodeURIComponent(
-    `¡Hola ${storeName}! Vi su mostrador Krokanté en la web y quisiera consultar si tienen stock de maní a granel disponible.`
+    `¡Hola ${storeName}! Vi su exhibidor Krokanté en la web y quisiera consultar si tienen stock de maní a granel disponible.`
   );
   return `https://wa.me/${formattedPhone}?text=${text}`;
 }
@@ -312,7 +312,7 @@ export function subscribePuntosDeVenta(
             return {
               id: doc.id,
               codigo: data.codigo || doc.id,
-              nombre: data.nombre || 'Mostrador Krokanté',
+              nombre: data.nombre || 'Exhibidor Krokanté',
               propietario: data.propietario || '',
               departamento: data.departamento || 'La Paz',
               zona: data.zona || data.direccion || 'San Pedro',
@@ -361,25 +361,99 @@ export function isInsideBolivia(lat: number, lng: number): boolean {
   return lat >= -22.9 && lat <= -9.6 && lng >= -69.7 && lng <= -57.4;
 }
 
+// Determinar Departamento automáticamente basado en Coordenadas GPS (Fallback instantáneo)
+export function getDepartamentoFromCoords(lat: number, lng: number): string {
+  if (!lat || !lng) return 'Bolivia';
+  if (lat >= -16.8 && lat <= -16.2 && lng >= -68.3 && lng <= -67.9) return 'La Paz';
+  if (lat >= -18.1 && lat <= -17.3 && lng >= -63.5 && lng <= -62.8) return 'Santa Cruz';
+  if (lat >= -17.6 && lat <= -17.1 && lng >= -66.4 && lng <= -65.9) return 'Cochabamba';
+  if (lat >= -18.2 && lat <= -17.7 && lng >= -67.4 && lng <= -66.8) return 'Oruro';
+  if (lat >= -19.8 && lat <= -19.3 && lng >= -66.0 && lng <= -65.4) return 'Potosí';
+  if (lat >= -21.8 && lat <= -21.3 && lng >= -65.0 && lng <= -64.4) return 'Tarija';
+  if (lat >= -19.3 && lat <= -18.8 && lng >= -65.5 && lng <= -65.0) return 'Chuquisaca';
+  if (lat >= -15.2 && lat <= -14.3 && lng >= -65.2 && lng <= -64.3) return 'Beni';
+  if (lat >= -11.6 && lat <= -10.7 && lng >= -69.2 && lng <= -68.4) return 'Pando';
+  return 'Bolivia';
+}
+
 // Almacenar solicitud de zona / barrio de alta demanda en Firestore para análisis B2B
 export async function saveZonaRequest(requestData: {
   latitude: number;
   longitude: number;
   departamento?: string;
+  ciudad?: string;
+  barrio?: string;
   zona?: string;
+  direccionFormateada?: string;
+  contextoUbicacion?: string;
+  tipoNegocioSugerido?: string;
   tiendaSugerida?: string;
   esInternacional?: boolean;
-}): Promise<boolean> {
+  origen?: string;
+}): Promise<string | null> {
   try {
     const { addDoc } = await import('firebase/firestore');
-    await addDoc(collection(db, 'solicitudes_zona'), {
-      ...requestData,
+    const cleanData: Record<string, any> = {};
+    Object.entries(requestData).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        cleanData[key] = value;
+      }
+    });
+
+    if (cleanData.departamento) {
+      cleanData.departamento = cleanData.departamento.replace(/^Departamento de\s+/i, '').replace(/^Department of\s+/i, '').trim();
+    } else if (cleanData.latitude && cleanData.longitude) {
+      cleanData.departamento = getDepartamentoFromCoords(cleanData.latitude, cleanData.longitude);
+    }
+
+    const docRef = await addDoc(collection(db, 'solicitudes_zona'), {
+      origen: 'GPS_AUTOMATICO',
+      ...cleanData,
       timestamp: new Date().toISOString(),
       estado: 'Pendiente'
     });
+    return docRef.id;
+  } catch (err) {
+    console.error('Error al guardar solicitud en Firestore:', err);
+    return null;
+  }
+}
+
+// Actualizar solicitud existente en Firestore (Opción 1: Enriquecer la misma sesión)
+export async function updateZonaRequest(
+  docId: string,
+  updateData: {
+    tipoNegocioSugerido?: string;
+    departamento?: string;
+    ciudad?: string;
+    barrio?: string;
+    zona?: string;
+    direccionFormateada?: string;
+    origen?: string;
+  }
+): Promise<boolean> {
+  try {
+    const { doc, updateDoc } = await import('firebase/firestore');
+    const cleanData: Record<string, any> = {};
+    Object.entries(updateData).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        cleanData[key] = value;
+      }
+    });
+
+    if (cleanData.departamento) {
+      cleanData.departamento = cleanData.departamento.replace(/^Departamento de\s+/i, '').replace(/^Department of\s+/i, '').trim();
+    }
+
+    const docRef = doc(db, 'solicitudes_zona', docId);
+    await updateDoc(docRef, {
+      ...cleanData,
+      origen: 'FORMULARIO_COMPLETO',
+      fechaActualización: new Date().toISOString()
+    });
     return true;
   } catch (err) {
-    console.warn('No se pudo guardar la solicitud en Firestore:', err);
+    console.error('Error al actualizar solicitud en Firestore:', err);
     return false;
   }
 }

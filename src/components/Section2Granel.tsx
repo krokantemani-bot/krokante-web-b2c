@@ -45,7 +45,7 @@ export const Section2Granel: React.FC = () => {
         style={{ scale: stepsScale }}
         className="w-full max-w-[98%] sm:max-w-3xl md:max-w-4xl lg:max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-4 lg:gap-8 text-center mb-8 md:mb-12 relative z-20 origin-center px-2 sm:px-4"
       >
-        {/* Paso 1 -> Dirige a "Encuentra tu mostrador" (#tiendas) y guarda #section2-granel en el historial */}
+        {/* Paso 1 -> Dirige a "Encuentra tu exhibidor" (#tiendas) y guarda #section2-granel en el historial */}
         <div 
           onClick={() => {
             window.history.pushState({}, '', '#section2-granel');
@@ -62,7 +62,7 @@ export const Section2Granel: React.FC = () => {
           </motion.span>
           {/* Texto del Paso */}
           <h3 className="relative z-10 font-display text-3xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl uppercase tracking-normal leading-[1.15] drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
-            PASO 1.<br />Busca el <span className="text-[#EAB308] font-black">mostrador KROKANTÉ</span><br />mas cercano
+            PASO 1.<br />Busca el <span className="text-[#EAB308] font-black">exhibidor KROKANTÉ</span><br />mas cercano
           </h3>
         </div>
 
@@ -109,7 +109,7 @@ export const Section2Granel: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* 3. CENTRO VISUAL: SUNBURST RADIANTE + MOSTRADOR */}
+      {/* 3. CENTRO VISUAL: SUNBURST RADIANTE + EXHIBIDOR */}
       <div className="relative w-full max-w-5xl flex items-center justify-center min-h-[220px] sm:min-h-[420px] md:min-h-[500px] my-2 sm:my-4">
         
         {/* SUNBURST RADIANTE ANIMADO POR SCROLL (Reducido 50%) */}
@@ -127,7 +127,7 @@ export const Section2Granel: React.FC = () => {
           />
         </motion.div>
 
-        {/* MOSTRADOR KROKANTÉ FÍSICO */}
+        {/* EXHIBIDOR KROKANTÉ FÍSICO */}
         <div className="relative z-10 w-full max-w-[780px] px-2 flex justify-center">
           <motion.img 
             initial={{ y: 40, opacity: 0 }}
@@ -135,7 +135,7 @@ export const Section2Granel: React.FC = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             src="https://res.cloudinary.com/dcx6wcjlj/image/upload/f_auto,q_auto/mostrador_krokante_yzw4rl.png" 
-            alt="Mostrador Krokanté Maní a Granel" 
+            alt="Exhibidor Krokanté Maní a Granel" 
             className="w-full h-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.85)]"
           />
         </div>

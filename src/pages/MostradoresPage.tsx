@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Search, MapPin, Compass, MessageCircle, ShieldCheck, Sparkles, Store, RefreshCw, ArrowLeft, List, Map, Globe, Send, X, Frown, ChevronDown, ChevronUp, Star } from 'lucide-react';
-import { subscribePuntosDeVenta, calculateDistanceKm, getWhatsAppLink, getGoogleMapsLink, isInsideBolivia, saveZonaRequest, MOCK_STORES } from '../lib/firestoreStores';
+import { subscribePuntosDeVenta, calculateDistanceKm, getWhatsAppLink, getGoogleMapsLink, isInsideBolivia, saveZonaRequest, updateZonaRequest, getDepartamentoFromCoords, MOCK_STORES } from '../lib/firestoreStores';
 import type { PuntoDeVenta } from '../types/store';
 
 const GOOGLE_MAPS_KEY = import.meta.env.VITE_GOOGLE_MAPS_PLATFORM_KEY || 'AIzaSyAIfQlbcz6qtYdftaEBocq2I7goDyjOf6Q';
@@ -50,6 +50,7 @@ export const MostradoresPage = () => {
   const touchStartXRef = useRef<number | null>(null);
   const touchCurrentXRef = useRef<number | null>(null);
   const isDraggingPillRef = useRef(false);
+  const lastZonaRequestIdRef = useRef<string | null>(null);
 
   const handleTouchStart = (e: React.TouchEvent | React.MouseEvent) => {
     const clientX = 'touches' in e ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
@@ -81,13 +82,13 @@ export const MostradoresPage = () => {
     isDraggingPillRef.current = false;
   };
   
-  // Nuevos estados para tarjeta de distancia, modal B2B y modal internacional
+  // Nuevos estados para tarjeta de distancia, modal B2B, modal internacional y aviso previo GPS
+  const [locationPrePromptOpen, setLocationPrePromptOpen] = useState(false);
   const [noStoreNearCardOpen, setNoStoreNearCardOpen] = useState(false);
   const [nearestDistanceKm, setNearestDistanceKm] = useState<number | null>(null);
   const [nearestStore, setNearestStore] = useState<PuntoDeVenta | null>(null);
   const [b2bLocationModalOpen, setB2bLocationModalOpen] = useState(false);
   const [internationalModalOpen, setInternationalModalOpen] = useState(false);
-  const [suggestedStoreName, setSuggestedStoreName] = useState('');
   const [honeypotValue, setHoneypotValue] = useState('');
   const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
   const [requestSuccessMsg, setRequestSuccessMsg] = useState('');
@@ -201,12 +202,18 @@ export const MostradoresPage = () => {
     a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' })
   );
 
-  // Geolocalización y Geofencing inteligente
+  // Pre-prompt explicativo antes de solicitar permisos GPS al navegador
   const handleRequestLocation = () => {
     if (!navigator.geolocation) {
       alert('Tu navegador no soporta geolocalización.');
       return;
     }
+    setLocationPrePromptOpen(true);
+  };
+
+  // Función que ejecuta la geolocalización real cuando el usuario acepta el aviso de Krokanté
+  const executeActualGeolocation = () => {
+    setLocationPrePromptOpen(false);
     setIsLocating(true);
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
@@ -230,13 +237,76 @@ export const MostradoresPage = () => {
           return;
         }
 
-        // --- OPCIÓN A: REGISTRO SILENCIOSO AUTOMÁTICO EN FIRESTORE ---
-        // Dado que el usuario activó su GPS, guardamos sus coordenadas directamente en el mapa de demanda B2B sin mostrar avisos en pantalla
-        saveZonaRequest({
-          latitude: lat,
-          longitude: lng,
-          esInternacional: false,
-        });
+        // Reverse Geocoding inteligente con Google Maps para capturar Departamento, Ciudad y Barrio/UV reales
+        let deptoDetected = getDepartamentoFromCoords(lat, lng);
+        let ciudadDetected = '';
+        let barrioDetected = '';
+        let direccionFormateadaDetected = '';
+
+        const doSaveInitialRequest = (dept: string, city: string, barrio: string, formattedAddr: string) => {
+          const zonaValue = barrio || city || dept;
+          saveZonaRequest({
+            latitude: lat,
+            longitude: lng,
+            departamento: dept,
+            ciudad: city || undefined,
+            barrio: barrio || undefined,
+            zona: zonaValue,
+            direccionFormateada: formattedAddr || undefined,
+            esInternacional: false,
+            origen: 'GPS_AUTOMATICO',
+          }).then((docId) => {
+            if (docId) lastZonaRequestIdRef.current = docId;
+          });
+        };
+
+        if ((window as any).google && (window as any).google.maps) {
+          try {
+            const geocoder = new (window as any).google.maps.Geocoder();
+            geocoder.geocode({ location: newLoc }, (results: any[], status: string) => {
+              if (status === 'OK' && results && results.length > 0) {
+                direccionFormateadaDetected = results[0].formatted_address || '';
+
+                for (const res of results) {
+                  const comps = res.address_components || [];
+
+                  // Departamento (Administrative Area Level 1)
+                  const stateComp = comps.find((c: any) => c.types.includes('administrative_area_level_1'));
+                  if (stateComp?.long_name && deptoDetected === getDepartamentoFromCoords(lat, lng)) {
+                    deptoDetected = stateComp.long_name
+                      .replace(/^Departamento de\s+/i, '')
+                      .replace(/^Department of\s+/i, '')
+                      .replace(/Department$/i, '')
+                      .trim();
+                  }
+
+                  // Ciudad / Municipio (Locality o Admin Level 2)
+                  const cityComp = comps.find((c: any) => c.types.includes('locality') || c.types.includes('administrative_area_level_2'));
+                  if (cityComp?.long_name && !ciudadDetected) {
+                    ciudadDetected = cityComp.long_name;
+                  }
+
+                  // Barrio / UV / Zona Específica (Neighborhood, Sublocality Level 1 o Sublocality)
+                  const subLocComp = comps.find((c: any) =>
+                    c.types.includes('neighborhood') ||
+                    c.types.includes('sublocality_level_1') ||
+                    c.types.includes('sublocality') ||
+                    c.types.includes('sublocality_level_2')
+                  );
+                  if (subLocComp?.long_name && !barrioDetected) {
+                    barrioDetected = subLocComp.long_name;
+                  }
+                }
+              }
+
+              doSaveInitialRequest(deptoDetected, ciudadDetected, barrioDetected, direccionFormateadaDetected);
+            });
+          } catch {
+            doSaveInitialRequest(deptoDetected, '', '', '');
+          }
+        } else {
+          doSaveInitialRequest(deptoDetected, '', '', '');
+        }
 
         // 2. Si está en Bolivia, calcular distancia al mostrador más cercano
         const storeList = stores.length > 0 ? stores : MOCK_STORES;
@@ -286,9 +356,27 @@ export const MostradoresPage = () => {
     );
   };
 
-  // Guardar solicitud de mostrador con GPS + Nombre de Tienda (Con protección Anti-Bot Honeypot y Rate-Limiting)
+  const [selectedBusinessTypes, setSelectedBusinessTypes] = useState<string[]>([]);
+  const [customBusinessType, setCustomBusinessType] = useState<string>('');
+
+  const toggleBusinessType = (id: string) => {
+    setSelectedBusinessTypes((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((item) => item !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
+  };
+
+  // Guardar solicitud de mostrador con GPS + Elección Múltiple (Con protección Anti-Bot Honeypot y Rate-Limiting)
   const handleSubmitZonaRequest = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
+
+    if (selectedBusinessTypes.length < 1) {
+      alert('Por favor elige al menos 1 opción de negocio.');
+      return;
+    }
 
     // 1. Trampa Honeypot: si un bot llenó el campo invisible, simular éxito y cancelar silenciosamente
     if (honeypotValue.trim() !== '') {
@@ -297,7 +385,7 @@ export const MostradoresPage = () => {
       setTimeout(() => {
         setB2bLocationModalOpen(false);
         setRequestSuccessMsg('');
-        setSuggestedStoreName('');
+        setCustomBusinessType('');
         setHoneypotValue('');
       }, 1500);
       return;
@@ -314,22 +402,36 @@ export const MostradoresPage = () => {
       }
     }
 
-    if (!suggestedStoreName.trim()) {
-      alert('Por favor escribe el nombre de la tienda o negocio cercano antes de enviar.');
-      return;
-    }
-    if (!userLocation) {
-      alert('Se requiere tu ubicación GPS para enviar la solicitud.');
-      return;
-    }
+    const labelsMap: Record<string, string> = {
+      tienda_barrio: 'Tienda de barrio/condominio',
+      micromarket: 'Micromarket',
+      frutos_secos: 'Tienda de frutos secos',
+      farmacia: 'Farmacia',
+      licoreria: 'Licorería',
+      otro: customBusinessType.trim() ? `Otro: ${customBusinessType.trim()}` : 'Otro negocio',
+    };
+
+    const businessLabel = selectedBusinessTypes.map((id) => labelsMap[id] || id).join(', ');
+
     setIsSubmittingRequest(true);
     try {
-      await saveZonaRequest({
-        latitude: userLocation.lat,
-        longitude: userLocation.lng,
-        tiendaSugerida: suggestedStoreName.trim(),
-        esInternacional: !isInsideBolivia(userLocation.lat, userLocation.lng),
-      });
+      if (lastZonaRequestIdRef.current) {
+        // SOLUCIÓN OPCIÓN 1: Actualizar el documento de la sesión actual sin duplicar
+        await updateZonaRequest(lastZonaRequestIdRef.current, {
+          tipoNegocioSugerido: businessLabel,
+          origen: 'FORMULARIO_COMPLETO',
+        });
+      } else {
+        // Si ingresó directo al formulario sin GPS previo
+        await saveZonaRequest({
+          latitude: userLocation?.lat || -16.5000,
+          longitude: userLocation?.lng || -68.1193,
+          departamento: userLocation ? getDepartamentoFromCoords(userLocation.lat, userLocation.lng) : 'La Paz',
+          tipoNegocioSugerido: businessLabel,
+          esInternacional: userLocation ? !isInsideBolivia(userLocation.lat, userLocation.lng) : false,
+          origen: 'FORMULARIO_COMPLETO',
+        });
+      }
       
       // Registrar marca de tiempo del envío exitoso para rate-limiting
       localStorage.setItem('krokante_b2b_last_submit', now.toString());
@@ -338,7 +440,7 @@ export const MostradoresPage = () => {
       setTimeout(() => {
         setB2bLocationModalOpen(false);
         setRequestSuccessMsg('');
-        setSuggestedStoreName('');
+        setCustomBusinessType('');
         setHoneypotValue('');
       }, 2500);
     } catch (err) {
@@ -521,7 +623,7 @@ export const MostradoresPage = () => {
       const popupContent = `
         <div style="background-color:#09090b; color:#ffffff; padding:12px 14px; border-radius:12px; border:1.5px solid #facc15; font-family:sans-serif; max-width:240px; box-shadow:0 12px 30px rgba(0,0,0,0.9);">
           <div style="font-size:10px; font-weight:bold; color:#facc15; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; display:flex; items-center; gap:4px;">
-            <span>🍯 MOSTRADOR KROKANTÉ</span>
+            <span>🍯 EXHIBIDOR KROKANTÉ</span>
           </div>
           <div style="font-size:14px; font-weight:bold; color:#ffffff; margin-bottom:2px; leading-height:1.2;">
             ${store.nombre}
@@ -593,7 +695,7 @@ export const MostradoresPage = () => {
           <div className="flex items-center gap-3">
             <div>
               <h1 className="font-display text-lg sm:text-xl uppercase tracking-wider text-white leading-none">
-                Encuentra Tu Mostrador
+                Encuentra Tu Exhibidor
               </h1>
               <span className="text-[10px] sm:text-[11px] text-amber-400 font-mono flex items-center gap-1.5 mt-1">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -609,7 +711,7 @@ export const MostradoresPage = () => {
           rel="noreferrer"
           className="hidden sm:flex px-4 py-2 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-400 hover:bg-amber-400 hover:text-black font-mono text-xs font-bold transition-all shrink-0"
         >
-          ¿Quieres ser Mostrador Krokanté? B2B
+          ¿Quieres ser Exhibidor Krokanté? B2B
         </a>
       </header>
 
@@ -662,14 +764,14 @@ export const MostradoresPage = () => {
             onClick={handleRequestLocation}
             disabled={isLocating}
             className="w-full sm:w-auto justify-center px-4 py-2.5 rounded-xl text-xs font-mono font-extrabold bg-amber-400 hover:bg-amber-300 text-black shadow-lg shadow-amber-400/25 flex items-center gap-2 transition-all active:scale-[0.98] disabled:opacity-50 shrink-0 cursor-pointer"
-            title="Obtener Mostradores Cerca de Mí"
+            title="Obtener Exhibidores Cerca de Mí"
           >
             {isLocating ? (
               <RefreshCw className="w-4 h-4 animate-spin text-black" />
             ) : (
               <Compass className="w-4 h-4 text-black font-bold" />
             )}
-            <span>Mostrador más cercano</span>
+            <span>Exhibidor más cercano</span>
           </button>
         </div>
 
@@ -714,7 +816,7 @@ export const MostradoresPage = () => {
             {sortedStores.length === 0 ? (
               <div className="p-8 text-center space-y-3 text-neutral-500">
                 <Store className="w-10 h-10 mx-auto opacity-30" />
-                <p className="text-xs font-mono">No se encontraron mostradores en esta zona.</p>
+                <p className="text-xs font-mono">No se encontraron exhibidores en esta zona.</p>
               </div>
             ) : (
               sortedStores.map((store) => {
@@ -852,6 +954,56 @@ export const MostradoresPage = () => {
         </main>
       </div>
 
+      {/* ---------------------------------------------------- */}
+      {/* 0. MODAL PRE-PROMPT EXPLICATIVO DE GEOLOCALIZACIÓN  */}
+      {/* ---------------------------------------------------- */}
+      {locationPrePromptOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="max-w-sm w-full p-6 rounded-3xl bg-neutral-900 border border-amber-400/40 shadow-2xl text-white text-center relative">
+            <button
+              onClick={() => setLocationPrePromptOpen(false)}
+              className="absolute top-4 right-4 text-neutral-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+              title="Cerrar aviso"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="w-14 h-14 mx-auto mb-3.5 rounded-2xl bg-amber-400/10 border border-amber-400/30 text-amber-400 flex items-center justify-center shadow-lg shadow-amber-400/10">
+              <Compass className="w-7 h-7 text-amber-400 animate-pulse" />
+            </div>
+
+            <h3 className="font-bold text-lg text-white leading-tight mb-2">
+              📍 Encuentra Tu Exhibidor
+            </h3>
+            <p className="text-xs text-neutral-300 leading-relaxed mb-4 font-normal">
+              Permítenos conocer tu ubicación para calcular la distancia en tiempo real y mostrarte los puntos de venta <strong className="text-amber-400">Krokanté</strong> más cercanos a tu barrio.
+            </p>
+
+            <div className="py-2 px-3 rounded-xl bg-neutral-950 border border-neutral-800 text-[11px] text-neutral-400 mb-5 flex items-center justify-center gap-1.5 font-mono">
+              <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Privacidad 100% protegida</span>
+            </div>
+
+            <div className="space-y-2">
+              <button
+                onClick={executeActualGeolocation}
+                className="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-400/25 transition-all cursor-pointer active:scale-98"
+              >
+                <Compass className="w-4 h-4 text-black font-bold" />
+                <span>Permitir ubicación y buscar</span>
+              </button>
+
+              <button
+                onClick={() => setLocationPrePromptOpen(false)}
+                className="w-full py-2.5 text-center text-xs text-neutral-400 hover:text-white font-medium transition-colors cursor-pointer"
+              >
+                Explorar mapa manualmente
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* BOTÓN FLOTANTE MÓVIL TOGGLE "VER MAPA" / "VER LISTA" (SLIDING INDICATOR + ARRASTRE TÁCTIL DRAG) */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 md:hidden">
         <div
@@ -912,7 +1064,7 @@ export const MostradoresPage = () => {
               </div>
               <div className="flex-1 pr-6">
                 <h4 className="font-bold text-sm text-white leading-snug">
-                  ¡Upss, aún no llegamos a tu barrio con un MOSTRADOR KROKANTÉ!
+                  ¡Upss, aún no llegamos a tu barrio con un EXHIBIDOR KROKANTÉ!
                 </h4>
                 <p className="text-xs text-neutral-300 mt-1 leading-relaxed">
                   El más cercano está a <strong className="text-amber-400 font-mono text-sm">~{nearestDistanceKm !== null ? Math.max(1, Math.round(nearestDistanceKm * 2.5)) : ''} min ({nearestDistanceKm} km)</strong> en <strong className="text-amber-400">{nearestStore?.zona || nearestStore?.departamento || 'tu ciudad'}</strong>.
@@ -931,7 +1083,7 @@ export const MostradoresPage = () => {
                       }}
                       className="px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-black text-xs font-bold transition-all shadow-lg shadow-amber-400/20"
                     >
-                      Ver mostrador a ~{nearestDistanceKm !== null ? Math.max(1, Math.round(nearestDistanceKm * 2.5)) : ''} min ({nearestDistanceKm} km)
+                      Ver exhibidor a ~{nearestDistanceKm !== null ? Math.max(1, Math.round(nearestDistanceKm * 2.5)) : ''} min ({nearestDistanceKm} km)
                     </button>
                   )}
                   <button
@@ -941,7 +1093,7 @@ export const MostradoresPage = () => {
                     }}
                     className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/20 text-xs font-bold transition-all flex items-center gap-1.5"
                   >
-                    <span>💡 Quiero un mostrador en mi barrio</span>
+                    <span>💡 Quiero un exhibidor en mi barrio</span>
                   </button>
                 </div>
               </div>
@@ -969,7 +1121,6 @@ export const MostradoresPage = () => {
               </div>
               <div>
                 <h3 className="font-bold text-base text-white">¡Ayúdanos a llevar Krokanté a tu barrio!</h3>
-                <p className="text-xs text-neutral-400">Sugiérenos una tienda o negocio cercano</p>
               </div>
             </div>
 
@@ -980,7 +1131,7 @@ export const MostradoresPage = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmitZonaRequest} className="space-y-4 relative">
-                {/* Campo Trampa Anti-Bots (Honeypot) - Totalmente invisible para personas reales */}
+                {/* Campo Trampa Anti-Bots (Honeypot) */}
                 <input
                   type="text"
                   name="b2b_website_ref"
@@ -991,39 +1142,78 @@ export const MostradoresPage = () => {
                   className="absolute opacity-0 pointer-events-none -z-50 h-0 w-0 overflow-hidden"
                   autoComplete="off"
                 />
+
+                {/* PREGUNTA PRINCIPAL: Tipo de negocio cercano (Elección Múltiple) */}
                 <div>
-                  <label className="block text-xs font-bold text-neutral-300 mb-1.5">
-                    Escribe el nombre o referencia de la tienda (Requerido)
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={suggestedStoreName}
-                    onChange={(e) => setSuggestedStoreName(e.target.value)}
-                    placeholder="Ej. Tienda Doña Mary, Licorería El Sol, Vértice 4to Anillo..."
-                    className={`w-full px-4 py-3 rounded-xl bg-neutral-950 text-white text-xs placeholder:text-neutral-600 focus:outline-none transition-all ${
-                      suggestedStoreName.trim()
-                        ? 'border-2 border-amber-400 shadow-sm shadow-amber-400/20'
-                        : 'border border-amber-400/40'
-                    }`}
-                    autoFocus
-                  />
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-bold text-neutral-200 leading-snug">
+                      ¿En qué tipo de negocio en tu barrio te gustaría encontrar Krokanté? <span className="text-amber-400">*</span>
+                    </label>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-amber-400 text-xs font-medium mb-2.5">
+                    <span>☑️</span>
+                    <span>Elige las opciones que quieras</span>
+                  </div>
+                  <div className="flex flex-col gap-2 w-full text-xs">
+                    {[
+                      { id: 'tienda_barrio', label: 'Tienda de barrio/condominio' },
+                      { id: 'micromarket', label: 'Micromarket' },
+                      { id: 'frutos_secos', label: 'Tienda de frutos secos' },
+                      { id: 'farmacia', label: 'Farmacia' },
+                      { id: 'licoreria', label: 'Licorería' },
+                      { id: 'otro', label: 'Otro negocio' },
+                    ].map((btn) => {
+                      const isSelected = selectedBusinessTypes.includes(btn.id);
+                      return (
+                        <button
+                          key={btn.id}
+                          type="button"
+                          onClick={() => toggleBusinessType(btn.id)}
+                          className={`w-full py-2.5 px-3.5 rounded-xl text-left font-semibold flex items-center justify-between transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-amber-400/15 text-amber-300 border-2 border-amber-400 font-bold shadow-md shadow-amber-400/10'
+                              : 'bg-neutral-950 text-neutral-300 border border-neutral-800 hover:border-neutral-700'
+                          }`}
+                        >
+                          <span className="text-xs">{btn.label}</span>
+                          <div className={`w-4 h-4 rounded flex items-center justify-center text-[10px] font-extrabold transition-all ${
+                            isSelected ? 'bg-amber-400 text-black shadow-xs' : 'border border-neutral-700 bg-neutral-900'
+                          }`}>
+                            {isSelected && '✓'}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Campo desplegable si selecciona 'Otro negocio' */}
+                  {selectedBusinessTypes.includes('otro') && (
+                    <div className="mt-2.5 animate-in fade-in duration-150">
+                      <input
+                        type="text"
+                        value={customBusinessType}
+                        onChange={(e) => setCustomBusinessType(e.target.value)}
+                        placeholder="Ej. Gimnasio, Farmacia, Cine, Cancha sintética..."
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-neutral-950 border border-amber-400/40 text-white text-xs placeholder:text-neutral-600 focus:outline-none focus:border-amber-400"
+                        autoFocus
+                      />
+                    </div>
+                  )}
                 </div>
 
-                <div className="p-3 rounded-xl bg-amber-400/10 border border-amber-400/25 flex items-start gap-2.5 text-neutral-300">
-                  <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                  <p className="text-[11px] leading-relaxed text-neutral-300">
-                    <strong className="text-amber-400">Confidencialidad garantizada:</strong> Tu sugerencia es 100% confidencial. No compartiremos tu información con terceros.
+                <div className="p-3 rounded-2xl bg-amber-400/10 border border-amber-400/20 text-center">
+                  <p className="text-[11px] text-amber-300/90 font-medium leading-relaxed">
+                    Envíanos tu sugerencia y nos encargaremos de instalar un exhibidor Krokanté a tu barrio muy pronto.
                   </p>
                 </div>
 
-                <div className="pt-2 flex items-center gap-3">
+                <div className="pt-1 flex items-center gap-3">
                   <button
                     type="submit"
-                    disabled={isSubmittingRequest || !suggestedStoreName.trim()}
+                    disabled={isSubmittingRequest || selectedBusinessTypes.length < 1}
                     className={`w-full py-3 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all ${
-                      suggestedStoreName.trim()
-                        ? 'bg-amber-400 hover:bg-amber-300 text-black shadow-lg shadow-amber-400/20 cursor-pointer'
+                      selectedBusinessTypes.length >= 1
+                        ? 'bg-amber-400 hover:bg-amber-300 text-black shadow-lg shadow-amber-400/20 cursor-pointer active:scale-98'
                         : 'bg-neutral-800 border border-white/10 text-neutral-500 cursor-not-allowed'
                     }`}
                   >
@@ -1033,9 +1223,9 @@ export const MostradoresPage = () => {
                       <Send className="w-4 h-4" />
                     )}
                     <span>
-                      {suggestedStoreName.trim()
+                      {selectedBusinessTypes.length >= 1
                         ? '🚀 Enviar mi sugerencia'
-                        : 'Escribe el nombre para enviar'}
+                        : 'Elige al menos 1 opción'}
                     </span>
                   </button>
                 </div>
@@ -1064,7 +1254,7 @@ export const MostradoresPage = () => {
               </div>
               <div>
                 <h3 className="font-bold text-base text-white">¡Gracias por visitarnos desde el exterior!</h3>
-                <p className="text-xs text-neutral-400">Actualmente nuestros mostradores físicos operan en Bolivia.</p>
+                <p className="text-xs text-neutral-400">Actualmente nuestros exhibidores físicos operan en Bolivia.</p>
               </div>
             </div>
 
@@ -1098,7 +1288,7 @@ export const MostradoresPage = () => {
                 onClick={() => setInternationalModalOpen(false)}
                 className="w-full py-2.5 text-center text-xs text-neutral-400 hover:text-white transition-colors"
               >
-                Explorar mostradores en Bolivia
+                Explorar exhibidores en Bolivia
               </button>
             </div>
           </div>
@@ -1126,7 +1316,7 @@ export const MostradoresPage = () => {
             </div>
 
             <h3 className="font-bold text-base text-white leading-tight mb-1">
-              Calificar Mostrador
+              Calificar Exhibidor
             </h3>
             <p className="text-xs text-amber-400 font-mono font-semibold mb-4 truncate px-2">
               {ratingModalStore.nombre}

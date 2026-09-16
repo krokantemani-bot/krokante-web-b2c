@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "krokante-web"
+  },
+  "targets": {
+    "krokante-web": {
+      "hosting": {
+        "b2c": [
+          "krokante-b2c"
+        ]
+      }
+    }
+  }
+}

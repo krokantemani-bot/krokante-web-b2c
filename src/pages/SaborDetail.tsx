@@ -106,7 +106,7 @@ const renderB2BPartnerBanner = (flavorId: string) => {
               <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold uppercase">
                 <Store className="w-4 h-4" /> Exhibidor Exclusivo
               </div>
-              <p className="text-xs text-stone-300 font-sans font-medium leading-relaxed">Descubre cómo instalar los 4 frascos herméticos de superfoods en tu mostrador.</p>
+              <p className="text-xs text-stone-300 font-sans font-medium leading-relaxed">Descubre cómo instalar los 4 frascos herméticos de superfoods en tu exhibidor.</p>
             </div>
             <div className="p-4 rounded-2xl bg-stone-900 border border-stone-800 space-y-1.5">
               <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs font-bold uppercase">

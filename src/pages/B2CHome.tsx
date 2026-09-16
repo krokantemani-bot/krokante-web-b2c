@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'motion/react';
 import { Sparkles, ShieldCheck, Scale, Shield, Map as MapIcon, ArrowRight, Compass } from 'lucide-react';
 import { Hero3D } from '../components/Hero3D';
 import { Section2Granel } from '../components/Section2Granel';
@@ -38,19 +38,19 @@ export const ArtDirectionExperience = () => {
       <Hero3D />
       <TickerBeneficios />
 
-      {/* 2. SEGUÍ LA RUTA DEL MANÍ TOP (PASOS 01, 02, 03 & MOSTRADOR) */}
+      {/* 2. SEGUÍ LA RUTA DEL MANÍ TOP (PASOS 01, 02, 03 & EXHIBIDOR) */}
       <Section2Granel />
 
-      {/* 3. SECCIÓN MINIMALISTA Y LIMPIA "ENCUENTRA TU MOSTRADOR" (DERIVA A /mostradores) */}
+      {/* 3. SECCIÓN MINIMALISTA Y LIMPIA "ENCUENTRA TU EXHIBIDOR" (DERIVA A /mostradores) */}
       <section id="tiendas" className="relative z-20 py-20 px-4 sm:px-6 bg-black/90 backdrop-blur-xl border-t border-white/10">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 font-mono text-xs uppercase tracking-widest mb-3">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-              <span>Red de Mostradores Krokanté</span>
+              <span>Red de Exhibidores Krokanté</span>
             </div>
             <h2 className="font-display text-5xl md:text-7xl uppercase tracking-tighter">
-              ENCUENTRA TU MOSTRADOR
+              ENCUENTRA TU EXHIBIDOR
             </h2>
             <p className="text-neutral-400 text-sm md:text-base max-w-xl mx-auto mt-3 font-medium">
               Explora en tiempo real los Puntos de Venta de tu barrio con frascos de vidrio herméticos servidos a granel.
@@ -71,7 +71,7 @@ export const ArtDirectionExperience = () => {
                   Mapa Interactivo & Puntos de Venta
                 </h3>
                 <p className="text-xs md:text-sm text-neutral-400 max-w-lg leading-relaxed mx-auto sm:mx-0">
-                  Ubica el mostrador Krokanté más cercano a tu posición GPS
+                  Ubica el exhibidor Krokanté más cercano a tu posición GPS
                 </p>
               </div>
 
@@ -80,7 +80,7 @@ export const ArtDirectionExperience = () => {
                 className="w-full sm:w-auto px-5 sm:px-8 py-3.5 sm:py-5 rounded-2xl bg-amber-400 hover:bg-yellow-300 text-black font-display text-sm sm:text-lg uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl shadow-amber-400/30 shrink-0 group-hover:scale-105"
               >
                 <Compass className="w-4 h-4 sm:w-6 sm:h-6 text-black animate-pulse shrink-0" />
-                <span className="whitespace-nowrap">MOSTRADOR MÁS CERCANO</span>
+                <span className="whitespace-nowrap">EXHIBIDOR MÁS CERCANO</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-black shrink-0" />
               </button>
             </div>
@@ -107,14 +107,22 @@ export const ArtDirectionExperience = () => {
             Olvídate de snacks industriales empaquetados meses atrás. Krokanté se guarda en frascos herméticos de vidrio en la tienda de tu barrio para mantener el crujido y la frescura intactos. Pídeselo a tu casera por peso exacto desde 100g.
           </p>
 
-          {/* FOTOGRAFÍA DE TODOS LOS FRASCOS JUNTOS (SIN ESPACIO BLANCO EN MÓVIL NI ESCRITORIO) */}
-          <div className="relative z-10 max-w-4xl mx-auto my-6 sm:my-8 overflow-hidden rounded-3xl border border-amber-400/20 shadow-2xl group h-[210px] xs:h-[240px] sm:h-[440px] md:h-[520px] lg:h-[580px]">
-            <img 
+          {/* FOTOGRAFÍA DE TODOS LOS FRASCOS JUNTOS (EFECTO PARALLAX REVELACIÓN Y ZOOM AL SCROLL) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 35, scale: 0.96 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="relative z-10 max-w-4xl mx-auto my-6 sm:my-8 overflow-hidden rounded-3xl border border-amber-400/20 shadow-[0_20px_50px_rgba(234,179,8,0.15)] group h-[210px] xs:h-[240px] sm:h-[440px] md:h-[520px] lg:h-[580px]"
+          >
+            <motion.img 
+              whileHover={{ scale: 1.04 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
               src="https://res.cloudinary.com/dcx6wcjlj/image/upload/v1789176644/sabores_juntos_a56du9.jpg" 
               alt="Frascos de Vidrio Krokanté Maní Todos los Sabores Juntos"
-              className="w-full h-full object-cover object-[center_60%] sm:object-[center_68%] rounded-3xl filter brightness-105 contrast-105 group-hover:scale-102 transition-transform duration-500"
+              className="w-full h-full object-cover object-[center_60%] sm:object-[center_68%] rounded-3xl filter brightness-105 contrast-105"
             />
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
             <div className="p-8 rounded-3xl bg-white/5 border border-white/10 text-left space-y-3">
@@ -137,22 +145,46 @@ export const ArtDirectionExperience = () => {
       </section>
 
       {/* 6. BANNER B2B PARA SOCIOS & FOOTER */}
-      <section id="b2b" className="relative z-20 py-16 px-6 bg-black/90 backdrop-blur-xl border-t border-white/10">
-        <div className="max-w-5xl mx-auto">
-          <div className="p-10 rounded-3xl bg-gradient-to-r from-amber-950 via-yellow-950 to-black border-2 border-amber-400/40 text-left flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-            <div className="space-y-2">
-              <span className="text-xs font-mono text-amber-400 font-bold uppercase tracking-widest">Oportunidad para Tiendas y Licorerías</span>
-              <h3 className="font-display text-3xl uppercase text-white">¿TIENES UNA TIENDA DE BARRIO O MERCADO SALUDABLE?</h3>
-              <p className="text-sm text-neutral-300 max-w-xl">Instala nuestro exhibidor impreso con 4 frascos de vidrio y gana hasta el 60% de rentabilidad. El producto se vende solo.</p>
+      <section id="b2b" className="relative z-20 py-16 px-6 bg-[#F4ECE1] text-stone-950 border-t-2 border-amber-900/10 shadow-inner font-sans overflow-hidden">
+        {/* Textura sutil de papel artesanal apergaminado */}
+        <div className="absolute inset-0 bg-[radial-gradient(#D8C8B3_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="p-8 md:p-10 rounded-[2.5rem] bg-[#EDE4D7] border-2 border-[#E5BA9E] text-left grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-xl">
+            {/* Columna Izquierda: Textos y Botón */}
+            <div className="lg:col-span-7 space-y-6">
+              <span className="text-xs font-mono text-[#8C5E3C] font-extrabold uppercase tracking-widest block">
+                OPORTUNIDAD PARA TU NEGOCIO
+              </span>
+              <h3 className="font-display text-2xl md:text-3xl lg:text-4xl uppercase font-black text-stone-950 leading-tight">
+                ¿TIENES UNA TIENDA DE BARRIO, UN MICROMARKET, UNA FARMACIA LICORERÍA, ETC. ?
+              </h3>
+              <p className="text-sm md:text-base text-stone-700 font-medium max-w-xl leading-relaxed">
+                Instala nuestro exhibidor impreso con 4 frascos de vidrio y genera hasta el 60% de rentabilidad. El producto se vende solo.
+              </p>
+              <div className="pt-2">
+                <a 
+                  href="https://b2b.krokantemani.top" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-3 px-8 py-5 rounded-2xl bg-[#0F0E0E] hover:bg-amber-900 text-[#FDBA74] hover:text-white font-mono font-black text-xs md:text-sm uppercase tracking-widest transition-all shadow-2xl active:scale-95"
+                >
+                  <span className="text-base">👈</span>
+                  <span>QUIERO MI EXHIBIDOR KROKANTÉ</span>
+                </a>
+              </div>
             </div>
-            <a 
-              href="https://b2b.krokantemani.top" 
-              target="_blank" 
-              rel="noreferrer"
-              className="px-8 py-4 rounded-full bg-amber-400 text-black font-mono font-bold text-xs uppercase tracking-widest hover:bg-white transition-all shrink-0 shadow-lg"
-            >
-              👉 VER MODELO B2B SOCIOS
-            </a>
+
+            {/* Columna Derecha: Imagen destacada sin cortes en los bordes laterales y ampliada fija en mobile */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end mt-4 lg:mt-0">
+              <div className="relative max-w-lg w-full flex justify-center items-center overflow-hidden p-0 md:p-2">
+                <img 
+                  src="https://res.cloudinary.com/dcx6wcjlj/image/upload/v1789397601/muchacha_con_exhibidor_sz3pac.jpg" 
+                  alt="Muchacha con exhibidor Krokanté en tienda" 
+                  className="w-full h-auto object-cover scale-110 md:scale-100 [mask-image:radial-gradient(49%_48%_at_50%_50%,_black_45%,_transparent_98%)] [-webkit-mask-image:radial-gradient(49%_48%_at_50%_50%,_black_45%,_transparent_98%)]"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -167,7 +199,7 @@ export const ArtDirectionExperience = () => {
         <div className="flex items-center gap-6">
           <button onClick={() => navigate('/mostradores')} className="hover:text-amber-400 transition-colors flex items-center gap-1">
             <MapIcon className="w-4 h-4 text-amber-400" />
-            <span>Mapa de Mostradores</span>
+            <span>Mapa de Exhibidores</span>
           </button>
           <a href="/admin" className="hover:text-amber-400 transition-colors flex items-center gap-1">
             <ShieldCheck className="w-4 h-4 text-amber-400" />

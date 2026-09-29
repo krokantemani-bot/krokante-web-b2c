@@ -3,8 +3,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Search, MapPin, Compass, MessageCircle, ShieldCheck, Sparkles, Store, RefreshCw, ArrowLeft, List, Map, Globe, Send, X, Frown, ChevronDown, ChevronUp, Star } from 'lucide-react';
 import { subscribePuntosDeVenta, calculateDistanceKm, getWhatsAppLink, getGoogleMapsLink, isInsideBolivia, saveZonaRequest, updateZonaRequest, getDepartamentoFromCoords, MOCK_STORES } from '../lib/firestoreStores';
 import type { PuntoDeVenta } from '../types/store';
+import { B2BEvaluationForm } from '../components/B2BEvaluationForm';
 
-const GOOGLE_MAPS_KEY = import.meta.env.VITE_GOOGLE_MAPS_PLATFORM_KEY || 'AIzaSyAIfQlbcz6qtYdftaEBocq2I7goDyjOf6Q';
+
+const GOOGLE_MAPS_KEY = import.meta.env.VITE_GOOGLE_MAPS_PLATFORM_KEY || '';
 
 // Estilo Monocromático Neón Sin Íconos Ajeno (Cero colores excepto Krokanté)
 const DARK_MAP_STYLES = [
@@ -88,6 +90,7 @@ export const MostradoresPage = () => {
   const [nearestDistanceKm, setNearestDistanceKm] = useState<number | null>(null);
   const [nearestStore, setNearestStore] = useState<PuntoDeVenta | null>(null);
   const [b2bLocationModalOpen, setB2bLocationModalOpen] = useState(false);
+  const [isB2BEvaluationOpen, setIsB2BEvaluationOpen] = useState(false);
   const [internationalModalOpen, setInternationalModalOpen] = useState(false);
   const [honeypotValue, setHoneypotValue] = useState('');
   const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
@@ -713,14 +716,12 @@ export const MostradoresPage = () => {
           </div>
         </div>
 
-        <a
-          href="https://b2b.krokantemani.top"
-          target="_blank"
-          rel="noreferrer"
-          className="hidden sm:flex px-4 py-2 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-400 hover:bg-amber-400 hover:text-black font-mono text-xs font-bold transition-all shrink-0"
+        <button
+          onClick={() => setIsB2BEvaluationOpen(true)}
+          className="hidden sm:flex px-4 py-2 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-400 hover:bg-amber-400 hover:text-black font-mono text-xs font-bold transition-all shrink-0 cursor-pointer"
         >
           ¿Quieres ser Exhibidor Krokanté? B2B
-        </a>
+        </button>
       </header>
 
       {/* BARRA DE BÚSQUEDA Y FILTROS POR DEPARTAMENTO (VISIBLES EN MÓVIL Y DESKTOP) */}
@@ -1370,6 +1371,12 @@ export const MostradoresPage = () => {
           </div>
         </div>
       )}
+
+      {/* FORMULARIO ESTRATÉGICO DE EVALUACIÓN Y SCORING B2B */}
+      <B2BEvaluationForm
+        isOpen={isB2BEvaluationOpen}
+        onClose={() => setIsB2BEvaluationOpen(false)}
+      />
     </div>
   );
 };

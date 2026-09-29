@@ -3,7 +3,7 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyAa1BLKWA5OibO8yp6l1wVB5TAL6HVyrGE",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "",
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "krokante-web.firebaseapp.com",
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "krokante-web",
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "krokante-web.firebasestorage.app",

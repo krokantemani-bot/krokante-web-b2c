@@ -270,7 +270,7 @@ export const Section3Momentos: React.FC = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="font-sans text-sm sm:text-lg md:text-xl text-stone-700 font-medium max-w-2xl mx-auto leading-relaxed"
           >
-            Descubre cómo nuestro maní japonés artesanal 100% boliviano, servido fresco desde el frasco de vidrio hermético, acompaña cada instante de tu día a día.
+            Elige el sabor que acompaña tu momento. Cada variedad parte de la misma cobertura crujiente y se termina con una personalidad distinta.
           </motion.p>
         </div>
 

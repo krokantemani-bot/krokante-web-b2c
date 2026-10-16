@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Sparkles, ShieldCheck, Scale, Shield, Map as MapIcon, ArrowRight, Compass } from 'lucide-react';
 import { Hero3D } from '../components/Hero3D';
-import { Section2Granel } from '../components/Section2Granel';
 import { Section3Momentos } from '../components/Section3Momentos';
 import { TickerBeneficios } from '../components/TickerBeneficios';
 
@@ -34,14 +33,11 @@ export const ArtDirectionExperience = () => {
 
   return (
     <div className="relative min-h-screen bg-black text-white font-sans overflow-x-hidden selection:bg-amber-400 selection:text-black">
-      {/* 1. HERO SECTION 3D & TICKER DE BENEFICIOS */}
+      {/* 1. HERO SECTION & TICKER DE BENEFICIOS */}
       <Hero3D />
       <TickerBeneficios />
 
-      {/* 2. SEGUÍ LA RUTA DEL MANÍ TOP (PASOS 01, 02, 03 & EXHIBIDOR) */}
-      <Section2Granel />
-
-      {/* 3. SECCIÓN MINIMALISTA Y LIMPIA "ENCUENTRA TU EXHIBIDOR" (DERIVA A /mostradores) */}
+      {/* SECCIÓN "ENCUENTRA TU EXHIBIDOR" (DERIVA A /mostradores) */}
       <section id="tiendas" className="relative z-20 py-20 px-4 sm:px-6 bg-black/90 backdrop-blur-xl border-t border-white/10">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <div>

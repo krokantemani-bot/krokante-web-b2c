@@ -68,15 +68,23 @@ export const Hero3D: React.FC<HeroProps> = ({ onWhereToBuyClick }) => {
 
           {/* Botón CTA Naranja */}
           <div className="pt-2 sm:pt-4 w-full sm:w-auto">
-            <motion.a
+            <motion.button
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              href="#tiendas"
-              onClick={onWhereToBuyClick}
-              className="inline-flex w-full sm:w-auto items-center justify-center px-8 sm:px-12 py-4 sm:py-4.5 rounded-full bg-[#FF6519] hover:bg-[#F05508] text-white font-display text-lg sm:text-xl uppercase font-bold tracking-wider shadow-[0_8px_25px_rgba(255,101,25,0.4)] transition-all"
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onWhereToBuyClick) {
+                  onWhereToBuyClick();
+                } else {
+                  const elem = document.getElementById('tiendas');
+                  elem?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="inline-flex w-full sm:w-auto items-center justify-center px-8 sm:px-12 py-4 sm:py-4.5 rounded-full bg-[#FF6519] hover:bg-[#F05508] text-white font-display text-lg sm:text-xl uppercase font-bold tracking-wider shadow-[0_8px_25px_rgba(255,101,25,0.4)] transition-all cursor-pointer"
             >
               ¿DÓNDE COMPRO?
-            </motion.a>
+            </motion.button>
           </div>
         </motion.div>
 

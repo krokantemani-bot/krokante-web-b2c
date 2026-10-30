@@ -183,8 +183,34 @@ export const Section3Momentos: React.FC = () => {
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.4 }}
-        className={`group relative rounded-3xl overflow-hidden shadow-xl border border-stone-800/20 transition-all duration-400 ease-out hover:-translate-y-2 ${m.cardBg} ${
+        animate={
+          m.id === 'fuego'
+            ? { x: [0, 4, -3, 2, 0], y: [0, -6, 2, -4, 0], rotate: [0, 0.4, -0.3, 0.2, 0] }
+            : m.id === 'cebolla'
+            ? { x: [0, -4, 3, -2, 0], y: [0, -5, -1, -7, 0], rotate: [0, -0.4, 0.3, -0.2, 0] }
+            : m.id === 'curcuma'
+            ? { x: [0, 3, -4, 1, 0], y: [0, 3, -6, 2, 0], rotate: [0, 0.3, -0.4, 0.2, 0] }
+            : { x: [0, -3, 2, -4, 0], y: [0, -4, 3, -5, 0], rotate: [0, -0.3, 0.4, -0.2, 0] }
+        }
+        transition={{ 
+          opacity: { duration: 0.4 },
+          x: {
+            repeat: Infinity,
+            duration: m.id === 'fuego' ? 7.2 : m.id === 'cebolla' ? 8.1 : m.id === 'curcuma' ? 6.8 : 7.6,
+            ease: 'easeInOut'
+          },
+          y: {
+            repeat: Infinity,
+            duration: m.id === 'fuego' ? 6.1 : m.id === 'cebolla' ? 6.9 : m.id === 'curcuma' ? 5.8 : 6.4,
+            ease: 'easeInOut'
+          },
+          rotate: {
+            repeat: Infinity,
+            duration: m.id === 'fuego' ? 8.5 : m.id === 'cebolla' ? 9.2 : m.id === 'curcuma' ? 7.9 : 8.7,
+            ease: 'easeInOut'
+          }
+        }}
+        className={`group relative rounded-3xl overflow-hidden shadow-xl border border-stone-800/20 transition-all duration-400 ease-out hover:-translate-y-2 hover:shadow-2xl ${m.cardBg} ${
           isMobileView ? 'w-[84vw] max-w-[320px] aspect-[9/16] shrink-0 snap-center' : `w-full ${m.cardHeightClass}`
         }`}
         style={{ clipPath: 'inset(0 rounded 1.5rem)', transform: 'translateZ(0)' }}

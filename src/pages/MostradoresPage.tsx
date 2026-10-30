@@ -690,10 +690,20 @@ export const MostradoresPage = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => {
-              if (window.history.length > 1) {
+              // Si hay un modal de pantalla completa como el formulario B2B, cerrarlo primero
+              if (b2bLocationModalOpen) {
+                setB2bLocationModalOpen(false);
+                return;
+              }
+              if (locationPrePromptOpen) {
+                setLocationPrePromptOpen(false);
+                return;
+              }
+              // Volver a la página o sección anterior
+              if (window.history.length > 1 && window.history.state && window.history.state.idx > 0) {
                 navigate(-1);
               } else {
-                navigate('/');
+                navigate('/#tiendas');
               }
             }}
             className="p-2.5 rounded-xl bg-neutral-900 border border-amber-400/50 text-amber-400 hover:bg-amber-400 hover:text-black transition-all flex items-center gap-2 font-mono text-xs font-bold shrink-0 cursor-pointer shadow-sm active:scale-95"
@@ -716,12 +726,14 @@ export const MostradoresPage = () => {
           </div>
         </div>
 
-        <button
-          onClick={() => setIsB2BEvaluationOpen(true)}
+        <a
+          href="https://b2b.krokantemani.top"
+          target="_blank"
+          rel="noreferrer"
           className="hidden sm:flex px-4 py-2 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-400 hover:bg-amber-400 hover:text-black font-mono text-xs font-bold transition-all shrink-0 cursor-pointer"
         >
           ¿Quieres ser Exhibidor Krokanté? B2B
-        </button>
+        </a>
       </header>
 
       {/* BARRA DE BÚSQUEDA Y FILTROS POR DEPARTAMENTO (VISIBLES EN MÓVIL Y DESKTOP) */}
@@ -1057,29 +1069,29 @@ export const MostradoresPage = () => {
       {/* 1. TARJETA DISTANTE BOLIVIA (> 5 KM)                */}
       {/* ---------------------------------------------------- */}
       {noStoreNearCardOpen && nearestDistanceKm !== null && (
-        <div className="fixed top-20 right-4 left-4 md:left-auto md:bottom-8 md:top-auto md:right-8 z-[999] max-w-md w-auto animate-in fade-in slide-in-from-top-5 md:slide-in-from-bottom-5 duration-300">
-          <div className="p-4 sm:p-5 rounded-2xl bg-neutral-900/95 border border-amber-400/40 shadow-2xl backdrop-blur-2xl text-white relative">
+        <div className="fixed top-20 right-4 left-4 md:left-1/2 md:top-1/2 md:right-auto md:bottom-auto md:-translate-x-1/2 md:-translate-y-1/2 z-[999] max-w-lg w-auto md:w-[540px] animate-in fade-in zoom-in-95 duration-300">
+          <div className="p-5 sm:p-7 rounded-3xl bg-[#141210]/95 border-2 border-amber-400/50 shadow-[0_25px_70px_rgba(0,0,0,0.85)] backdrop-blur-2xl text-white relative">
             <button
               onClick={() => setNoStoreNearCardOpen(false)}
-              className="absolute top-2 right-2 text-neutral-400 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors z-20"
+              className="absolute top-3 right-3 text-neutral-400 hover:text-white p-2 rounded-xl hover:bg-white/10 transition-colors z-20 cursor-pointer"
               title="Cerrar aviso"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
 
-            <div className="flex items-start gap-3">
-              <div className="p-2.5 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-400 shrink-0">
-                <Frown className="w-6 h-6 text-amber-400" />
+            <div className="flex items-start gap-4">
+              <div className="p-3.5 rounded-2xl bg-amber-400/10 border border-amber-400/30 text-amber-400 shrink-0">
+                <Frown className="w-8 h-8 text-amber-400" />
               </div>
               <div className="flex-1 pr-6">
-                <h4 className="font-bold text-sm text-white leading-snug">
+                <h4 className="font-bold text-base sm:text-lg text-white leading-snug">
                   ¡Upss, aún no llegamos a tu barrio con un EXHIBIDOR KROKANTÉ!
                 </h4>
-                <p className="text-xs text-neutral-300 mt-1 leading-relaxed">
-                  El más cercano está a <strong className="text-amber-400 font-mono text-sm">~{nearestDistanceKm !== null ? Math.max(1, Math.round(nearestDistanceKm * 2.5)) : ''} min ({nearestDistanceKm} km)</strong> en <strong className="text-amber-400">{nearestStore?.zona || nearestStore?.departamento || 'tu ciudad'}</strong>.
+                <p className="text-sm text-neutral-300 mt-2 leading-relaxed">
+                  El más cercano está a <strong className="text-amber-400 font-mono text-base">~{nearestDistanceKm !== null ? Math.max(1, Math.round(nearestDistanceKm * 2.5)) : ''} min ({nearestDistanceKm} km)</strong> en <strong className="text-amber-400">{nearestStore?.zona || nearestStore?.departamento || 'tu ciudad'}</strong>.
                 </p>
 
-                <div className="mt-3.5 flex flex-wrap items-center gap-2">
+                <div className="mt-5 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5">
                   {nearestStore && (
                     <button
                       onClick={() => {
@@ -1090,7 +1102,7 @@ export const MostradoresPage = () => {
                           mapInstanceRef.current.setZoom(16);
                         }
                       }}
-                      className="px-3.5 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-black text-xs font-bold transition-all shadow-lg shadow-amber-400/20"
+                      className="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-black text-sm font-bold transition-all shadow-lg shadow-amber-400/25 cursor-pointer text-center"
                     >
                       Ver exhibidor a ~{nearestDistanceKm !== null ? Math.max(1, Math.round(nearestDistanceKm * 2.5)) : ''} min ({nearestDistanceKm} km)
                     </button>
@@ -1100,7 +1112,7 @@ export const MostradoresPage = () => {
                       setNoStoreNearCardOpen(false);
                       setB2bLocationModalOpen(true);
                     }}
-                    className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/20 text-xs font-bold transition-all flex items-center gap-1.5"
+                    className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/20 text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <span>💡 Quiero un exhibidor en mi barrio</span>
                   </button>

@@ -92,7 +92,7 @@ export const ArtDirectionExperience = () => {
                     rel="noreferrer"
                     className="inline-flex items-center justify-center px-8 py-3.5 sm:px-10 sm:py-4 rounded-full bg-[#B82B14] hover:bg-[#9E230F] text-white font-sans font-bold text-sm sm:text-base uppercase tracking-wider transition-all shadow-md active:scale-98"
                   >
-                    DESCUBRE CUANTO PUEDES VENDER
+                    Monetizar mi mostrador ahora
                   </a>
                 </div>
               </div>

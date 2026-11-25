@@ -205,7 +205,7 @@ export const StoreLocatorModal: React.FC<StoreLocatorModalProps> = ({
             K
           </div>
           <div>
-            <h2 className="font-display text-xl uppercase tracking-wider text-white">
+            <h2 className="font-display text-xl tracking-wider text-white">
               Mapa de Mostradores Krokanté
             </h2>
             <span className="text-[11px] text-amber-400 font-mono flex items-center gap-1.5">

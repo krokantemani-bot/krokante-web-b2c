@@ -134,7 +134,7 @@ export const Section4Sabores: React.FC = () => {
               filter: leftFilter,
               y: leftY
             }}
-            className="flex items-center justify-center gap-3 sm:gap-8 md:gap-12 font-display uppercase tracking-tight text-white leading-none shrink-0 z-10 w-full"
+            className="flex items-center justify-center gap-3 sm:gap-8 md:gap-12 font-display uppercase tracking-normal text-white leading-none shrink-0 z-10 w-full"
           >
             {/* Columna 1 */}
             <div className="flex flex-col text-right">
@@ -163,7 +163,7 @@ export const Section4Sabores: React.FC = () => {
             }}
             className="flex justify-end items-center shrink-0 origin-center mt-2 sm:mt-4 md:mt-6 z-20 w-full max-w-6xl"
           >
-            <h2 className="font-display text-[84px] sm:text-8xl md:text-[130px] lg:text-[160px] uppercase tracking-tighter text-[#EF4444] leading-none drop-shadow-[0_0_40px_rgba(239,68,68,0.85)] text-right select-none">
+            <h2 className="font-display text-[84px] sm:text-8xl md:text-[130px] lg:text-[160px] tracking-normal text-[#EF4444] leading-none drop-shadow-[0_0_40px_rgba(239,68,68,0.85)] text-right select-none">
               ¡¡ABURRIDO!!
             </h2>
           </motion.div>
@@ -172,7 +172,7 @@ export const Section4Sabores: React.FC = () => {
 
       {/* ESCENA 2 */}
       <div className="flex items-center justify-center pt-2 md:pt-8 pb-6 px-2 sm:px-4 md:px-6 my-4 md:my-10 w-full overflow-visible">
-        <div className="w-[92vw] sm:w-[85vw] md:w-full max-w-[500px] md:max-w-[95rem] aspect-square md:aspect-auto bg-white text-[#0A0503] rounded-3xl p-4 sm:p-6 md:p-10 lg:p-12 shadow-[0_25px_60px_rgba(0,0,0,0.7)] border border-white/40 flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12 font-display uppercase tracking-tighter leading-none z-10 relative overflow-hidden">
+        <div className="w-[92vw] sm:w-[85vw] md:w-full max-w-[500px] md:max-w-[95rem] aspect-square md:aspect-auto bg-white text-[#0A0503] rounded-3xl p-4 sm:p-6 md:p-10 lg:p-12 shadow-[0_25px_60px_rgba(0,0,0,0.7)] border border-white/40 flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12 font-display uppercase tracking-normal leading-none z-10 relative overflow-hidden">
           
           <div className="flex flex-col text-center md:text-right shrink-0 w-full md:w-auto">
             <span className="text-[10vw] sm:text-[45px] md:text-[55px] lg:text-[75px] xl:text-[88px] font-bold text-[#0A0503] leading-[0.95]">Con KROKANTÉ el</span>
@@ -191,7 +191,7 @@ export const Section4Sabores: React.FC = () => {
               <span className="text-[8vw] sm:text-[36px] md:text-[54px] lg:text-[72px] xl:text-[84px] font-bold whitespace-nowrap text-[#0A0503]">
                 Elige ser más
               </span>
-              <span className="font-display text-[11vw] sm:text-[48px] md:text-[76px] lg:text-[96px] uppercase font-bold text-[#16A34A] drop-shadow-[0_2px_8px_rgba(22,163,74,0.35)] tracking-tighter transform -rotate-12 inline-block ml-1">
+              <span className="font-display text-[11vw] sm:text-[48px] md:text-[76px] lg:text-[96px] uppercase font-bold text-[#16A34A] drop-shadow-[0_2px_8px_rgba(22,163,74,0.35)] tracking-normal transform -rotate-12 inline-block ml-1">
                 TOP
               </span>
             </div>

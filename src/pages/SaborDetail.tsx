@@ -25,12 +25,12 @@ const renderB2BPartnerBanner = (flavorId: string) => {
           <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-red-500/25 transition-all" />
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6">
             <div className="space-y-4 text-left max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400 text-stone-950 font-mono text-xs font-black uppercase tracking-wider shadow-md">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400 text-stone-950 font-mono text-xs font-black uppercase tracking-normal shadow-md">
                 <ShieldCheck className="w-4 h-4 text-stone-950" />
                 <span>PROGRAMA SOCIOS KROKANTÉ</span>
               </div>
-              <h3 className="font-display text-2xl md:text-4xl uppercase font-black tracking-tight text-white leading-tight">
-                ¿TIENES UNA LICORERÍA, PUB O MICROMERCADO?
+              <h3 className="font-display text-2xl md:text-4xl font-black tracking-normal text-white leading-tight">
+                ¿Tienes una licorería, pub o micromercado?
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 font-mono text-xs font-bold">
                 <div className="p-3 rounded-2xl bg-stone-900 border border-stone-800 space-y-1">
@@ -60,9 +60,9 @@ const renderB2BPartnerBanner = (flavorId: string) => {
               href="https://b2b.krokantemani.top"
               target="_blank"
               rel="noreferrer"
-              className="w-full lg:w-auto px-6 py-4 rounded-2xl bg-amber-400 hover:bg-yellow-300 text-stone-950 font-mono text-xs sm:text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 shrink-0 shadow-xl transition-all hover:scale-105 active:scale-95 border border-amber-300 cursor-pointer"
+              className="w-full lg:w-auto px-6 py-4 rounded-2xl bg-amber-400 hover:bg-yellow-300 text-stone-950 font-sans text-sm sm:text-base font-semibold tracking-normal flex items-center justify-center gap-2 shrink-0 shadow-xl transition-all hover:scale-105 active:scale-95 border border-amber-300 cursor-pointer"
             >
-              <span>CONSULTAR REQUISITOS SOCIOS B2B</span>
+              <span>Consultar requisitos socios B2B</span>
               <ExternalLink className="w-4 h-4 text-stone-950" />
             </a>
           </div>
@@ -76,21 +76,21 @@ const renderB2BPartnerBanner = (flavorId: string) => {
           <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-stone-800 pb-4 relative z-10">
             <div className="space-y-2">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400 text-stone-950 font-mono text-xs font-black uppercase tracking-wider shadow-md">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400 text-stone-950 font-mono text-xs font-black uppercase tracking-normal shadow-md">
                 <Sparkles className="w-4 h-4 text-stone-950" />
                 <span>PROGRAMA SOCIOS KROKANTÉ</span>
               </span>
-              <h3 className="font-display text-2xl md:text-4xl uppercase font-black text-white tracking-tight">
-                ¿TIENES UN GIMNASIO, MARKET BIO O CANCHAS DE WALLY?
+              <h3 className="font-display text-2xl md:text-4xl font-black text-white tracking-normal">
+                ¿Tienes un gimnasio, market bio o canchas de wally?
               </h3>
             </div>
             <a
               href="https://b2b.krokantemani.top"
               target="_blank"
               rel="noreferrer"
-              className="w-full md:w-auto px-6 py-3.5 rounded-2xl bg-amber-400 hover:bg-yellow-300 text-stone-950 font-mono text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 shrink-0 shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer border border-amber-300"
+              className="w-full md:w-auto px-6 py-3.5 rounded-2xl bg-amber-400 hover:bg-yellow-300 text-stone-950 font-sans text-sm font-semibold tracking-normal flex items-center justify-center gap-2 shrink-0 shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer border border-amber-300"
             >
-              <span>CONSULTAR REQUISITOS SOCIOS B2B</span>
+              <span>Consultar requisitos socios B2B</span>
               <ExternalLink className="w-4 h-4 text-stone-950" />
             </a>
           </div>
@@ -125,12 +125,12 @@ const renderB2BPartnerBanner = (flavorId: string) => {
           <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6 relative z-10">
             <div className="space-y-4 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400 text-stone-950 font-mono text-xs font-black uppercase tracking-wider shadow-md">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400 text-stone-950 font-mono text-xs font-black uppercase tracking-normal shadow-md">
                 <ShieldCheck className="w-4 h-4 text-stone-950" />
                 <span>PROGRAMA SOCIOS KROKANTÉ</span>
               </div>
-              <h3 className="font-display text-2xl md:text-4xl uppercase font-black text-white tracking-tight leading-tight">
-                ¿TIENES UNA TIENDA DE BARRIO O TIENDA EN CONDOMINIO?
+              <h3 className="font-display text-2xl md:text-4xl font-black text-white tracking-normal leading-tight">
+                ¿Tienes una tienda de barrio o tienda en condominio?
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 font-mono text-xs font-bold">
                 <div className="p-3 rounded-2xl bg-stone-900 border border-stone-800 space-y-1">
@@ -160,9 +160,9 @@ const renderB2BPartnerBanner = (flavorId: string) => {
               href="https://b2b.krokantemani.top"
               target="_blank"
               rel="noreferrer"
-              className="w-full lg:w-auto px-6 py-4 rounded-2xl bg-amber-400 hover:bg-yellow-300 text-stone-950 font-mono text-xs sm:text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 shrink-0 shadow-lg transition-all hover:scale-105 active:scale-95 border border-amber-300 cursor-pointer"
+              className="w-full lg:w-auto px-6 py-4 rounded-2xl bg-amber-400 hover:bg-yellow-300 text-stone-950 font-sans text-sm sm:text-base font-semibold tracking-normal flex items-center justify-center gap-2 shrink-0 shadow-lg transition-all hover:scale-105 active:scale-95 border border-amber-300 cursor-pointer"
             >
-              <span>CONSULTAR REQUISITOS SOCIOS B2B</span>
+              <span>Consultar requisitos socios B2B</span>
               <ExternalLink className="w-4 h-4 text-stone-950" />
             </a>
           </div>
@@ -175,12 +175,12 @@ const renderB2BPartnerBanner = (flavorId: string) => {
       return (
         <div className="rounded-3xl bg-stone-950 border-2 border-stone-700 p-6 md:p-8 text-white shadow-2xl text-left flex flex-col lg:flex-row items-center justify-between gap-6 relative overflow-hidden">
           <div className="space-y-4 max-w-2xl relative z-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400 text-stone-950 font-mono text-xs font-black uppercase tracking-wider shadow-md">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400 text-stone-950 font-mono text-xs font-black uppercase tracking-normal shadow-md">
               <Award className="w-4 h-4 text-stone-950" />
               <span>PROGRAMA SOCIOS KROKANTÉ</span>
             </div>
-            <h3 className="font-display text-2xl md:text-4xl uppercase font-black tracking-tight text-white">
-              ¿TIENES UN CO-WORKING, CAFETERÍA O MINIMARKET?
+            <h3 className="font-display text-2xl md:text-4xl font-black tracking-normal text-white">
+              ¿Tienes un co-working, cafetería o minimarket?
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 font-mono text-xs font-bold">
               <div className="p-3 rounded-2xl bg-stone-900 border border-stone-800 space-y-1">
@@ -210,7 +210,7 @@ const renderB2BPartnerBanner = (flavorId: string) => {
             href="https://b2b.krokantemani.top"
             target="_blank"
             rel="noreferrer"
-            className="w-full lg:w-auto px-6 py-4 rounded-2xl bg-amber-400 hover:bg-yellow-300 text-stone-950 font-mono text-xs sm:text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 shrink-0 shadow-xl transition-all hover:scale-105 active:scale-95 border border-amber-300 cursor-pointer"
+            className="w-full lg:w-auto px-6 py-4 rounded-2xl bg-amber-400 hover:bg-yellow-300 text-stone-950 font-sans text-sm sm:text-base font-semibold tracking-normal flex items-center justify-center gap-2 shrink-0 shadow-xl transition-all hover:scale-105 active:scale-95 border border-amber-300 cursor-pointer"
           >
             <span>CONSULTAR REQUISITOS SOCIOS B2B</span>
             <ExternalLink className="w-4 h-4 text-stone-950" />
@@ -271,7 +271,7 @@ export const SaborDetail: React.FC = () => {
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#F4ECE1]/95 backdrop-blur-md border-b border-amber-900/15 px-3 sm:px-8 py-2.5 sm:py-3 flex items-center justify-start shadow-md">
         <Link
           to="/#section3-momentos"
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-amber-900/10 hover:bg-amber-900/20 border border-amber-900/20 text-amber-950 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all active:scale-95 shadow-xs"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-amber-900/10 hover:bg-amber-900/20 border border-amber-900/20 text-amber-950 font-sans text-xs sm:text-sm font-semibold tracking-normal transition-all active:scale-95 shadow-xs"
         >
           <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-700 shrink-0" />
           <span>Volver a Guía de Sabores & Maridaje Artesanal</span>
@@ -323,16 +323,16 @@ export const SaborDetail: React.FC = () => {
               <span className={`px-4 py-1.5 rounded-full text-xs font-mono font-extrabold uppercase tracking-widest ${flavor.badgeBgClass} ${flavor.badgeTextColorClass} shadow-lg`}>
                 {flavor.badgeText}
               </span>
-              <span className="px-4 py-1.5 rounded-full bg-stone-900/90 border border-stone-700 text-stone-300 text-xs font-mono font-bold uppercase tracking-wider">
+              <span className="px-4 py-1.5 rounded-full bg-stone-900/90 border border-stone-700 text-stone-300 text-xs font-mono font-bold uppercase tracking-normal">
                 {flavor.lineName}
               </span>
             </div>
 
-            <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold uppercase tracking-tight leading-[0.95] drop-shadow-2xl">
+            <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-normal leading-[0.95] drop-shadow-2xl">
               {flavor.title}
             </h1>
 
-            <p className="font-mono text-base sm:text-xl text-amber-400 font-bold tracking-wider uppercase">
+            <p className="font-mono text-base sm:text-xl text-amber-400 font-bold tracking-normal uppercase">
               "{flavor.subtitle}"
             </p>
 
@@ -393,13 +393,14 @@ export const SaborDetail: React.FC = () => {
           
           {/* Columna Izquierda: Historia + Catación Organoléptica */}
           <div className="space-y-6 text-left">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-900/10 border border-amber-900/20 text-amber-900 font-mono text-xs font-bold uppercase tracking-widest">
-              <Sparkles className="w-4 h-4 text-amber-700" />
-              <span>Orígenes & Receta Artesanal</span>
-            </div>
+            <span className="text-xs sm:text-sm font-mono font-bold tracking-wider inline-block">
+              <span className="text-[#F1422A]">[</span>
+              <span className="text-stone-900">Orígenes & Receta Artesanal</span>
+              <span className="text-[#F1422A]">]</span>
+            </span>
 
-            <h2 className="font-display text-3xl sm:text-5xl uppercase font-extrabold tracking-tight text-stone-950 leading-tight">
-              HISTORIA DEL SABOR <span className="text-amber-700">{flavor.title}</span>
+            <h2 className="font-display text-3xl sm:text-5xl font-extrabold tracking-normal text-stone-950 leading-tight">
+              Historia del sabor <span className="text-[#F1422A]">{flavor.title}</span>
             </h2>
 
             <p className="font-sans text-base sm:text-lg text-stone-800 leading-relaxed font-medium">
@@ -436,8 +437,8 @@ export const SaborDetail: React.FC = () => {
                 <span className="font-mono text-xs uppercase tracking-widest text-amber-400 block font-bold mb-1">
                   Catación Organoléptica
                 </span>
-                <h3 className="font-display text-2xl uppercase font-black">
-                  PERFIL SENSORIAL DEL SABOR
+                <h3 className="font-display text-2xl font-black">
+                  Perfil sensorial del sabor
                 </h3>
               </div>
 
@@ -497,11 +498,13 @@ export const SaborDetail: React.FC = () => {
         <div className="max-w-7xl mx-auto space-y-12">
           
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <span className="font-mono text-xs uppercase tracking-widest text-amber-900 font-extrabold block">
-              Guía de Combinaciones Sensoriales
+            <span className="text-xs sm:text-sm font-mono font-bold tracking-wider block">
+              <span className="text-[#F1422A]">[</span>
+              <span className="text-stone-900">Guía de Combinaciones Sensoriales</span>
+              <span className="text-[#F1422A]">]</span>
             </span>
-            <h2 className="font-display text-3xl sm:text-6xl uppercase font-extrabold tracking-tight text-stone-950">
-              MARIDAJE COMPLETO
+            <h2 className="font-display text-3xl sm:text-6xl font-extrabold tracking-normal text-stone-950">
+              Maridaje completo
             </h2>
             <p className="font-sans text-sm sm:text-base text-stone-700 font-medium">
               Descubre con qué acompañar y cuándo disfrutar al máximo de tu <span className="text-amber-700 font-bold">{flavor.title}</span>.
@@ -517,7 +520,7 @@ export const SaborDetail: React.FC = () => {
                 className="p-6 rounded-3xl bg-[#EBE1D3] border border-amber-900/15 hover:border-amber-700/50 transition-all text-left space-y-3 shadow-md"
               >
                 <div className="text-4xl">{bev.icon}</div>
-                <h3 className="font-display text-xl uppercase font-black text-stone-950">{bev.name}</h3>
+                <h3 className="font-display text-xl font-black text-stone-950">{bev.name}</h3>
                 <p className="font-sans text-xs sm:text-sm text-stone-800 font-medium leading-relaxed">
                   {bev.description}
                 </p>
@@ -527,11 +530,13 @@ export const SaborDetail: React.FC = () => {
 
           {/* Subtítulo de Sección: Momentos Ideales de Consumo */}
           <div className="pt-6 text-center max-w-xl mx-auto space-y-1">
-            <span className="font-mono text-xs uppercase tracking-widest text-amber-900 font-extrabold block">
-              Ocasiones Especiales
+            <span className="text-xs sm:text-sm font-mono font-bold tracking-wider block">
+              <span className="text-[#F1422A]">[</span>
+              <span className="text-stone-900">Ocasiones Especiales</span>
+              <span className="text-[#F1422A]">]</span>
             </span>
-            <h3 className="font-display text-2xl sm:text-3xl uppercase font-extrabold text-stone-950">
-              MOMENTOS IDEALES DE CONSUMO
+            <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-stone-950">
+              Momentos ideales de consumo
             </h3>
           </div>
 
@@ -546,7 +551,7 @@ export const SaborDetail: React.FC = () => {
                   <span className="inline-block px-3 py-1 rounded-full bg-amber-900/10 border border-amber-900/20 text-amber-900 font-mono text-xs font-extrabold uppercase tracking-widest">
                     {mom.timeSlot}
                   </span>
-                  <h3 className="font-display text-2xl uppercase font-extrabold text-stone-950">
+                  <h3 className="font-display text-2xl font-extrabold text-stone-950">
                     {mom.title}
                   </h3>
                   <p className="font-sans text-sm text-stone-800 font-medium">
@@ -564,8 +569,8 @@ export const SaborDetail: React.FC = () => {
                 <span className="font-mono text-xs uppercase font-black tracking-widest text-amber-950 block">
                   Encuentra este Sabor en Tiendas de Barrio
                 </span>
-                <h3 className="text-2xl md:text-4xl uppercase font-black tracking-tight leading-tight">
-                  ¡DISPONIBLE EN FRASCO DE VIDRIO HERMÉTICO!
+                <h3 className="text-2xl md:text-4xl font-black tracking-normal leading-tight">
+                  ¡Disponible en frasco de vidrio hermético!
                 </h3>
                 <p className="font-sans text-xs sm:text-sm text-stone-900 font-bold">
                   PÍDELE A TU CASERA TU GRAMAJE FAVORITO A GRANEL EN CUALQUIER EXPOSITOR
@@ -574,7 +579,7 @@ export const SaborDetail: React.FC = () => {
 
               <Link
                 to="/mostradores"
-                className="px-6 py-3.5 rounded-2xl bg-stone-950 text-amber-400 font-mono text-xs font-extrabold uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-white hover:text-stone-950 transition-all duration-300 shrink-0 shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95 border border-stone-900 cursor-pointer group"
+                className="px-6 py-3.5 rounded-2xl bg-stone-950 text-amber-400 font-sans text-sm font-semibold tracking-normal flex items-center justify-center gap-2 hover:bg-white hover:text-stone-950 transition-all duration-300 shrink-0 shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95 border border-stone-900 cursor-pointer group"
               >
                 <MapPin className="w-4 h-4 text-amber-400 group-hover:text-stone-950 transition-colors" />
                 <span>Ver Mapa de Tiendas</span>

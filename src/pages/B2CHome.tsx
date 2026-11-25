@@ -56,12 +56,14 @@ export const ArtDirectionExperience = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Columna Izquierda / Superior: Contenido */}
               <div className="lg:col-span-7 space-y-4 md:space-y-5">
-                <span className="text-sm md:text-base font-sans font-medium text-[#B83E1E] block">
-                  Oportunidad de negocio
+                <span className="text-xs sm:text-sm font-mono font-bold tracking-wider block">
+                  <span className="text-[#F1422A]">[</span>
+                  <span className="text-stone-900">Oportunidad de negocio</span>
+                  <span className="text-[#F1422A]">]</span>
                 </span>
 
-                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl uppercase font-black text-stone-950 leading-[0.98] tracking-tight">
-                  ¿TIENES UNA VENTA O TIENDA DE BARRIO?
+                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-stone-950 leading-[0.98] tracking-normal">
+                  ¿Tienes una venta o tienda de barrio?
                 </h3>
 
                 <p className="text-sm md:text-base text-stone-800 font-normal max-w-xl leading-relaxed">
@@ -90,7 +92,7 @@ export const ArtDirectionExperience = () => {
                     href="https://b2b.krokantemani.top" 
                     target="_blank" 
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center px-8 py-3.5 sm:px-10 sm:py-4 rounded-full bg-[#B82B14] hover:bg-[#9E230F] text-white font-sans font-bold text-sm sm:text-base uppercase tracking-wider transition-all shadow-md active:scale-98"
+                    className="inline-flex items-center justify-center px-8 py-3.5 sm:px-10 sm:py-4 rounded-full bg-[#F1422A] hover:bg-[#d8351e] text-white font-sans font-semibold text-sm sm:text-base tracking-normal transition-all shadow-md active:scale-98"
                   >
                     Monetizar mi mostrador ahora
                   </a>

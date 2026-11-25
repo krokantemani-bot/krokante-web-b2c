@@ -8,7 +8,7 @@ export default {
     extend: {
       fontFamily: {
         display: ['Anton', 'sans-serif'],
-        sans: ['Space Grotesk', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       }
     },
   },

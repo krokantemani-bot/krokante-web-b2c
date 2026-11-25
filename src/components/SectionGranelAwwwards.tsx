@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Sparkles, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
 export const SectionGranelAwwwards: React.FC = () => {
   const [selectedGrams, setSelectedGrams] = useState<number>(250);
@@ -18,20 +18,21 @@ export const SectionGranelAwwwards: React.FC = () => {
     <section id="granel" className="relative z-20 py-24 px-4 sm:px-6 md:px-12 bg-[#0A0706] text-white border-t border-white/10 overflow-hidden">
       
       {/* Resplandor cálido ambiental */}
-      <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-[#FF6519]/10 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-[#F1422A]/10 rounded-full blur-[130px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto space-y-16 relative z-10">
         
         {/* Encabezado Editorial */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-widest text-amber-400">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>El Ritual del Vidrio Hermético</span>
+          <span className="text-xs sm:text-sm font-mono font-bold tracking-wider inline-block">
+            <span className="text-[#F1422A]">[</span>
+            <span className="text-white">El Ritual del Vidrio Hermético</span>
+            <span className="text-[#F1422A]">]</span>
           </span>
 
-          <h2 className="font-display text-4xl sm:text-6xl md:text-7xl uppercase font-black tracking-tight leading-[0.95] text-white">
-            SERVIDO AL PESO <br />
-            <span className="text-[#FF6519]">DESDE EL FRASCO</span>
+          <h2 className="font-display text-4xl sm:text-6xl md:text-7xl font-black tracking-normal leading-[0.95] text-white">
+            Servido al peso <br />
+            <span className="text-[#F1422A]">desde el frasco</span>
           </h2>
 
           <p className="font-sans text-base sm:text-lg text-neutral-300 font-normal leading-relaxed">
@@ -60,7 +61,7 @@ export const SectionGranelAwwwards: React.FC = () => {
 
             <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2 text-white">
               <div className="space-y-1">
-                <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-[#0E7A5A] text-[10px] font-mono uppercase font-bold tracking-wider">
+                <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-[#0E7A5A] text-[10px] font-mono uppercase font-bold tracking-normal">
                   Conservación Óptima
                 </span>
                 <p className="font-display text-base sm:text-2xl font-bold uppercase text-white drop-shadow-md">
@@ -78,14 +79,14 @@ export const SectionGranelAwwwards: React.FC = () => {
         <div className="max-w-4xl mx-auto p-6 sm:p-8 rounded-3xl bg-[#14100E] border border-white/15 shadow-xl space-y-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 pb-4">
             <div>
-              <h3 className="font-display text-2xl uppercase font-black text-white">
+              <h3 className="font-display text-2xl font-black text-white">
                 ¿Cuánto te vas a llevar hoy?
               </h3>
             </div>
 
             {/* Display de Báscula Digital */}
-            <div className="px-5 py-2.5 rounded-2xl bg-black border border-[#FF6519]/40 flex items-baseline gap-2 shadow-inner">
-              <span className="font-mono text-3xl font-black text-[#FF6519]">{selectedGrams}</span>
+            <div className="px-5 py-2.5 rounded-2xl bg-black border border-[#F1422A]/40 flex items-baseline gap-2 shadow-inner">
+              <span className="font-mono text-3xl font-black text-[#F1422A]">{selectedGrams}</span>
               <span className="font-mono text-sm uppercase text-neutral-400">GRAMOS</span>
             </div>
           </div>
@@ -100,11 +101,11 @@ export const SectionGranelAwwwards: React.FC = () => {
                   onClick={() => setSelectedGrams(p.grams)}
                   className={`p-4 rounded-2xl text-left transition-all cursor-pointer border ${
                     isSelected
-                      ? 'bg-[#FF6519] border-[#FF6519] text-white shadow-lg shadow-[#FF6519]/30 scale-[1.02]'
+                      ? 'bg-[#F1422A] border-[#F1422A] text-white shadow-lg shadow-[#F1422A]/30 scale-[1.02]'
                       : 'bg-white/5 border-white/10 text-neutral-300 hover:bg-white/10 hover:border-white/20'
                   }`}
                 >
-                  <span className="block font-mono text-xs uppercase font-bold tracking-wider mb-1">
+                  <span className="block font-mono text-xs uppercase font-bold tracking-normal mb-1">
                     {p.grams}g
                   </span>
                   <span className="block font-sans text-xs font-semibold leading-tight">

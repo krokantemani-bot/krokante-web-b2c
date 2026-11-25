@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Sparkles, Scale, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Scale, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface MomentCardData {
   id: string;
@@ -249,7 +249,7 @@ export const Section3Momentos: React.FC = () => {
               {m.badge.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}]\s*/u, '')}
             </p>
             {/* TÍTULO DEL SABOR EN LETRAS EXTRA GRANDES */}
-            <h3 className="font-display text-2xl sm:text-4xl md:text-5xl font-extrabold text-white uppercase tracking-tight leading-none drop-shadow-lg">
+            <h3 className="font-display text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-normal leading-none drop-shadow-lg">
               {m.title}
             </h3>
           </div>
@@ -271,23 +271,24 @@ export const Section3Momentos: React.FC = () => {
         
         {/* ENCABEZADO DE LA SECCIÓN 3 (Espaciado Ajustado y Compacto) */}
         <div className="text-center max-w-4xl mx-auto space-y-4 md:space-y-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -15 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 sm:px-5 sm:py-2 rounded-full bg-amber-900/10 border border-amber-900/20 text-amber-900 text-xs font-mono font-bold uppercase tracking-widest"
+            className="text-xs sm:text-sm font-mono font-bold tracking-wider inline-block"
           >
-            <Sparkles className="w-4 h-4 text-amber-700" />
-            <span>Guía de Sabores & Maridaje Artesanal</span>
+            <span className="text-[#F1422A]">[</span>
+            <span className="text-stone-900">Guía de Sabores & Maridaje Artesanal</span>
+            <span className="text-[#F1422A]">]</span>
           </motion.div>
 
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-display text-3xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-tight text-stone-950 font-extrabold leading-[1.02] drop-shadow-sm"
+            className="font-display text-3xl sm:text-6xl md:text-7xl lg:text-8xl tracking-normal text-stone-950 font-extrabold leading-[1.02] drop-shadow-sm"
           >
-            Hay un maní <span className="text-amber-600 bg-gradient-to-r from-amber-600 to-amber-700 bg-clip-text text-transparent">KROKANTÉ</span><br className="hidden sm:inline" /> para cada momento de la vida
+            Hay un maní <span className="text-[#F1422A]">Krokanté</span><br className="hidden sm:inline" /> para cada momento de la vida
           </motion.h2>
 
           <motion.p 
@@ -395,7 +396,7 @@ export const Section3Momentos: React.FC = () => {
             <span className="font-mono text-[11px] sm:text-xs uppercase font-black tracking-widest text-amber-950 block">
               Formato de Venta Auténtico en Tiendas de Barrio
             </span>
-            <h3 className="text-2xl sm:text-3xl md:text-4xl uppercase font-black tracking-tight leading-tight">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-normal leading-tight">
               ¡MANÍ JAPONÉS A GRANEL!
             </h3>
             <p className="font-sans text-xs sm:text-sm text-stone-900 font-bold max-w-xl mx-auto md:mx-0 leading-relaxed">
@@ -404,11 +405,11 @@ export const Section3Momentos: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-2 sm:flex items-stretch justify-center gap-2.5 sm:gap-3 w-full md:w-auto shrink-0">
-            <div className="px-3.5 py-3.5 rounded-2xl bg-stone-950 text-amber-400 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 shadow-lg text-center h-full min-h-[72px] sm:min-h-0 border border-stone-900">
+            <div className="px-3.5 py-3.5 rounded-2xl bg-stone-950 text-amber-400 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-normal flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 shadow-lg text-center h-full min-h-[72px] sm:min-h-0 border border-stone-900">
               <Scale className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0" />
               <span>Desde 100g</span>
             </div>
-            <div className="px-3.5 py-3.5 rounded-2xl bg-stone-950 text-amber-400 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 shadow-lg text-center h-full min-h-[72px] sm:min-h-0 border border-stone-900">
+            <div className="px-3.5 py-3.5 rounded-2xl bg-stone-950 text-amber-400 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-normal flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 shadow-lg text-center h-full min-h-[72px] sm:min-h-0 border border-stone-900">
               <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0" />
               <span>Vidrio Hermético</span>
             </div>

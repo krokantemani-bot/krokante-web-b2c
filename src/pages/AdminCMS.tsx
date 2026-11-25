@@ -85,7 +85,7 @@ export const AdminCMS = () => {
             </div>
           </div>
 
-          <h2 className="font-display text-3xl text-center uppercase tracking-tight mb-2">Panel CMS Krokanté</h2>
+          <h2 className="font-display text-3xl text-center tracking-normal mb-2">Panel CMS Krokanté</h2>
           <p className="text-neutral-400 text-xs text-center mb-8">
             Acceso seguro para administradores y editores de contenido multimedia.
           </p>
@@ -99,7 +99,7 @@ export const AdminCMS = () => {
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2">Correo Electrónico</label>
+              <label className="block text-xs font-bold uppercase tracking-normal text-neutral-400 mb-2">Correo Electrónico</label>
               <input 
                 type="email"
                 value={email}
@@ -111,7 +111,7 @@ export const AdminCMS = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2">Contraseña</label>
+              <label className="block text-xs font-bold uppercase tracking-normal text-neutral-400 mb-2">Contraseña</label>
               <input 
                 type="password"
                 value={password}
@@ -124,7 +124,7 @@ export const AdminCMS = () => {
 
             <button 
               type="submit"
-              className="w-full py-4 rounded-xl bg-amber-400 text-black font-bold uppercase tracking-wider text-xs hover:bg-yellow-300 transition-colors shadow-lg shadow-amber-400/20"
+              className="w-full py-4 rounded-xl bg-amber-400 text-black font-bold uppercase tracking-normal text-xs hover:bg-yellow-300 transition-colors shadow-lg shadow-amber-400/20"
             >
               Iniciar Sesión Seguro
             </button>
@@ -147,7 +147,7 @@ export const AdminCMS = () => {
             K
           </div>
           <div>
-            <h1 className="font-display text-xl uppercase tracking-wider">Krokanté CMS</h1>
+            <h1 className="font-display text-xl tracking-normal">Krokanté CMS</h1>
             <p className="text-[11px] text-amber-400 font-mono">Modo Administrador Principal</p>
           </div>
         </div>
@@ -197,7 +197,7 @@ export const AdminCMS = () => {
         {activeTab === 'media' ? (
           <div>
             <div className="mb-8">
-              <h2 className="font-display text-4xl uppercase tracking-tight mb-2">Administrador de Imágenes y Videos</h2>
+              <h2 className="font-display text-4xl tracking-normal mb-2">Administrador de Imágenes y Videos</h2>
               <p className="text-neutral-400 text-sm">
                 Edita las fotos de tus empaques y videos. El sistema admite cualquier formato (`PNG`, `JPG`, `WEBP`, `AVIF`, `HEIC`, `MP4`, `MOV`) con compresión automática y costo $0 de almacenamiento.
               </p>
@@ -248,7 +248,7 @@ export const AdminCMS = () => {
 
                     {/* Campo de URL / Carga */}
                     <div className="space-y-2">
-                      <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400">
+                      <label className="block text-xs font-bold uppercase tracking-normal text-neutral-400">
                         URL de la Imagen o Video
                       </label>
                       <input 
@@ -279,7 +279,7 @@ export const AdminCMS = () => {
           <div>
             <div className="mb-8">
 
-              <h2 className="font-display text-4xl uppercase tracking-tight mb-2">Gestión de Permisos y Equipo (RBAC)</h2>
+              <h2 className="font-display text-4xl tracking-normal mb-2">Gestión de Permisos y Equipo (RBAC)</h2>
               <p className="text-neutral-400 text-sm">
                 Asigna permisos especiales a diseñadores o colaboradores para que puedan actualizar las fotos sin poner en riesgo la configuración general.
               </p>
@@ -294,7 +294,7 @@ export const AdminCMS = () => {
 
                 <form onSubmit={handleAddEditor} className="space-y-4">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2">
+                    <label className="block text-xs font-bold uppercase tracking-normal text-neutral-400 mb-2">
                       Correo del Colaborador
                     </label>
                     <input 
@@ -308,7 +308,7 @@ export const AdminCMS = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-400 mb-2">
+                    <label className="block text-xs font-bold uppercase tracking-normal text-neutral-400 mb-2">
                       Rol Asignado
                     </label>
                     <div className="p-4 rounded-xl bg-neutral-950 border border-neutral-800 text-xs space-y-1">
@@ -319,7 +319,7 @@ export const AdminCMS = () => {
 
                   <button 
                     type="submit"
-                    className="w-full py-3.5 rounded-xl bg-amber-400 text-black font-bold uppercase tracking-wider text-xs hover:bg-yellow-300 transition-colors"
+                    className="w-full py-3.5 rounded-xl bg-amber-400 text-black font-bold uppercase tracking-normal text-xs hover:bg-yellow-300 transition-colors"
                   >
                     Otorgar Permiso de Editor
                   </button>
@@ -349,7 +349,7 @@ export const AdminCMS = () => {
         ) : (
           <div>
             <div className="mb-8">
-              <h2 className="font-display text-4xl uppercase tracking-tight mb-2">Puntos de Venta (Firestore)</h2>
+              <h2 className="font-display text-4xl tracking-normal mb-2">Puntos de Venta (Firestore)</h2>
               <p className="text-neutral-400 text-sm">
                 Esta sección monitorea los mostradores registrados automáticamente desde la app Android Krokanté en la colección `puntos_de_venta`.
               </p>

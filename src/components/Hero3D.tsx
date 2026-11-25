@@ -57,8 +57,8 @@ export const Hero3D: React.FC<HeroProps> = ({ onWhereToBuyClick }) => {
           </div>
 
           {/* Titular Principal */}
-          <h1 className="font-display text-[10vw] sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[68px] font-black uppercase text-[#141210] leading-[1.03] tracking-tight">
-            Pide <span className="text-[#FF6519]">100 gramos</span>. Vas a volver por el frasco entero.
+          <h1 className="font-display text-[10vw] sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[68px] font-black text-[#141210] leading-[1.03] tracking-normal">
+            Pide <span className="text-[#F1422A]">100 gramos</span>. Vas a volver por el frasco entero.
           </h1>
 
           {/* Subtítulo / Párrafo explicativo */}
@@ -81,9 +81,9 @@ export const Hero3D: React.FC<HeroProps> = ({ onWhereToBuyClick }) => {
                   elem?.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="inline-flex w-full sm:w-auto items-center justify-center px-8 sm:px-12 py-4 sm:py-4.5 rounded-full bg-[#FF6519] hover:bg-[#F05508] text-white font-display text-lg sm:text-xl uppercase font-bold tracking-wider shadow-[0_8px_25px_rgba(255,101,25,0.4)] transition-all cursor-pointer"
+              className="inline-flex w-full sm:w-auto items-center justify-center px-8 sm:px-12 py-4 sm:py-4.5 rounded-full bg-[#F1422A] hover:bg-[#d8351e] text-white font-sans text-base sm:text-lg font-semibold tracking-normal shadow-[0_8px_25px_rgba(241,66,42,0.4)] transition-all cursor-pointer"
             >
-              ¿DÓNDE COMPRO?
+              ¿Dónde compro?
             </motion.button>
           </div>
         </motion.div>

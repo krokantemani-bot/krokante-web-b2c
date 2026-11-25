@@ -35,7 +35,7 @@ export const Section2Granel: React.FC = () => {
 
       {/* 1. TÍTULO PRINCIPAL GENERAL GIGANTE CON SALTO DE LÍNEA */}
       <div className="text-center max-w-5xl mx-auto mb-16 sm:mb-28 md:mb-28 px-4 sm:px-6 relative z-20">
-        <h2 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-tight text-white font-black leading-[1.02] md:leading-[1.1] drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">
+        <h2 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-normal text-white font-black leading-[1.02] md:leading-[1.1] drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">
           SIGUE LA RUTA<br className="sm:hidden" /> DEL MANÍ TOP
         </h2>
       </div>
@@ -61,7 +61,7 @@ export const Section2Granel: React.FC = () => {
             01
           </motion.span>
           {/* Texto del Paso */}
-          <h3 className="relative z-10 font-display text-3xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl uppercase tracking-normal leading-[1.15] drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
+          <h3 className="relative z-10 font-display text-3xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl tracking-normal leading-[1.15] drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
             PASO 1.<br />Busca el <span className="text-[#EAB308] font-black">exhibidor KROKANTÉ</span><br />mas cercano
           </h3>
         </div>
@@ -82,7 +82,7 @@ export const Section2Granel: React.FC = () => {
             02
           </motion.span>
           {/* Texto del Paso */}
-          <h3 className="relative z-10 font-display text-3xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl uppercase tracking-normal leading-[1.15] drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
+          <h3 className="relative z-10 font-display text-3xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl tracking-normal leading-[1.15] drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
             PASO 2.<br />Elige tus <span className="text-[#EAB308] font-black">sabores</span><br />favoritos
           </h3>
         </div>
@@ -103,7 +103,7 @@ export const Section2Granel: React.FC = () => {
             03
           </motion.span>
           {/* Texto del Paso */}
-          <h3 className="relative z-10 font-display text-3xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl uppercase tracking-normal leading-[1.15] drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
+          <h3 className="relative z-10 font-display text-3xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl tracking-normal leading-[1.15] drop-shadow-[0_4px_16px_rgba(0,0,0,1)]">
             PASO 3.<br />Pide el <span className="text-[#EAB308] font-black">peso</span><br />que quieras
           </h3>
         </div>

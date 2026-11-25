@@ -715,7 +715,7 @@ export const MostradoresPage = () => {
 
           <div className="flex items-center gap-3">
             <div>
-              <h1 className="font-display text-lg sm:text-xl uppercase tracking-wider text-white leading-none">
+              <h1 className="font-display text-lg sm:text-xl tracking-wider text-white leading-none">
                 Encuentra Tu Exhibidor
               </h1>
               <span className="text-[10px] sm:text-[11px] text-amber-400 font-mono flex items-center gap-1.5 mt-1">

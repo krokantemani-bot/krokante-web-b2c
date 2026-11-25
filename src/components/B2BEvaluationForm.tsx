@@ -190,9 +190,9 @@ export const B2BEvaluationForm: React.FC<B2BEvaluationFormProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <button
                 onClick={() => setTeaserStep('YES_STATS')}
-                className="py-4 px-6 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-base transition-all transform hover:scale-[1.02] shadow-lg shadow-emerald-700/20 flex items-center justify-center gap-2 cursor-pointer uppercase font-display tracking-wider"
+                className="py-4 px-6 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-base transition-all transform hover:scale-[1.02] shadow-lg shadow-emerald-700/20 flex items-center justify-center gap-2 cursor-pointer font-sans font-semibold tracking-normal"
               >
-                <span>¡SÍ, TOTALMENTE!</span>
+                <span>¡Sí, totalmente!</span>
                 <CheckCircle2 className="w-5 h-5" />
               </button>
 
@@ -244,7 +244,7 @@ export const B2BEvaluationForm: React.FC<B2BEvaluationFormProps> = ({
             <div className="pt-2 text-center">
               <button
                 onClick={() => setTeaserStep('FORM')}
-                className="w-full py-4 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-black text-base uppercase font-display tracking-wider transition-all transform hover:scale-[1.01] shadow-xl shadow-amber-700/25 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-4 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-black text-base font-sans font-semibold tracking-normal transition-all transform hover:scale-[1.01] shadow-xl shadow-amber-700/25 flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>¿Le interesa aplicar? Comenzar Evaluación</span>
                 <ChevronRight className="w-5 h-5" />
@@ -781,7 +781,7 @@ export const B2BEvaluationForm: React.FC<B2BEvaluationFormProps> = ({
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm uppercase font-display tracking-wider transition-all transform hover:scale-[1.02] shadow-xl flex items-center justify-center gap-2"
+                className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm font-sans font-semibold tracking-normal transition-all transform hover:scale-[1.02] shadow-xl flex items-center justify-center gap-2"
               >
                 <MessageCircle className="w-5 h-5 fill-white" />
                 <span>Enviar Postulación por WhatsApp</span>

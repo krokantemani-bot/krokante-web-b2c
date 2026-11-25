@@ -1,20 +1,14 @@
 @import "tailwindcss";
 
-@layer base {
-  @font-face {
-    font-family: 'Bebas Neue';
-    src: url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-  }
+@theme {
+  --font-display: 'Anton', sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
   margin: 0;
   background-color: #000000;
   color: #ffffff;
-}
-
-.font-display {
-  font-family: 'Bebas Neue', sans-serif, system-ui;
 }
 
 @keyframes floatNatural {
@@ -47,7 +41,7 @@ body {
   font-size: 11px !important;
   letter-spacing: 0.2px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.75) !important;
-  font-family: system-ui, -apple-system, sans-serif !important;
+  font-family: var(--font-sans) !important;
   white-space: nowrap !important;
   pointer-events: none !important;
   backdrop-filter: blur(4px) !important;

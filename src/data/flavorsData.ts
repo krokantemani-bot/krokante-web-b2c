@@ -63,7 +63,7 @@ export interface FlavorData {
 export const FLAVORS_DATA: Record<string, FlavorData> = {
   fuego: {
     id: 'fuego',
-    title: 'PICANTE FUEGO',
+    title: 'Picante Fuego',
     subtitle: 'Maní Japonés al Ají Colorado Boliviano',
     lineName: 'LÍNEA CERVECERA',
     badgeText: '🍻 MOMENTO CERVECERO',
@@ -125,7 +125,7 @@ export const FLAVORS_DATA: Record<string, FlavorData> = {
 
   curcuma: {
     id: 'curcuma',
-    title: 'CÚRCUMA PIMIENTA NEGRA',
+    title: 'Cúrcuma Pimienta Negra',
     subtitle: 'Maní Japonés Antioxidante Activo',
     lineName: 'LÍNEA SALUDABLE',
     badgeText: '⚡ MOMENTO PRE-ENTRENO',
@@ -188,7 +188,7 @@ export const FLAVORS_DATA: Record<string, FlavorData> = {
 
   cebolla: {
     id: 'cebolla',
-    title: 'CEBOLLA CRUNCH',
+    title: 'Cebolla Crunch',
     subtitle: 'Maní Japonés al Cebollín Dulce & Finas Hierbas',
     lineName: 'LÍNEA FAMILIAR',
     badgeText: '🏡 MOMENTO FAMILIAR',
@@ -248,7 +248,7 @@ export const FLAVORS_DATA: Record<string, FlavorData> = {
 
   soya: {
     id: 'soya',
-    title: 'SALSA SOYA TRADICIONAL',
+    title: 'Salsa Soya Tradicional',
     subtitle: 'Maní Japonés Umami Horneado al Tostado Ancestral',
     lineName: 'LÍNEA TRADICIONAL',
     badgeText: '💼 MOMENTO URBANO',

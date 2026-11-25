@@ -134,7 +134,7 @@ export const SectionExhibidoresAwwwards: React.FC = () => {
                 <motion.div 
                   animate={{ y: [4, -4, 4] }}
                   transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
-                  className="absolute bottom-8 left-4 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-mono text-amber-400 font-semibold group-hover/radar:bg-white/20 transition-all"
+                  className="absolute bottom-8 left-4 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-mono text-[#F5EFDC] font-semibold group-hover/radar:bg-white/20 transition-all"
                 >
                   ● Micromarket Central (340m)
                 </motion.div>

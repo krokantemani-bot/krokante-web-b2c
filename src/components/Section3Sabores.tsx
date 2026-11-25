@@ -231,6 +231,8 @@ export const Section4Sabores: React.FC = () => {
             <Link
               key={`${flavor.id}-${index}`}
               to={`/sabores/${flavor.routeId}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="relative flex-shrink-0 w-full sm:w-[35vw] md:w-72 lg:w-80 h-full md:h-[500px] flex items-center justify-center p-0 snap-center focus:outline-none"
             >
               <motion.img

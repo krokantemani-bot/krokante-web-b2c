@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Scale, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface MomentCardData {
   id: string;
@@ -178,6 +178,8 @@ export const Section3Momentos: React.FC = () => {
     <Link 
       key={`${m.id}-${keyIndex}`}
       to={`/sabores/${m.id}`}
+      target="_blank"
+      rel="noopener noreferrer"
       className="block w-full cursor-pointer focus:outline-none"
     >
       <motion.div
@@ -262,7 +264,7 @@ export const Section3Momentos: React.FC = () => {
   return (
     <section 
       id="section3-momentos" 
-      className="relative z-20 min-h-screen py-20 md:py-24 px-4 sm:px-6 md:px-12 bg-[#F4ECE1] text-stone-900 overflow-hidden font-sans border-t-2 border-amber-900/10 shadow-inner"
+      className="relative z-20 min-h-screen py-20 md:py-24 px-4 sm:px-6 md:px-12 bg-[#F5EFDC] text-stone-900 overflow-hidden font-sans border-t border-stone-300/60"
     >
       {/* Textura sutil de papel artesanal apergaminado */}
       <div className="absolute inset-0 bg-[radial-gradient(#D8C8B3_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
@@ -315,7 +317,7 @@ export const Section3Momentos: React.FC = () => {
               }
             }}
             aria-label="Sabor anterior"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-50 w-11 h-16 rounded-r-full bg-stone-950/90 text-amber-400 flex items-center justify-start pl-1.5 shadow-2xl backdrop-blur-md border border-amber-500/30 active:scale-95 transition-transform"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-50 w-11 h-16 rounded-r-full bg-stone-950/90 text-white hover:text-[#F1422A] flex items-center justify-start pl-1.5 shadow-2xl backdrop-blur-md border border-white/15 active:scale-95 transition-transform"
           >
             <ChevronLeft className="w-7 h-7 stroke-[3]" />
           </button>
@@ -329,7 +331,7 @@ export const Section3Momentos: React.FC = () => {
               }
             }}
             aria-label="Siguiente sabor"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-50 w-11 h-16 rounded-l-full bg-stone-950/90 text-amber-400 flex items-center justify-end pr-1.5 shadow-2xl backdrop-blur-md border border-amber-500/30 active:scale-95 transition-transform"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-50 w-11 h-16 rounded-l-full bg-stone-950/90 text-white hover:text-[#F1422A] flex items-center justify-end pr-1.5 shadow-2xl backdrop-blur-md border border-white/15 active:scale-95 transition-transform"
           >
             <ChevronRight className="w-7 h-7 stroke-[3]" />
           </button>
@@ -358,7 +360,7 @@ export const Section3Momentos: React.FC = () => {
                 aria-label={`Ver sabor ${m.title}`}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   activeMobileIndex === idx 
-                    ? 'w-8 bg-amber-500 shadow-md shadow-amber-500/50' 
+                    ? 'w-8 bg-[#F1422A] shadow-md shadow-[#F1422A]/40' 
                     : 'w-2 bg-stone-400/50 hover:bg-stone-500'
                 }`}
               />
@@ -384,38 +386,6 @@ export const Section3Momentos: React.FC = () => {
           </div>
 
         </div>
-
-        {/* BANNER REAL DEL MOSTRADOR DE EXHIBICIÓN EN LA BASE */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="rounded-3xl bg-amber-400 border-2 border-amber-500 p-6 md:p-8 text-stone-950 font-display text-center shadow-xl flex flex-col md:flex-row items-center justify-between gap-6"
-        >
-          <div className="text-center md:text-left space-y-1.5 w-full">
-            <span className="font-mono text-[11px] sm:text-xs uppercase font-black tracking-widest text-amber-950 block">
-              Formato de Venta Auténtico en Tiendas de Barrio
-            </span>
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-normal leading-tight">
-              ¡MANÍ JAPONÉS A GRANEL!
-            </h3>
-            <p className="font-sans text-xs sm:text-sm text-stone-900 font-bold max-w-xl mx-auto md:mx-0 leading-relaxed">
-              ELIGE TU FAVORITO • AL MENOS 100 GR. • PÍDELE A LA CASERA PESO EXACTO
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 sm:flex items-stretch justify-center gap-2.5 sm:gap-3 w-full md:w-auto shrink-0">
-            <div className="px-3.5 py-3.5 rounded-2xl bg-stone-950 text-amber-400 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-normal flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 shadow-lg text-center h-full min-h-[72px] sm:min-h-0 border border-stone-900">
-              <Scale className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0" />
-              <span>Desde 100g</span>
-            </div>
-            <div className="px-3.5 py-3.5 rounded-2xl bg-stone-950 text-amber-400 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-normal flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 shadow-lg text-center h-full min-h-[72px] sm:min-h-0 border border-stone-900">
-              <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 shrink-0" />
-              <span>Vidrio Hermético</span>
-            </div>
-          </div>
-        </motion.div>
-
       </div>
     </section>
   );

@@ -68,7 +68,7 @@ export const SectionGranelAwwwards: React.FC = () => {
                   4 Variedades en Exposición Diaria
                 </p>
               </div>
-              <span className="font-mono text-[10px] sm:text-xs text-amber-300 backdrop-blur-md bg-black/60 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full border border-white/10">
+              <span className="font-mono text-[10px] sm:text-xs text-[#F5EFDC] backdrop-blur-md bg-black/60 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full border border-white/10">
                 0% Humedad • Textura Vítrea
               </span>
             </div>

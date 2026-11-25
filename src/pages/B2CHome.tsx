@@ -32,7 +32,7 @@ export const ArtDirectionExperience = () => {
 
 
   return (
-    <div className="relative min-h-screen bg-black text-white font-sans overflow-x-hidden selection:bg-amber-400 selection:text-black">
+    <div className="relative min-h-screen bg-black text-white font-sans overflow-x-hidden selection:bg-[#F1422A] selection:text-white">
       {/* 1. HERO SECTION */}
       <Hero3D onWhereToBuyClick={() => navigate('/mostradores?autoLocate=true')} />
 
@@ -46,7 +46,7 @@ export const ArtDirectionExperience = () => {
       <SectionGranelAwwwards />
 
       {/* 6. BANNER B2B PARA SOCIOS & FOOTER */}
-      <section id="b2b" className="relative z-20 py-12 md:py-16 px-4 sm:px-6 md:px-12 bg-[#F4ECE1] text-stone-950 border-t border-black/5 font-sans overflow-hidden">
+      <section id="b2b" className="relative z-20 py-12 md:py-16 px-4 sm:px-6 md:px-12 bg-[#F5EFDC] text-stone-950 border-t border-black/5 font-sans overflow-hidden">
         {/* Textura sutil de papel artesanal apergaminado */}
         <div className="absolute inset-0 bg-[radial-gradient(#D8C8B3_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
 
@@ -122,15 +122,15 @@ export const ArtDirectionExperience = () => {
         </div>
 
         <div className="flex items-center gap-6">
-          <button onClick={() => navigate('/mostradores?autoLocate=true')} className="hover:text-amber-400 transition-colors flex items-center gap-1 cursor-pointer">
-            <MapIcon className="w-4 h-4 text-amber-400" />
+          <button onClick={() => navigate('/mostradores?autoLocate=true')} className="hover:text-[#F1422A] transition-colors flex items-center gap-1 cursor-pointer">
+            <MapIcon className="w-4 h-4 text-[#F1422A]" />
             <span>Mapa de Exhibidores</span>
           </button>
-          <a href="/admin" className="hover:text-amber-400 transition-colors flex items-center gap-1">
-            <ShieldCheck className="w-4 h-4 text-amber-400" />
+          <a href="/admin" className="hover:text-[#F1422A] transition-colors flex items-center gap-1">
+            <ShieldCheck className="w-4 h-4 text-[#F1422A]" />
             <span>Acceso CMS</span>
           </a>
-          <a href="https://b2b.krokantemani.top" target="_blank" rel="noreferrer" className="text-amber-400 font-bold hover:underline">
+          <a href="https://b2b.krokantemani.top" target="_blank" rel="noreferrer" className="text-[#F1422A] font-bold hover:underline">
             Acceso Socios B2B
           </a>
         </div>

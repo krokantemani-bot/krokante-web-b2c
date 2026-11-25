@@ -32,7 +32,7 @@ export const ArtDirectionExperience = () => {
 
 
   return (
-    <div className="relative min-h-screen bg-black text-white font-sans overflow-x-hidden selection:bg-[#F1422A] selection:text-white">
+    <div className="relative min-h-screen bg-black text-white font-sans overflow-x-clip selection:bg-[#F1422A] selection:text-white">
       {/* 1. HERO SECTION */}
       <Hero3D onWhereToBuyClick={() => navigate('/mostradores?autoLocate=true')} />
 

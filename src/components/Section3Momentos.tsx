@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface MomentCardData {
@@ -25,6 +25,99 @@ interface MomentCardData {
   textColor: string;
   cardHeightClass: string;
 }
+
+interface MomentCardProps {
+  m: MomentCardData;
+  isMobileView?: boolean;
+}
+
+const MomentCard: React.FC<MomentCardProps> = ({ m, isMobileView = false }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ['start 95%', 'end 5%'],
+  });
+
+  // Scroll-driven continuo: viaje notable al entrar (0 -> 0.42), pico en el centro (0.42 -> 0.58), reverso al salir (0.58 -> 1)
+  const overlayOpacity = useTransform(scrollYProgress, [0.05, 0.42, 0.58, 0.95], [0, 1, 1, 0]);
+  const textOpacity = useTransform(scrollYProgress, [0.1, 0.42, 0.58, 0.9], [0, 1, 1, 0]);
+  const textY = useTransform(scrollYProgress, [0.1, 0.42, 0.58, 0.9], [48, 0, 0, 40]);
+  const labelScale = useTransform(scrollYProgress, [0.05, 0.42, 0.58, 0.95], [0.7, 1.45, 1.45, 0.7]);
+  const labelRotate = useTransform(scrollYProgress, [0.05, 0.42, 0.58, 0.95], [-14, 6, 6, -14]);
+  const labelX = useTransform(scrollYProgress, [0.05, 0.42, 0.58, 0.95], [80, 0, 0, 80]);
+  const labelY = useTransform(scrollYProgress, [0.05, 0.42, 0.58, 0.95], [-80, 0, 0, -80]);
+  const labelOpacity = useTransform(scrollYProgress, [0.05, 0.35, 0.65, 0.95], [0.25, 1, 1, 0.25]);
+  const imgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1.32, 1.15]);
+
+  return (
+    <Link
+      to={`/sabores/${m.id}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block w-full cursor-pointer focus:outline-none"
+    >
+      <div
+        ref={cardRef}
+        className={`group relative rounded-3xl overflow-hidden shadow-xl border border-stone-800/20 transition-shadow duration-300 hover:shadow-2xl ${m.cardBg} ${
+          isMobileView ? 'w-[84vw] max-w-[320px] aspect-[9/16] shrink-0 snap-center' : `w-full ${m.cardHeightClass}`
+        }`}
+        style={{ clipPath: 'inset(0 rounded 1.5rem)' }}
+      >
+        {/* FOTOGRAFÍA DE FONDO CON ZOOM SCROLL-DRIVEN */}
+        <div className="absolute inset-0 z-0 overflow-hidden bg-stone-950">
+          <motion.img
+            src={m.bgImage || m.labelImg}
+            alt={m.title}
+            style={isMobileView ? undefined : { scale: imgScale }}
+            className="w-full h-full object-cover origin-center opacity-90 scale-[1.25] filter brightness-95 contrast-105"
+          />
+          {/* Capa oscura inferior impulsada por scroll */}
+          <motion.div
+            style={isMobileView ? { opacity: 1 } : { opacity: overlayOpacity }}
+            className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent z-10 pointer-events-none"
+          />
+        </div>
+
+        {/* ETIQUETA CIRCULAR DE SABOR CON EFECTO SCROLL-DRIVEN */}
+        {m.labelImg && (
+          <div className="absolute inset-0 z-30 pointer-events-none p-6 sm:p-8 flex items-start justify-end lg:items-center lg:justify-center">
+            <motion.div
+              style={
+                isMobileView
+                  ? undefined
+                  : { x: labelX, y: labelY, scale: labelScale, rotate: labelRotate, opacity: labelOpacity }
+              }
+              className={`w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full ${m.ringColorClass} ${
+                isMobileView ? 'animate-float-natural' : ''
+              } drop-shadow-2xl backdrop-blur-sm bg-black/20 p-1`}
+            >
+              <img
+                src={m.labelImg}
+                alt={`Etiqueta Oficial Krokanté ${m.title}`}
+                className="w-full h-full object-contain pointer-events-none filter contrast-105 drop-shadow-xl"
+              />
+            </motion.div>
+          </div>
+        )}
+
+        {/* CONTENIDO INFERIOR: TEXTO MOMENTO Y SABOR IMPULSADO POR SCROLL */}
+        <div className="absolute bottom-0 left-0 right-0 z-30 p-6 sm:p-8 flex flex-col justify-end pointer-events-none">
+          <motion.div
+            style={isMobileView ? undefined : { opacity: textOpacity, y: textY }}
+            className="space-y-2"
+          >
+            <p className="font-mono text-xs sm:text-sm md:text-base font-extrabold tracking-widest text-amber-400 uppercase drop-shadow-md">
+              {m.badge.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}]\s*/u, '')}
+            </p>
+            <h3 className="font-display text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-normal leading-none drop-shadow-lg">
+              {m.title}
+            </h3>
+          </motion.div>
+        </div>
+      </div>
+    </Link>
+  );
+};
 
 export const Section3Momentos: React.FC = () => {
   const [activeMobileIndex, setActiveMobileIndex] = useState<number>(0);
@@ -175,104 +268,22 @@ export const Section3Momentos: React.FC = () => {
   };
 
   const renderCardContent = (m: MomentCardData, isMobileView: boolean = false, keyIndex: number = 0) => (
-    <Link 
-      key={`${m.id}-${keyIndex}`}
-      to={`/sabores/${m.id}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block w-full cursor-pointer focus:outline-none"
-    >
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        animate={
-          m.id === 'fuego'
-            ? { x: [0, 4, -3, 2, 0], y: [0, -6, 2, -4, 0], rotate: [0, 0.4, -0.3, 0.2, 0] }
-            : m.id === 'cebolla'
-            ? { x: [0, -4, 3, -2, 0], y: [0, -5, -1, -7, 0], rotate: [0, -0.4, 0.3, -0.2, 0] }
-            : m.id === 'curcuma'
-            ? { x: [0, 3, -4, 1, 0], y: [0, 3, -6, 2, 0], rotate: [0, 0.3, -0.4, 0.2, 0] }
-            : { x: [0, -3, 2, -4, 0], y: [0, -4, 3, -5, 0], rotate: [0, -0.3, 0.4, -0.2, 0] }
-        }
-        transition={{ 
-          opacity: { duration: 0.4 },
-          x: {
-            repeat: Infinity,
-            duration: m.id === 'fuego' ? 7.2 : m.id === 'cebolla' ? 8.1 : m.id === 'curcuma' ? 6.8 : 7.6,
-            ease: 'easeInOut'
-          },
-          y: {
-            repeat: Infinity,
-            duration: m.id === 'fuego' ? 6.1 : m.id === 'cebolla' ? 6.9 : m.id === 'curcuma' ? 5.8 : 6.4,
-            ease: 'easeInOut'
-          },
-          rotate: {
-            repeat: Infinity,
-            duration: m.id === 'fuego' ? 8.5 : m.id === 'cebolla' ? 9.2 : m.id === 'curcuma' ? 7.9 : 8.7,
-            ease: 'easeInOut'
-          }
-        }}
-        className={`group relative rounded-3xl overflow-hidden shadow-xl border border-stone-800/20 transition-all duration-400 ease-out hover:-translate-y-2 hover:shadow-2xl ${m.cardBg} ${
-          isMobileView ? 'w-[84vw] max-w-[320px] aspect-[9/16] shrink-0 snap-center' : `w-full ${m.cardHeightClass}`
-        }`}
-        style={{ clipPath: 'inset(0 rounded 1.5rem)', transform: 'translateZ(0)' }}
-      >
-        {/* FOTOGRAFÍA ESTÁTICA DE ALTA CALIDAD (FONDO A SANGRADO COMPLETO SIN FRANJAS NEGRAS) */}
-        <div className="absolute inset-0 z-0 overflow-hidden bg-stone-950">
-          <img
-            src={m.bgImage || m.labelImg}
-            alt={m.title}
-            className="w-full h-full object-cover origin-center opacity-90 scale-[1.3] transition-transform duration-400 ease-out group-hover:scale-[1.35] filter brightness-95 contrast-105"
-          />
-          {/* Capa de soporte inferior para legibilidad del texto */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out" />
-        </div>
-
-        {/* ETIQUETA CIRCULAR DE SABOR: LEVITACIÓN NATURAL 3D EN MÓVIL/TABLET Y TRANSICIÓN EN DESKTOP */}
-        {m.labelImg && (
-          <div className="absolute inset-0 z-30 pointer-events-none p-6 sm:p-8 flex items-start justify-end">
-            <div
-              className={`w-20 h-20 sm:w-28 sm:h-28 rounded-full ${m.ringColorClass} transition-all duration-400 ease-out animate-float-natural lg:animate-none lg:group-hover:absolute lg:group-hover:top-1/2 lg:group-hover:left-1/2 lg:group-hover:-translate-x-1/2 lg:group-hover:-translate-y-1/2 lg:group-hover:scale-[1.8] lg:group-hover:rotate-6 drop-shadow-2xl backdrop-blur-sm bg-black/20 p-1`}
-            >
-              <img 
-                src={m.labelImg} 
-                alt={`Etiqueta Oficial Krokanté ${m.title}`} 
-                className="w-full h-full object-contain pointer-events-none filter contrast-105 drop-shadow-xl"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* CONTENIDO INFERIOR: TEXTO MOMENTO Y SABOR (SIEMPRE VISIBLE EN MÓVIL Y TABLET, HOVER EN DESKTOP) */}
-        <div className="absolute bottom-0 left-0 right-0 z-30 p-6 sm:p-8 flex flex-col justify-end pointer-events-none">
-          <div className="opacity-100 translate-y-0 lg:opacity-0 lg:translate-y-6 transition-all duration-400 ease-out group-hover:opacity-100 group-hover:translate-y-0 space-y-2">
-            {/* MOMENTO EN MAYÚSCULAS Y LETRA GRANDE (SIN ÍCONOS) */}
-            <p className="font-mono text-xs sm:text-sm md:text-base font-extrabold tracking-widest text-amber-400 uppercase drop-shadow-md">
-              {m.badge.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}]\s*/u, '')}
-            </p>
-            {/* TÍTULO DEL SABOR EN LETRAS EXTRA GRANDES */}
-            <h3 className="font-display text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-normal leading-none drop-shadow-lg">
-              {m.title}
-            </h3>
-          </div>
-        </div>
-      </motion.div>
-    </Link>
+    <MomentCard key={`${m.id}-${keyIndex}`} m={m} isMobileView={isMobileView} />
   );
 
 
   return (
     <section 
       id="section3-momentos" 
-      className="relative z-20 min-h-screen py-20 md:py-24 px-4 sm:px-6 md:px-12 bg-[#F5EFDC] text-stone-900 overflow-hidden font-sans border-t border-stone-300/60"
+      className="relative z-20 min-h-screen py-20 md:py-24 px-4 sm:px-6 md:px-12 bg-[#F5EFDC] text-stone-900 overflow-x-clip font-sans border-t border-stone-300/60"
     >
       {/* Textura sutil de papel artesanal apergaminado */}
       <div className="absolute inset-0 bg-[radial-gradient(#D8C8B3_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto relative z-10 space-y-8 md:space-y-10">
+      <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:grid lg:grid-cols-12 gap-8 md:gap-10 lg:gap-12 lg:items-start">
         
-        {/* ENCABEZADO DE LA SECCIÓN 3 (Espaciado Ajustado y Compacto) */}
-        <div className="text-center max-w-4xl mx-auto space-y-4 md:space-y-6">
+        {/* ENCABEZADO PINNED EN DESKTOP (IZQUIERDA FIJA) */}
+        <div className="text-center lg:text-left max-w-4xl lg:max-w-none mx-auto lg:mx-0 space-y-4 md:space-y-6 lg:col-span-5 lg:sticky lg:top-28">
           <motion.div
             initial={{ opacity: 0, y: -15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -284,24 +295,58 @@ export const Section3Momentos: React.FC = () => {
             <span className="text-[#F1422A]">]</span>
           </motion.div>
 
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-display text-3xl sm:text-6xl md:text-7xl lg:text-8xl tracking-normal text-stone-950 font-extrabold leading-[1.02] drop-shadow-sm"
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.12 } },
+            }}
+            className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-6xl tracking-normal text-stone-950 font-extrabold leading-[1.06] drop-shadow-sm flex flex-wrap justify-center lg:justify-start gap-x-[0.26em] gap-y-1"
           >
-            Hay un maní <span className="text-[#F1422A]">Krokanté</span><br className="hidden sm:inline" /> para cada momento de la vida
+            {[
+              { text: 'Hay', accent: false },
+              { text: 'un', accent: false },
+              { text: 'maní', accent: false },
+              { text: 'Krokanté', accent: true },
+              { text: 'para', accent: false },
+              { text: 'cada', accent: false },
+              { text: 'momento', accent: false },
+              { text: 'de', accent: false },
+              { text: 'la', accent: false },
+              { text: 'vida', accent: false },
+            ].map((word, idx) => (
+              <span key={idx} className="inline-block overflow-hidden py-0.5">
+                <motion.span
+                  variants={{
+                    hidden: { y: '110%', opacity: 0 },
+                    visible: {
+                      y: '0%',
+                      opacity: 1,
+                      transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] },
+                    },
+                  }}
+                  className={`inline-block ${word.accent ? 'text-[#F1422A]' : ''}`}
+                >
+                  {word.text}
+                </motion.span>
+              </span>
+            ))}
           </motion.h2>
 
           <motion.p 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="font-sans text-sm sm:text-lg md:text-xl text-stone-700 font-medium max-w-2xl mx-auto leading-relaxed"
+            className="font-sans text-sm sm:text-lg text-stone-700 font-medium max-w-2xl lg:max-w-md mx-auto lg:mx-0 leading-relaxed"
           >
             Elige el sabor que acompaña tu momento. Cada variedad parte de la misma cobertura crujiente y se termina con una personalidad distinta.
           </motion.p>
         </div>
+
+        {/* COLUMNA DERECHA: CARRUSEL MÓVIL + TARJETAS SCROLLEABLES EN DESKTOP */}
+        <div className="lg:col-span-7 w-full">
 
         {/* ------------------------------------------------------------- */}
         {/* VISTA MÓVIL: CARRUSEL HORIZONTAL CON FLECHAS PEGADAS A LA PANTALLA */}
@@ -371,19 +416,11 @@ export const Section3Momentos: React.FC = () => {
         </div>
 
         {/* ------------------------------------------------------------- */}
-        {/* VISTA ESCRITORIO Y TABLET: BENTO GRID 2 COLUMNAS (COMPUTADORAS) */}
+        {/* VISTA ESCRITORIO Y TABLET: TARJETAS SCROLLEABLES */}
         {/* ------------------------------------------------------------- */}
-        <div className="hidden md:grid md:grid-cols-2 gap-6 lg:gap-8 items-start">
-          
-          {/* COLUMNA IZQUIERDA: Picante Fuego (Alto) + Cúrcuma (Corto) */}
-          <div className="flex flex-col gap-6 lg:gap-8 w-full">
-            {leftColumnMoments.map((m) => renderCardContent(m, false))}
-          </div>
-
-          {/* COLUMNA DERECHA: Cebolla Crunch (Corto) + Salsa Soya (Alto) */}
-          <div className="flex flex-col gap-6 lg:gap-8 w-full">
-            {rightColumnMoments.map((m) => renderCardContent(m, false))}
-          </div>
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-1 gap-6 lg:gap-8 items-start">
+          {[...leftColumnMoments, ...rightColumnMoments].map((m) => renderCardContent(m, false))}
+        </div>
 
         </div>
       </div>
